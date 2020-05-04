@@ -1,0 +1,134 @@
+/* _patterns.scss
+ * Repeatable patterns
+ * ------------------------------------------------------------------ */
+
+/*---------------------------------------------------------
+	Image classes
+-------------------------------------------------------- */
+
+img {
+	font-style: italic;
+	height: auto;
+	max-width: 100%;
+	display: block;
+	line-height: 0;
+	&.wp-smiley {
+		margin: 0 !important;
+	}
+	&.size-full,
+	&.size-large {
+		max-width: 100%;
+		width: auto;
+		height: auto;
+	}
+	&[class*="align"],
+	&[class*="wp-image-"],
+	&[class*="attachment-"] {
+		height: auto;
+	}
+}
+
+/*---------------------------------------------------------
+	Post and Page styles
+-------------------------------------------------------- */
+
+body.single,
+body.page-template-default {
+	div.wp-caption {
+		@media #{$break-point-one}{
+			max-width: 492px;
+		}
+		max-width: 100%;
+	}
+	div.alignright {
+		@media #{$break-point-one}{
+			@include rem('margin-right', $col+$gut);
+			img {
+				display: inline;
+			}
+		}
+	}
+	div.alignleft {
+		@media #{$break-point-one}{
+			@include rem('margin-left', $col+$gut);
+			img {
+				display: inline;
+			}
+		}
+	}
+}
+
+/*---------------------------------------------------------
+	Captions
+-------------------------------------------------------- */
+
+div.wp-caption {
+	max-width: 100%;
+}
+.wp-caption-text,
+.feature figcaption,
+dd.wp-caption-dd {
+	@include type-sans;
+	@include rem('margin-top', $base/2);
+}
+
+/*---------------------------------------------------------
+	Media
+-------------------------------------------------------- */
+
+embed,
+object,
+video,
+iframe {
+	max-width: 100%;
+}
+.fluid-width-video-wrapper {
+	@include rem('margin-bottom', $base);
+}
+div.slideshow-window {
+	overflow: hidden !important;
+}
+
+/*---------------------------------------------------------
+	Classes
+-------------------------------------------------------- */
+
+.clear {
+	clear: both;
+}
+.alignleft {
+	float: left;
+}
+.alignright {
+	float: right;
+}
+.aligncenter {
+	clear: both;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+.hide {
+	display: none;
+	visibility: hidden;
+}
+.hidden {
+	visibility: hidden;
+}
+.noborder {
+	border: none;
+}
+figure.theme-img,
+div {
+	.alignleft {
+		@include rem('margin-right', $base2);
+		text-align: left;
+	}
+	.alignright {
+		@include rem('margin-left', $base2);
+		text-align: right;
+	}
+	.aligncenter {
+		text-align: center;
+	}
+}

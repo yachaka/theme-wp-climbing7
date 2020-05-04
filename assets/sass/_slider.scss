@@ -1,0 +1,89 @@
+/* _slider.scss
+ * Slider styling
+ * ------------------------------------------------------------------ */
+
+/*---------------------------------------------------------
+	Gallery shortcode
+-------------------------------------------------------- */
+
+.responsive-slides {
+	@include type-sans;
+	.rslides {
+		overflow: hidden;
+		position: relative;
+		list-style: none;
+		li, img {
+			width: 100%;
+		}
+	}
+	ul {
+		@include rem('margin-bottom', $base/2);
+	}
+	a {
+		border-bottom: none;
+		&.prev {
+			&:after {
+				content: "/";
+				color: $medium;
+				@include rem('margin', 0 7px);
+			}
+			&:before {
+				content: "\2190";
+				color: $primary;
+				@include rem('padding-right', 4px);
+			}
+		}
+		&.next:after {
+			content: "\2192";
+			color: $primary;
+			display: inline-block;
+			@include rem('margin-bottom', $base/2);
+			@include rem('padding-left', 4px);
+		}
+	}
+}
+
+/*---------------------------------------------------------
+	Featured slider
+-------------------------------------------------------- */
+
+body.blog .responsive-slides {
+	@media #{$break-point-one}{
+		padding-right: percentage(28/580); // $gut
+	}
+	@include clear;
+	@include rem('margin-bottom', $base*2);
+	.rslides-direction-nav {
+		float: right;
+		margin-bottom: 0;
+	}
+	p {
+		font-family: $serif;
+		color: $dark;
+	}
+	.featured-article {
+		@include clear;
+		@include rem('margin-bottom', $base);
+		h1 {
+			@include rem('margin', $base/2 0);
+		}
+		p {
+			@include rem('font-size', 19px);
+			margin-bottom: 0;
+			span {
+				color: $primary;
+				font-family: $sans;
+				@include rem('font-size', 15px);
+				&:before {
+					content: "[";
+					@include rem('padding-left', 2px);
+					@include rem('padding-right', 1px);
+				}
+				&:after {
+					content: "]";
+					@include rem('padding-left', 1px);
+				}
+			}
+		}
+	}
+}

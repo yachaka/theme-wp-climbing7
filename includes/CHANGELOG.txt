@@ -1,0 +1,66 @@
+== 1.1.9 ==
+* Improved Dropkick mobile navigation to feature desktop nav classes
+
+== 1.1.8 ==
+* Updated Dropkick script to escape template variables
+* Fixed issue with slideshow overlapping content
+* Fixed unnecessary arguments in excerpt template tags
+
+== 1.1.7 ==
+* Fixed formatting buttons for TinyMCE 4.0
+* Added Google Fonts to editor styles
+
+== 1.1.6 ==
+* Updated Fitvids to 1.1 to fix issue with font rendering
+* Updated screenshot image to align better with the recent theme browsing interface
+* Updated footer links to point to HTTPS version of the TTF site
+* Fixed issue where dropdown menus can appear below some body elements
+* Fixed misaligned media buttons
+
+== 1.1.5 ==
+* Added support for featured images in archive views
+* Added support for Jetpack Infinite scroll
+* Fixed another translation issue
+* Fixed rendering issue with the "Cancel Reply" button
+
+== 1.1.4 ==
+* Fixed translation issue caused by multiple text domains
+
+== 1.1.3 ==
+* Fix bug with mobile menu in IE10
+* Prevent hyphens from breaking menu items
+* Better handling of image captions
+
+== 1.1.2 ==
+* Improved display of retina logos at certain aspect ratios
+
+== 1.1.1 ==
+* Moved upgrade function to admin
+* Do not run upgrade function when customizer runs
+
+== 1.1 ==
+* Numerous layout fixes
+* Updated slider for maintainability and speed
+* Better separation of slider posts from content
+* Removed option for hiding slider posts
+* Added option for disabling web fonts
+* Display category/tag descriptions
+
+== 1.0.5 ==
+* Cleared index footer
+* Fixed issue with post comment count when comments are disabled
+
+== 1.0.4 ==
+* Fixed invalid markup
+
+== 1.0.3 ==
+* Removed extra <html> tag from header
+
+== 1.0.2 ==
+* Updated slider to work with 3.5 reordering
+
+== 1.0.1 ==
+* Fixed styling issue with image captions
+
+== 1.0 ==
+* Initial release

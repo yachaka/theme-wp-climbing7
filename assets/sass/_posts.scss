@@ -1,0 +1,222 @@
+/* _posts.scss
+ * Post styling
+ * ------------------------------------------------------------------ */
+
+/*---------------------------------------------------------
+	Details
+-------------------------------------------------------- */
+
+header.post-title {
+	@media #{$break-point-one}{
+		@include rem('margin-bottom', $base2+$base);
+	}
+	@include rem('margin-bottom', $base2);
+	.heading {
+		margin-bottom: $base/2;
+		a {
+			color: $dark;
+			border-bottom: none;
+		}
+	}
+	.post-byline {
+		@include type-sans;
+	}
+}
+
+/*---------------------------------------------------------
+	Protected
+-------------------------------------------------------- */
+
+.protected-comments {
+	@include rem('margin-bottom', $base2);
+}
+
+/*---------------------------------------------------------
+	Post roll
+-------------------------------------------------------- */
+
+.post-roll {
+	clear: both;
+	h1 {
+		@include rem('font-size', 22px);
+		@include rem('margin-bottom', $base/2);
+	}
+	article.post {
+		border-top: 1px solid $light;
+		@include rem('padding-top', $base*3);
+		@include rem('margin-bottom', $base*3);
+		@include clear;
+		figure {
+			float: left;
+			margin-bottom: 0;
+			line-height: 0;
+		}
+		p {
+			@include rem('font-size', 14px);
+		}
+		h1 a {
+			color: $dark;
+		}
+		figure {
+			@media #{$break-point-one}{
+				display: inline-block;
+				max-width: percentage(205/578); // Image width
+			}
+			display: none;
+		}
+		.post-content {
+			@media #{$break-point-one}{
+				max-width: percentage(318/580); // $col*3+$gut*2
+				padding-right: percentage(28/580); // $gut
+				padding-left: percentage(28/580); // $gut
+			}
+			clear: right;
+			nav {
+				@include type-sans;
+				@include rem('font-size', 13px);
+				time,
+				.comment-count {
+					&:after {
+						content: "\007C";
+						display: inline-block;
+						color: $medium;
+						@include rem('padding-left', 4px);
+						@include rem('margin-right', 1px);
+					}
+				}
+				a {
+					border-bottom: none;
+				}
+				span a {
+					color: $primary;
+				}
+			}
+		}
+	}
+	article.full-width-post {
+		.post-content {
+			@media #{$break-point-one}{
+				max-width: percentage(550/580); // $col*5+$gut*4
+			}
+			clear: right;
+			padding-left: 0;
+			max-width: 100%;
+		}
+	}
+}
+
+/*---------------------------------------------------------
+	Archives
+-------------------------------------------------------- */
+
+body.archive .post-roll article.post {
+	border-bottom: 0;
+	@include rem('margin-bottom', $base*2);
+	&:first-of-type {
+		border-top: 0;
+		@include rem('padding-top', $base);
+	}
+}
+
+/*---------------------------------------------------------
+	Featured image
+-------------------------------------------------------- */
+
+.feature {
+	@include clear;
+	@include rem('margin-bottom', $base/2);
+	img {
+		width: $col*5+$gut*6;
+		float: right;
+		clear: right;
+		margin-bottom: 0;
+	}
+}
+
+/*---------------------------------------------------------
+	Post footer
+-------------------------------------------------------- */
+
+footer.post-footer {
+	border-top: 1px solid $light;
+	@include type-sans;
+	@include rem('margin-top', $base2*2);
+	@include rem('margin-bottom', $base2*2);
+	@include rem('padding-top', $base2);
+	p {
+		margin-bottom: 0;
+	}
+	a {
+		border-bottom: none;
+		&:hover {
+			border-bottom: 1px solid $light;
+		}
+		&[rel="prev"]:before {
+			content: "\2190";
+			color: $primary;
+			@include rem('padding-right', 4px);
+		}
+		&[rel="next"]:after {
+			content: "\2192";
+			color: $primary;
+			display: inline-block;
+			@include rem('margin-bottom', $base/2);
+			@include rem('padding-left', 4px);
+		}
+	}
+	section {
+		color: $dim;
+		a {
+			color: $dim;
+		}
+		@include rem('margin-bottom', $base2);
+	}
+}
+.index-footer {
+	@include clear;
+}
+
+/*---------------------------------------------------------
+	Featured thumbnails
+-------------------------------------------------------- */
+
+.featured-thumbnails-container {
+	border-top: 1px solid $light;
+	@include clear;
+	@include rem('padding', $base2+$base 0);
+	.featured-thumbnail {
+		@media #{$break-point-one}{
+			margin-right: percentage(31/580);
+			max-width: percentage(116/580);
+			float: left;
+			clear: none;
+			margin-bottom: 0;
+			@include rem('font-size', 13px);
+		}
+		clear: left;
+		@include clear;
+		@include rem('margin-bottom', $base2);
+		@include type-sans;
+		color: $dim;
+		&:hover {
+			color: $dark;
+		}
+		img {
+			float: left;
+		}
+		span {
+			@media #{$break-point-one}{
+				padding-left: 0;
+				max-width: 100%;
+				@include rem('margin-top', 7px);
+			}
+			max-width: percentage(232/552); // $col*2+$gut*2
+			float: left;
+			@include rem('padding-left', 14px);
+		}
+	}
+	.last {
+		margin-right: 0;
+		margin-bottom: 0;
+	}
+}

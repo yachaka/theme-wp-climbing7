@@ -1,0 +1,111 @@
+/* _forms.scss
+ * Form styling
+ * ------------------------------------------------------------------ */
+
+/*---------------------------------------------------------
+	Inputs
+-------------------------------------------------------- */
+
+textarea,
+select,
+input {
+	font-family: $sans;
+	color: $medium;
+	border: 1px solid $light;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	@include rem('padding', 8px);
+	@include rem('font-size', 14px);
+	@include rem('margin-bottom', $base);
+	@include transition(color .1s ease-in-out);
+	&:focus {
+		outline: {
+			color: transparent;
+			style: none;
+		}
+		color: $dim;
+		border-color: rgba(41,122,192,.6);
+		@include box-shadow(0 0 4px rgba(41,122,192,1));
+		z-index: 1;
+	}
+}
+
+/*---------------------------------------------------------
+	Elements
+-------------------------------------------------------- */
+
+input[type="checkbox"],
+input[type="radio"] {
+	margin-right: .6em;
+}
+textarea {
+	resize: vertical;
+}
+
+/*---------------------------------------------------------
+	Buttons
+-------------------------------------------------------- */
+
+button,
+input[type="reset"],
+input[type="submit"],
+input[type="button"],
+.widget_tag_cloud a,
+.wp_widget_tag_cloud a,
+.post-edit-link,
+a#cancel-comment-reply-link,
+.comment-edit-link,
+.index-footer p a {
+	@include type-sans;
+	background-color: $dark;
+	padding: $base/2 $base;
+	color: $bright;
+	text-align: center;
+	border: none;
+	@include no-select;
+	@include rem('margin-bottom', $base);
+	&:hover {
+		color: $light;
+	}
+	&:active,
+	&.active {
+		color: $bright;
+	}
+}
+
+/*---------------------------------------------------------
+	Links
+-------------------------------------------------------- */
+
+.post-edit-link,
+a#cancel-comment-reply-link,
+.comment-edit-link,
+.page-links {
+	clear: both;
+	@include clear;
+}
+.post-edit-link {
+	display: inline-block;
+	@include rem('margin-top', $base);
+}
+.page-links {
+	@include rem('margin-top', $base);
+	@include type-sans;
+}
+
+/*---------------------------------------------------------
+	Contact form 7
+-------------------------------------------------------- */
+
+div.wpcf7 {
+	input[type="text"],
+	textarea {
+		width: 95%;
+		margin-bottom: 0;
+		@include rem('margin-top', $base);
+	}
+	input[type="submit"] {
+		@include rem('margin-top', $base);
+	}
+}

@@ -1,0 +1,159 @@
+/* _sidebar.scss
+ * Sidebar and widget styling
+ * ------------------------------------------------------------------ */
+
+/*---------------------------------------------------------
+	Sidebar
+-------------------------------------------------------- */
+
+aside[role="complementary"] {
+	@media #{$break-point-one}{
+		width: percentage(292/$width); // $col*3+$gut
+		float: right;
+		border-top: none;
+		margin-top: 0;
+		padding-top: 0;
+		padding-left: percentage(28/$width); // $gut
+		clear: none;
+	}
+	clear: both;
+	border-top: 1px solid $light;
+	@include rem('padding-top', $base2);
+	@include rem('margin-top', $base2);
+	@include type-sans;
+}
+
+/*---------------------------------------------------------
+	Widget title
+-------------------------------------------------------- */
+
+h3.widgettitle {
+	font-family: $sans;
+	text-transform: lowercase;
+	font-variant: small-caps;
+	letter-spacing: .1em;
+	color: $dim;
+	font-weight: 600;
+	line-height: 1;
+	@include rem('font-size', 18px);
+	@include rem('margin', 0 0 $base);
+	a {
+		color: $dim;
+		border-bottom: none;
+	}
+}
+
+/*---------------------------------------------------------
+	Widget areas
+-------------------------------------------------------- */
+
+aside[role="complementary"],
+footer[role="contentinfo"] {
+	word-wrap: break-word;
+	ul {
+		margin-left: 0;
+		list-style: inside square;
+		li {
+			line-height: 2;
+			@include rem('margin-bottom', $base/2);
+		}
+	}
+	.widget {
+		@include rem('margin-bottom', $base*2);
+	}
+	a.rsswidget img {
+		display: none;
+	}
+	.widget_rss {
+		ul {
+			margin-left: 0;
+		}
+		.rss-date:before {
+			content: "\2013  ";
+		}
+		cite {
+			display: inline-block;
+			@include rem('margin-bottom', $base);
+			&:before {
+				content: "\2013  ";
+			}
+		}
+	}
+	.widget_tag_cloud,
+	.wp_widget_tag_cloud {
+		display: inline-block;
+		a {
+			color: $bright;
+			display: inline-block;
+			margin: 0 .4em .6em 0;
+			font-size: 12px !important;
+			border-bottom: 0;
+			&:hover {
+				color: $light;
+			}
+			&:active {
+				color: $bright;
+			}
+		}
+	}
+	.widget_calendar {
+		tr {
+			letter-spacing: .1em;
+		}
+		td {
+			@include rem('padding-bottom', $base);
+		}
+	}
+	.widget_nav_menu {
+		ul.sub-menu li {
+			margin-left: $indent;
+		}
+	}
+}
+
+/*---------------------------------------------------------
+	Custom widget
+-------------------------------------------------------- */
+
+.widget_watsonthemerecentlydiscussedwidget {
+	.recent-post {
+		@include clear;
+		@include rem('margin-bottom', $base2);
+		a {
+			border-bottom: none;
+		}
+		img {
+			float: left;
+			max-width: percentage(88/291); // $col
+			@include rem('margin-right', 14px);
+		}
+		&:hover {
+			time {
+				color: $dim;
+			}
+			h4 {
+				&:after {
+					content: "\2192";
+					color: $primary;
+					@include rem('padding-left', 4px);
+				}
+			}
+		}
+	}
+	section {
+		float: left;
+		width: percentage(183/291); // $col*2+$gut/4
+		h4 {
+			margin-top: 0;
+			text-transform: none;
+			letter-spacing: 0;
+			color: $dim;
+			line-height: 1.45;
+			@include rem('font-size', 14px);
+			@include rem('margin-bottom', $base/2);
+		}
+		time {
+			@include rem('font-size', 13px);
+		}
+	}
+}

@@ -1,0 +1,91 @@
+body {
+	line-height: 1.55;
+	font-family: "PT Serif", Georgia, Cambria, "Times New Roman", Times, serif;
+	font-size: 93.75%;
+	max-width: 724px;
+}
+tt,
+kbd,
+pre,
+code,
+samp {
+	font-family: Consolas, Monaco, "Courier New", Courier, monospace;
+	font-size: 100%;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: normal;
+}
+h1 {
+	font-size: 26px;
+}
+h2 {
+	font-style: italic;
+	letter-spacing: .01em;
+	font-size: 20px;
+}
+h3 {
+	letter-spacing: .05em;
+	font-weight: bold;
+	font-style: 16px;
+}
+h4 {
+	letter-spacing: .15em;
+	text-transform: uppercase;
+	font-size: 16px;
+}
+h5 {
+	font-size: 16px;
+}
+h6 {
+	font-style: italic;
+	font-size: 16px;
+}
+ul {
+	list-style: square outside;
+}
+ol {
+	list-style: decimal outside;
+}
+ins {
+	color: #d43c33;
+	text-decoration: none;
+	border-bottom: none;
+}
+dl dt {
+	font-weight: bold;
+}
+mark {
+	background-color: #ffc;
+}
+blockquote {
+	font-style: italic;
+	font-size: 18px;
+}
+.run-in {
+	text-transform: uppercase;
+	letter-spacing: .1em;
+}
+.footnote,
+.footnote-aside,
+details {
+	color: #515151;
+	font-size: 87.5%;
+}
+div.alert {
+	background: #f2f2f2;
+	padding: .5em;
+}
+div.error {
+	background: #d94f36;
+}
+div.success {
+	background: #a6bfba;
+}
+div.note {
+	background: #f7f7d8;
+}

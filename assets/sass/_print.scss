@@ -1,0 +1,48 @@
+/* _print.scss
+ * Print styles
+ * ------------------------------------------------------------------ */
+
+/*---------------------------------------------------------
+	Default print styles
+-------------------------------------------------------- */
+
+@media print {
+	* {
+		background-color: #fff;
+		color: $dark;
+		border: none !important;
+		text-shadow: none !important;
+		box-shadow: none !important;
+	}
+	html,
+	body {
+    	font-size: 12px !important;
+	}
+	#respond,
+	.cat-links,
+	.tag-links,
+	.page-links,
+	.post-edit-link,
+	nav a[rel="next"],
+	nav a[rel="prev"],
+	nav.social,
+	p.byline,
+	.mobile-navigation-container {
+		display: none !important;
+	}
+	hr {
+		margin: 0;
+	}
+	a[href]:after {
+    	content: " (" attr(href) ")";
+    }
+  	a[href^="javascript:"]:after,
+  	a[href^="#"]:after {
+    	content: "";
+    }
+	object:after {
+		content:"View online to see this video.";
+		display: block;
+		@include rem('margin-bottom', $base);
+	}
+}

@@ -1,0 +1,773 @@
+/* _scaffolding.scss
+ * Basic structure
+ * ------------------------------------------------------------------ */
+
+html {
+	@media #{$break-point-one}{
+		font-size: 106.25%; //17px
+	}
+	@media #{$break-point-three}{
+		font-size: 100%; //16px
+	}
+	font-size: 100%; //16px
+	@include transition(font-size .1s);
+}
+
+/*---------------------------------------------------------
+	Body
+-------------------------------------------------------- */
+
+body {
+	background-color: $bg;
+	text-rendering: optimizeLegibility;
+	font-family: $serif;
+	line-height: $line;
+	color: $dark;
+}
+
+/*---------------------------------------------------------
+	Structure
+-------------------------------------------------------- */
+
+div[role="main"] {
+	@include clear;
+}
+#container {
+	@media #{$break-point-two}{
+		@include rem('padding', $gut $col+$gut*2);
+	}
+	@media #{$break-point-one}{
+		@include rem('padding', $gut*2);
+		@include rem('padding-bottom', $base*4);
+	}
+	max-width: $width-max;
+	margin: 0 auto;
+	background: $bg;
+	@include clear;
+	@include rem('padding', $gut);
+	@include rem('padding-bottom', $base*4);
+}
+.wrapper,
+.page-wrapper {
+	max-width: $col*6+$gut*7;
+	margin: 0 auto;
+}
+.content {
+	@media #{$break-point-one}{
+		width: percentage(552/$width); // $col*5+$gut*4
+		float: left;
+		border-right: 1px solid $light;
+	}
+}
+.entry {
+	margin: 0 auto;
+}
+.entry p,
+.entry ul,
+.entry ol,
+.entry h1,
+.entry h2,
+.entry h3,
+.entry h4,
+.entry h5,
+.entry h6,
+.entry > div,
+.entry pre,
+.entry table,
+.entry dl,
+.entry form,
+.entry address,
+.entry details,
+.entry footer.post-footer,
+#comments {
+	@media #{$break-point-one}{
+		max-width: $col*4+$gut*5;
+	}
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/*---------------------------------------------------------
+	Selection
+-------------------------------------------------------- */
+
+::-moz-selection {
+	background: $select;
+	text-shadow: none;
+}
+::-webkit-selection {
+	background: $select;
+	text-shadow: none;
+}
+::selection {
+	background: $select;
+	text-shadow: none;
+}
+img::selection {
+	background: transparent;
+}
+img::-moz-selection {
+	background: transparent;
+}
+
+/*---------------------------------------------------------
+	Links
+-------------------------------------------------------- */
+
+a {
+	color: $primary;
+	text-decoration: none;
+	&:hover {
+		@include transition(color .06s ease-in-out);
+	}
+}
+
+/*---------------------------------------------------------
+	Base
+-------------------------------------------------------- */
+
+ul,ol,dl,p,details,address,.vcard,figure,pre,fieldset,table,dt,dd,hr {
+	@include rem('margin-bottom', $base);
+}
+p,ul,ol,dl,blockquote {
+	-webkit-hyphens: auto;
+	-moz-hyphens: auto;
+	hyphens: auto;
+}
+pre,
+code,
+input,
+textarea {
+	font: inherit;
+}
+
+/*---------------------------------------------------------
+	Headings
+-------------------------------------------------------- */
+
+h1,h2,h3,h4,h5,h6 {
+	font-weight: normal;
+	word-wrap: break-word;
+	clear: both;
+	color: $black;
+	@include rem('margin-bottom', $base);
+	@include rem('margin-top', $base2+$base);
+}
+h1 {
+	@media #{$break-point-two}{
+		line-height: 1.2;
+		@include rem('font-size', 36px);
+	}
+	font: {
+		family: $sans;
+		weight: 600;
+	}
+	line-height: 1.15;
+	letter-spacing: -.02em;
+	margin-top: 0;
+	@include rem('font-size', 30px);
+}
+h2 {
+	font-style: italic;
+	letter-spacing: .01em;
+	@include rem('font-size', 20px);
+}
+h3 {
+	letter-spacing: .05em;
+	font-weight: bold;
+	@include rem('font-size', 18px);
+}
+h4 {
+	letter-spacing: .15em;
+	text-transform: uppercase;
+	@include rem('font-size', 16px);
+}
+h5 {
+	color: $primary;
+	@include rem('font-size', 16px);
+}
+h6 {
+	font-style: italic;
+	color: $dim;
+	@include rem('font-size', 16px);
+}
+.subheading {
+	margin-top: 0;
+}
+
+/*---------------------------------------------------------
+	Elements
+-------------------------------------------------------- */
+
+blockquote {
+	letter-spacing: .05em;
+	font-weight: bold;
+	margin: $base 0;
+	line-height: 1.6;
+	letter-spacing: .01em;
+	clear: both;
+	color: $black;
+	@include clear;
+	@include rem('font-size', 18px);
+	p {
+		@media #{$break-point-one}{
+			line-height: 1.56;
+		}
+		line-height: 1.52;
+	}
+	cite {
+		font-weight: normal;
+		font-style: normal;
+		display: block;
+		@include type-sans;
+	}
+}
+.entry blockquote {
+	width: 100%;
+	max-width: $col*5+$gut*6;
+	float: left;
+	p {
+		max-width: $col*5+$gut*6;
+	}
+}
+q {
+	&:before {
+		content: "\201C";
+	}
+	&:after {
+		content: "\201D";
+	}
+}
+tt,
+kbd,
+pre,
+code,
+samp {
+	font: {
+		family: $mono;
+		weight: normal;
+	}
+	word-spacing: -.2em;
+	color: $dim;
+	@include rem('font-size', 14px);
+	@include rem('padding', 2px 3px);
+}
+mark{
+	background: #ffc; //fallback
+	background: rgba(255, 255, 204, .1);
+	color: $dim;
+	text-shadow: none;
+	font-style: italic;
+	@include rem('padding', 2px 3px);
+	@include border-radius;
+}
+code {
+	background: $bright;
+}
+abbr,
+acronym,
+dfn {
+	cursor: help;
+	text-transform: lowercase;
+	font-variant: small-caps;
+	line-height: 1;
+	font-size: 1.35em;
+}
+pre {
+	display: block;
+	word-wrap: break-word;
+	overflow: auto;
+	white-space: pre-wrap;
+	background: $bright;
+	@include rem('padding', $base2);
+}
+details {
+	@include type-sans;
+	summary {
+		@include rem('margin-bottom', $base);
+	}
+	:focus {
+		outline: none;
+	}
+}
+ins {
+	color: #d43c33;
+	text-decoration: none;
+}
+small {
+	font-size: .75em;
+}
+big {
+	font-size: 1.25em;
+}
+hr {
+	background: url(images/hr.svg) center no-repeat;
+	border: none;
+	height: 5px;
+	clear: both;
+	margin: $base*3 0;
+}
+
+/*---------------------------------------------------------
+	Extras
+-------------------------------------------------------- */
+
+.excerpt {
+	line-height: 1.52;
+	@include rem('font-size', 20px);
+}
+.run-in {
+	text-transform: lowercase;
+	font-variant: small-caps;
+	color: $primary;
+	margin-right: -.05em;
+	letter-spacing: .05em;
+	font-size: 1.15em;
+}
+.footnote {
+	@include type-sans;
+	a {
+		color: $medium;
+		border-bottom: 1px solid $light;
+		&:hover {
+			color: $dim;
+		}
+	}
+}
+.entry p.sidenote {
+	@media #{$break-point-one}{
+		width: 170px;
+		float: left;
+		text-align: right;
+		clear: both;
+		@include rem('margin-left', -$col);
+		@include rem('padding-top', 2px);
+		@include rem('padding-right', $gut);
+	}
+}
+.end:after {
+	content: " \273D";
+	color: $primary;
+	position: relative;
+	bottom: .1em;
+	@include rem('padding-left', 1px);
+	@include rem('font-size', 12px);
+}
+
+/*---------------------------------------------------------
+	Lists
+-------------------------------------------------------- */
+
+.entry,
+.entry-page {
+	ul {
+		@media #{$break-point-two}{
+			list-style: square outside;
+		}
+		list-style: square inside;
+		line-height: 1.8;
+	}
+	ol {
+		@media #{$break-point-two}{
+			list-style: decimal outside;
+		}
+		list-style: decimal inside;
+		line-height: 1.8;
+	}
+	li > ul,
+	li > ol {
+		margin-left: $indent;
+		margin-bottom: 0;
+	}
+}
+
+/*---------------------------------------------------------
+	Galleries
+-------------------------------------------------------- */
+
+div.gallery {
+	dt.gallery-icon {
+		a img {
+			border: none !important;
+			margin-bottom: 0;
+		}
+		padding: 0 6%;
+		margin-top: 3%;
+	}
+	dd.gallery-caption {
+		margin-bottom: 0;
+	}
+	dl, dt {
+		margin-bottom: 0;
+	}
+}
+
+/*---------------------------------------------------------
+	Definition lists
+-------------------------------------------------------- */
+
+dl {
+	dt {
+		font-weight: bold;
+		color: $black;
+		margin-top: $base2+$base;
+	}
+	dd {
+		color: $dim;
+	}
+}
+
+/*---------------------------------------------------------
+	Tables
+-------------------------------------------------------- */
+
+table {
+	width: 100%;
+	text-align: center;
+	word-wrap: break-word;
+	word-break: break-all;
+	text-align: right;
+	font-family: $sans;
+	th,
+	td,
+	caption {
+		padding: 2%;
+	}
+	th {
+		text-align: right;
+		color: $black;
+		font-weight: 600;
+	}
+	caption {
+		color: $dim;
+	}
+	tfoot {
+		font-style: italic;
+	}
+	td {
+		border-top: 1px solid $light;
+		@include rem('padding-top', 16px);
+		@include rem('padding-bottom', $base2);
+	}
+	td[valign="top"] {
+		vertical-align: top;
+	}
+	td[valign="bottom"] {
+		vertical-align: bottom;
+	}
+}
+
+/*---------------------------------------------------------
+	Alerts
+-------------------------------------------------------- */
+
+.alert {
+	padding: $base2;
+	background: $bright;
+	border-bottom: 4px solid darken($bright, 8%);
+	clear: both;
+	line-height: 1.6;
+	@include type-sans;
+	color: $dark;
+	@include rem('margin-bottom', $base);
+	p {
+		margin-bottom: 0;
+	}
+	a {
+		color: lighten($dark, 18%);
+		border-bottom: 1px solid $light;
+	}
+}
+.error {
+	background: #d94f36;
+	border-bottom: 4px solid darken(#d94f36, 8%);
+}
+.success {
+	background: #a6bfba;
+	border-bottom: 4px solid darken(#a6bfba, 8%);
+}
+.note {
+	background: #f7f7d8;
+	border-bottom: 4px solid darken(#f7f7d8, 8%);
+}
+
+/*---------------------------------------------------------
+	Header
+-------------------------------------------------------- */
+
+header[role="banner"] {
+	text-align: center;
+	@include clear;
+	.branding {
+		h1 {
+			margin: 0;
+		}
+	}
+	img {
+		display: inline;
+		max-width: 100%;
+	}
+	.tagline {
+		color: $medium;
+		margin: 0;
+	}
+	a {
+		border-bottom: 0;
+	}
+}
+
+/*---------------------------------------------------------
+	Menu
+-------------------------------------------------------- */
+
+nav[role="navigation"] {
+	@media #{$break-point-one}{
+		display: block;
+	}
+	display: none;
+	text-align: center;
+	@include rem('margin', $base2 0 $base2*3);
+	@include type-sans;
+	word-spacing: 0;
+	ul {
+		margin: 0;
+		border: {
+			top: 1px solid $light;
+			bottom: 1px solid $light;
+		}
+	}
+	li a,
+	li {
+		display: inline-block;
+	}
+	li {
+		border-right: 1px solid $light;
+		height: $base2*2;
+		line-height: $base2*2;
+		position: relative;
+		padding: 0 $base2;
+		margin-left: -4px;
+		a {
+			border-bottom: 0;
+		}
+		&:hover ul {
+			display: block;
+		}
+		&:last-child {
+			margin-right: 0;
+			border-right: none;
+		}
+	}
+	li.current-menu-item,
+	li.current-menu-parent {
+		background-color: $bright;
+		border: {
+			left: 1px solid $light;
+			right: 1px solid $light;
+		}
+		a {
+			color: darken($medium, 18%);
+		}
+		ul li a {
+			color: $medium;
+			&:hover {
+				color: darken($medium, 18%);
+			}
+		}
+	}
+	li ul {
+		display: none;
+		position: absolute;
+		padding: 0;
+		margin: 0;
+		z-index: 3;
+		text-align: center;
+		border: 1px solid $light;
+		background: $bg;
+		word-wrap: break-word;
+		-webkit-hyphens: none;
+		@include rem('margin-left', -$base);
+		li {
+			padding: 0 $base;
+		}
+		li.current-menu-item,
+		li.current-menu-parent {
+			background-color: $bg;
+			a {
+				color: darken($medium, 18%);
+			}
+		}
+	}
+	li ul li,
+	li ul li a {
+		float: none;
+		display: block;
+		height: auto;
+		line-height: $line;
+		margin: {
+			top: 1em;
+			bottom: 1em;
+		}
+		border: {
+			left: none !important;
+			right: none !important;
+		}
+		border-bottom: 1px solid $light;
+		margin-left: 0;
+		&:last-child {
+			border-bottom: none;
+		}
+	}
+	li ul li a {
+		display: block;
+	}
+	ul.sub-menu li,
+	ul.children li {
+		display: block;
+		width: 102px;
+	}
+}
+
+/*---------------------------------------------------------
+	Drop-down menu
+-------------------------------------------------------- */
+
+.mobile-navigation-container {
+	@media #{$break-point-one}{
+		display: none;
+	}
+	word-wrap: break-word;
+	word-break: break-all;
+	@include clear;
+	@include rem('margin', $base2 0 $base2);
+	.dk_container {
+		float: none;
+		.dk_toggle,
+		.dk_options {
+			width: percentage(326/328) !important;
+		}
+		.dk_options {
+			width: percentage(328/328) !important;
+		}
+	}
+}
+
+/*---------------------------------------------------------
+	Footer
+-------------------------------------------------------- */
+
+footer[role="contentinfo"] {
+	@media #{$break-point-one}{
+		@include rem('margin-top', $base2*3);
+	}
+	clear: both;
+	@include type-sans;
+	@include clear;
+	@include rem('margin-top', $base);
+	.footer-container {
+		@include clear;
+		@include rem('margin-bottom', $base2);
+		border: {
+			top: 1px solid $light;
+			bottom: 1px solid $light;
+		}
+	}
+	.footer-1 {
+		@media #{$break-point-one}{
+			max-width: percentage(550/$width); // $col*5+$gut*4-2
+			float: left;
+			border-bottom: none;
+			padding-right: percentage(28/$width); // $gut
+		}
+		border-bottom: 1px solid $light;
+	}
+	.footer-2 {
+		@media #{$break-point-one}{
+			max-width: percentage(292/$width); // $col*3+$gut
+			float: right;
+			border-left: 1px solid $light;
+			padding-left: percentage(28/$width); // $gut
+		}
+	}
+	.footer-1,
+	.footer-2 {
+		@include rem('padding-top', $base2);
+		p {
+			margin-bottom: 0;
+		}
+	}
+	.byline,
+	.credit-line {
+		@media #{$break-point-one}{
+			@include rem('font-size', 13px);
+		}
+		word-spacing: 0;
+		text-align: center;
+		clear: both;
+		margin-bottom: 0;
+		@include rem('padding', $base2+$base 0 0);
+		@include rem('font-size', 14px);
+		span {
+			color: lighten($medium, 18%);
+			@include rem('padding', 0 2px);
+		}
+	}
+	.byline,
+	.credit-line  {
+		padding-top: 0;
+	}
+	.credit-line {
+		padding-bottom: $base/2;
+	}
+}
+
+/*---------------------------------------------------------
+	Social
+-------------------------------------------------------- */
+
+nav.social {
+	text-align: center;
+	@include rem('margin-top', $base*3);
+	ul {
+		margin-left: 0;
+		margin-bottom: 0;
+		li {
+			list-style-type: none;
+			display: inline;
+			margin-left: .6em;
+			&:first-child {
+				margin-left: 0;
+			}
+			&.twitter a {
+				background-position: 0;
+				width: 15px;
+			}
+			&.facebook a {
+				background-position: -16px;
+				width: 8px;
+			}
+			&.google a {
+				background-position: -25px;
+				width: 11px;
+			}
+			&.flickr a {
+				background-position: -36px;
+				width: 16px;
+			}
+			&.rss a {
+				background-position: -53px;
+				width: 14px;
+			}
+			a {
+				background-image: url(images/icons.svg);
+				background-position: no-repeat;
+				display: inline-block;
+				height: 16px;
+				border-bottom: none;
+				&:hover {
+					opacity: .65;
+				}
+			}
+		}
+	}
+}

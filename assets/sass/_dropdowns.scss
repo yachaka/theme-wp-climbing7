@@ -1,0 +1,120 @@
+/* _dropdowns.scss
+ * Drop-down styling with DropKick
+ * ------------------------------------------------------------------ */
+
+/*---------------------------------------------------------
+	Container
+-------------------------------------------------------- */
+
+.dk_container {
+	@include type-sans;
+	line-height: $line;
+	text-align: center;
+	outline: none;
+	@include rem('margin-bottom', $base);
+	a {
+		cursor: pointer;
+		text-decoration: none;
+	}
+}
+
+/*---------------------------------------------------------
+	Items
+-------------------------------------------------------- */
+
+.dk_toggle {
+	border: 1px solid $light !important;
+	background: #ffffff;
+	&:after {
+		content: "\25BC";
+		@include rem('padding-left', 6px);
+	}
+}
+.dk_open {
+	z-index: 15;
+}
+.dk_label {
+		@include rem('padding-top', 15px);
+		@include rem('padding-bottom', 15px);
+		display: inline-block;
+}
+.dk_options {
+	background: #ffffff;
+	a {
+		border-bottom: 1px solid $light !important;
+		@include rem('padding', 0 30px);
+	}
+	li {
+		&:last-child a {
+			border-bottom: none !important;
+		}
+		a {
+			list-style: none;
+			@include rem('padding-top', 15px);
+			@include rem('padding-bottom', 15px);
+		}
+	}
+}
+.dk_options_inner {
+	margin-top: 1px;
+	border: 1px solid $light;
+	margin-bottom: 0;
+}
+
+/*---------------------------------------------------------
+	Defaults
+-------------------------------------------------------- */
+
+.dk_container {
+	display: none;
+	float: left;
+	position: relative;
+	a {
+		outline: 0;
+	}
+}
+.dk_toggle {
+	display: -moz-inline-stack;
+	display: inline-block;
+	*display: inline;
+	position: relative;
+	zoom: 1;
+}
+.dk_open {
+	position: relative;
+	.dk_options {
+		display: block;
+	}
+	.dk_label {
+		color: inherit;
+	}
+}
+.dk_options {
+	display: none;
+	margin-top: -1px;
+	position: absolute;
+	right: 0;
+	width: 100%;
+}
+.dk_options a,
+.dk_options a:link,
+.dk_options a:visited {
+	display: block;
+}
+.dk_options_inner {
+	position: relative;
+}
+.dk_touch {
+	.dk_options {
+		overflow: hidden;
+	}
+	.dk_options_inner {
+		max-height: none;
+		overflow: visible;
+	}
+}
+select.dropkicked {
+	position: relative;
+	top: -99999em;
+	visibility: hidden;
+}

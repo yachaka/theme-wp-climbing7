@@ -1,0 +1,151 @@
+/* _pages.scss
+ * Pages and page templates
+ * ------------------------------------------------------------------ */
+
+/*---------------------------------------------------------
+	Templates
+-------------------------------------------------------- */
+
+body.page,
+body.search,
+body.archive,
+body.blog {
+	header.post-title {
+		@include rem('margin-bottom', $base2);
+	}
+	.content {
+		@media #{$break-point-one}{
+			width: percentage(578/$width); // $col*5+$gut*5-2
+		}
+	}
+}
+body.page .inner-content {
+	@media #{$break-point-one}{
+		padding-right: percentage(28/580); // $gut
+	}
+}
+
+/*---------------------------------------------------------
+	Index
+-------------------------------------------------------- */
+
+.index-footer p a {
+	&[rel="next"] {
+		@include rem('margin-right', $base/2);
+		&:before {
+			content: "\2190";
+			@include rem('padding-right', 4px);
+		}
+	}
+	&[rel="prev"]:after {
+		content: "\2192";
+		display: inline-block;
+		@include rem('margin-bottom', $base/2);
+		@include rem('padding-left', 4px);
+	}
+}
+
+/*---------------------------------------------------------
+	Sitemap
+-------------------------------------------------------- */
+
+.tmp-sitemap {
+	section ul {
+		&.children {
+			@include rem('margin-bottom', -$base);
+		}
+		li {	
+			@include rem('padding-bottom', $base);
+		}
+	}
+}
+
+/*---------------------------------------------------------
+	Attachment
+-------------------------------------------------------- */
+
+.tmp-attachment {
+	nav {
+		@include clear;
+		@include type-sans;
+		text-align: center;
+		@include rem('margin-bottom', $base2);
+	}
+	img {
+		display: block;
+		margin: 0 auto;
+	}
+	figure a {
+		@include type-sans;
+		display: inline-block;
+		@include rem('margin-bottom', $base);
+		&:before {
+			content: "\2190";
+			color: $primary;
+			@include rem('padding-right', 4px);
+		}
+	}
+	figcaption {
+		max-width: $col*6+$gut*5;
+		margin: 0 auto;
+		h1 {
+			text-align: center;
+			margin-top: 0;
+			@include rem('font-size', 31px);
+		}
+		section {
+			color: $medium;
+			@include rem('font-size', 14px);
+		}
+	}
+}
+
+/*---------------------------------------------------------
+	Search & Archive
+-------------------------------------------------------- */
+
+body.search,
+body.archive {
+	.post {
+		border-bottom: 1px solid $light;
+		@include rem('padding-bottom', $base);
+		@include rem('margin-bottom', $base2*2);
+		&:last-child {
+			border-bottom: none;
+		}
+	}
+	.page {
+		border-bottom: 1px solid $light;
+		@include rem('padding-bottom', $base);
+		@include rem('margin-bottom', $base2*2);
+		.post-byline {
+			display: none;
+		}
+	}
+	.content div:last-of-type {
+		border-bottom: none;
+	}
+	.inner-content {
+		@media #{$break-point-one}{
+			width: percentage(552/580); // $col*5+$gut*4
+		}
+	}
+}
+
+a.custom-more-link {
+	@include type-sans;
+	color: $primary;
+	display: inline-block;
+	@include rem('margin-bottom', $base);
+	&:before {
+		content: "\005B";
+		@include rem('padding-right', 1px);
+	}
+	&:after {
+		content: "\005D";
+		@include rem('padding-left', 1px);
+	}
+	&:hover {
+		border: none;
+	}
+}

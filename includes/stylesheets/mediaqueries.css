@@ -1,0 +1,242 @@
+@media screen and (min-width: 900px) {
+  html {
+    font-size: 106.25%;
+  }
+}
+@media screen and (max-height: 700px) {
+  html {
+    font-size: 100%;
+  }
+}
+@media screen and (min-width: 600px) {
+  #container {
+    padding: 28px 144px;
+    padding:  1.64706rem 8.47059rem;
+  }
+}
+@media screen and (min-width: 900px) {
+  #container {
+    padding: 56px;
+    padding: 3.29412rem;
+    padding-bottom: 48px;
+    padding-bottom: 2.82353rem;
+  }
+}
+@media screen and (min-width: 900px) {
+  .content {
+    width: 61.33333%;
+    float: left;
+    border-right: 1px solid #e3e3e3;
+  }
+}
+@media screen and (min-width: 600px) {
+  h1 {
+    line-height: 1.2;
+    font-size: 36px;
+    font-size: 2.11765rem;
+  }
+}
+@media screen and (min-width: 900px) {
+  blockquote p {
+    line-height: 1.56;
+  }
+}
+@media screen and (min-width: 900px) {
+  .entry p.sidenote {
+    width: 176px;
+    float: left;
+    text-align: right;
+    clear: both;
+    margin-left: -88px;
+    margin-left: -5.17647rem;
+    padding-top: 2px;
+    padding-top: 0.11765rem;
+    padding-right: 28px;
+    padding-right: 1.64706rem;
+  }
+}
+@media screen and (min-width: 600px) {
+  .entry ul {
+    list-style: square outside;
+  }
+}
+@media screen and (min-width: 600px) {
+  .entry ol {
+    list-style: decimal outside;
+  }
+}
+@media screen and (min-width: 900px) {
+  nav[role="navigation"] {
+    display: block;
+  }
+}
+@media screen and (min-width: 900px) {
+  .mobile-navigation-container {
+    display: none;
+  }
+}
+@media screen and (min-width: 900px) {
+  footer[role="contentinfo"] {
+    margin-top: 72px;
+    margin-top: 4.23529rem;
+  }
+}
+@media screen and (min-width: 900px) {
+  footer[role="contentinfo"] .footer-1 {
+    max-width: 61.11111%;
+    float: left;
+    border-bottom: none;
+    padding-right: 3.11111%;
+  }
+}
+@media screen and (min-width: 900px) {
+  footer[role="contentinfo"] .footer-2 {
+    max-width: 32.44444%;
+    float: right;
+    border-left: 1px solid #e3e3e3;
+    padding-left: 3.11111%;
+  }
+}
+@media screen and (min-width: 900px) {
+  footer[role="contentinfo"] .byline,
+  footer[role="contentinfo"] .credit-line {
+    font-size: 13px;
+    font-size: 0.76471rem;
+  }
+}
+@media screen and (min-width: 900px) {
+  header.post-title {
+    margin-bottom: 36px;
+    margin-bottom: 2.11765rem;
+  }
+}
+@media screen and (min-width: 900px) {
+  .post-roll article.post figure {
+    display: inline-block;
+    max-width: 35.46713%;
+  }
+}
+@media screen and (min-width: 900px) {
+  .post-roll article.post .post-content {
+    max-width: 54.82759%;
+    padding-right: 4.82759%;
+    padding-left: 4.82759%;
+  }
+}
+@media screen and (min-width: 900px) {
+  .post-roll article.full-width-post .post-content {
+    max-width: 94.82759%;
+  }
+}
+@media screen and (min-width: 900px) {
+  .featured-thumbnails-container .featured-thumbnail {
+    margin-right: 5.34483%;
+    max-width: 19.82759%;
+    float: left;
+    clear: none;
+    margin-bottom: 0;
+    font-size: 13px;
+    font-size: 0.76471rem;
+  }
+}
+@media screen and (min-width: 900px) {
+  .featured-thumbnails-container .featured-thumbnail span {
+    padding-left: 0;
+    max-width: 100%;
+    margin-top: 7px;
+    margin-top: 0.41176rem;
+  }
+}
+@media screen and (min-width: 900px) {
+  body.page .content,
+  body.search .content,
+  body.archive .content,
+  body.blog .content {
+    width: 64.22222%;
+  }
+}
+@media screen and (min-width: 900px) {
+  body.page .inner-content {
+    padding-right: 4.82759%;
+  }
+}
+@media screen and (min-width: 900px) {
+  body.search .inner-content,
+  body.archive .inner-content {
+    width: 95.17241%;
+  }
+}
+@media screen and (min-width: 900px) {
+  aside[role="complementary"] {
+    width: 32.44444%;
+    float: right;
+    border-top: none;
+    margin-top: 0;
+    padding-top: 0;
+    padding-left: 3.11111%;
+  }
+}
+@media screen and (min-width: 900px) {
+  .widget_watsonthemerecentlydiscussedwidget section {
+    float: right;
+  }
+}
+@media screen and (min-width: 900px) {
+  ul.children {
+    padding-left: 28px;
+    padding-left: 1.64706rem;
+  }
+}
+@media screen and (min-width: 900px) {
+  body.blog .responsive-slides {
+    padding-right: 4.82759%;
+  }
+}
+
+@media print {
+  * {
+    background-color: #fff;
+    color: #1c1c1c;
+    border: none !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+  }
+
+  html,
+  body {
+    font-size: 12px !important;
+  }
+
+  #respond,
+  .cat-links,
+  .tag-links,
+  .page-links,
+  .post-edit-link,
+  nav a[rel="next"],
+  nav a[rel="prev"],
+  nav.social,
+  p.byline,
+  .mobile-navigation-container {
+    display: none !important;
+  }
+
+  hr {
+    margin: 0;
+  }
+
+  a[href]:after {
+    content: " (" attr(href) ")";
+  }
+
+  a[href^="javascript:"]:after,
+  a[href^="#"]:after {
+    content: "";
+  }
+
+  object:after {
+    content: "View online to see this video.";
+    display: block;
+    margin-bottom: 12px;
+    margin-bottom: 0.70588rem;
+  }
+}

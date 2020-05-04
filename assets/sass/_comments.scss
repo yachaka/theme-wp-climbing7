@@ -1,0 +1,179 @@
+/* _comments.scss
+ * Comment styling
+ * ------------------------------------------------------------------ */
+
+/*---------------------------------------------------------
+	General
+-------------------------------------------------------- */
+
+#comments {
+	@include type-sans;
+	@include rem('margin-top', $base);
+	ol, ul {
+		margin: 0;
+	}
+	li {
+		&.comment {
+			list-style: none;
+			border-bottom: 1px solid $light;
+			@include clear;
+			@include rem('margin-bottom', $base*3);
+		}
+		&.bypostauthor {
+			border-bottom: none;
+		}
+		article {
+			@include clear;
+			@include rem('margin-bottom', $base*2);
+		}
+	}
+}
+
+/*---------------------------------------------------------
+	Header
+-------------------------------------------------------- */
+
+#comments header.comment-author {
+	clear: both;
+	color: $dark;
+	a, time {
+		color: $dim;
+		border-bottom: none;
+	}
+	time a {
+		color: $dark;
+		line-height: 48px;
+		&:before {
+			content: "\2013  ";
+		}
+	}
+	span {
+		line-height: 48px; // Gravatar height
+	}
+}
+
+/*---------------------------------------------------------
+	Body
+-------------------------------------------------------- */
+
+.post-content {
+	clear: both;
+ 	float: left;
+ 	a {
+ 		word-break: break-word;
+ 	}
+	ul,
+	ol,
+	dd {
+		margin-left: $indent !important;
+		margin-bottom: $base !important;
+	}
+	li {
+		border-bottom: none !important;
+	}
+	ol {
+		list-style: decimal;
+	}
+	ul {
+		list-style: square;
+	}
+	li > ul,
+	li > ol {
+		margin-bottom: 0 !important;
+	}
+	blockquote {
+		font-weight: normal;
+	}
+}
+
+/*---------------------------------------------------------
+	Children
+-------------------------------------------------------- */
+
+ul.children {
+	@media #{$break-point-one}{
+		@include rem('padding-left', $gut);
+	}
+	@include clear;
+}
+
+/*---------------------------------------------------------
+	Author
+-------------------------------------------------------- */
+
+li.bypostauthor article {
+	background: #ffffff;
+	border: 1px solid $light;
+	margin-bottom: 0 !important;
+	@include rem('padding', $base2);
+}
+
+/*---------------------------------------------------------
+	Details
+-------------------------------------------------------- */
+
+a#cancel-comment-reply-link {
+	display: inline-block;
+	position: relative;
+	left: .5em;
+}
+img.avatar {
+	float: left;
+	@include rem('margin-right', $base);
+}
+.comment-reply-link {
+	clear: both;
+	float: left;
+	@include rem('margin-bottom', $base);
+}
+h4.comment-headline {
+	@include rem('margin-bottom', $base*3);
+}
+.comments-previous,
+.comments-next {
+	@include rem('margin-bottom', $base2);
+}
+
+/*---------------------------------------------------------
+	Pingbacks and Trackbacks
+-------------------------------------------------------- */
+
+li {
+	&.pingback,
+	&.trackback {
+		list-style: none;
+	}
+}
+
+/*---------------------------------------------------------
+	Form
+-------------------------------------------------------- */
+
+#reply-title {
+	clear: both;
+	font-weight: normal;
+	@include rem('margin-bottom', $base*3);
+	@include rem('margin-top', $base);
+}
+label.comment-field {
+	display: inline-block;
+	@include rem('margin', 0 0 $base);
+}
+#respond fieldset label.comment-field:after {
+	content: "\003A";
+}
+input.text-input,
+#comment {
+	width: 100%;
+}
+span.required {
+ 	color: $primary;
+}
+.guidelines {
+	color: $medium;
+	@include rem('font-size', 15px);
+}
+.comments-rss {
+	@include type-sans;
+	@include rem('margin-bottom', $base*2);
+}

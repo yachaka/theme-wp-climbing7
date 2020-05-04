@@ -1,0 +1,58 @@
+/* _support.scss
+ * Browser support
+ * ------------------------------------------------------------------ */
+
+.IE7, .IE8 {
+	nav[role="navigation"] {
+		display: block;
+	}
+	.dk_container {
+		display: none !important;
+	}
+}
+
+/* _support.scss
+ * Infinite Scroll
+ * ----------------------------------------------------- */
+
+/**
+ * Globally hidden elements when IS is supported and in use.
+ */
+.infinite-scroll nav.post-footer, /* Older / Newer Posts Navigation (always hidden) */
+.infinite-scroll.neverending footer[role="contentinfo"] { /* Theme Footer (when set to scrolling) */
+   display: none;
+}
+
+/**
+ * When IS has reached its end we need to re-display elements that were hidden (via .neverending) before
+ */
+.infinity-end.neverending footer[role="contentinfo"] {
+   display: block;
+}
+
+/**
+ * Global style tweaks when IS is supported and in use
+ */
+.infinite-scroll .infinite-wrap, /* Each IS loop content wrapper (multiple instances) */
+.infinite-scroll .infinite-loader, /* Each IS loading spinner (multiple instances) */
+.infinite-scroll #infinite-handle /* The Load more posts button */ {
+   clear: both;
+}
+.infinite-scroll #infinite-footer .container { /* IS border */
+   padding: 1px 0;
+}
+
+/**
+ * Make sure that clicking Load more posts doesn't cause any jarringness.
+ */
+.infinite-scroll #infinite-handle {
+   float: left;
+   height: 60px;
+}
+.infinite-scroll #infinite-handle span {
+   display: block;
+   margin: 13px 0;
+}
+.infinite-scroll .infinite-loader {
+   margin: 0 0 32px;
+}
