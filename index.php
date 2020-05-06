@@ -39,7 +39,20 @@
 							</h1>
 							<?php the_excerpt(); ?>
 							
-							<p  style="color:#aaa;font-size:0.7rem;font-family: 'Source Sans Pro', Helvetica, Arial, Verdana, Tahoma, sans-serif;">Publié le <?php get_template_part( '_date' ); ?> dans <?php the_category (','); echo ', '; the_tags (''); ?> <b>|</b> <a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php esc_attr_e( 'Read full article', 'watson' ); ?>"><?php _e( 'Lire le topo', 'watson' ); ?></a></p>
+							<p  
+							style="color:#aaa;font-size:0.7rem;font-family: 'Source Sans Pro', Helvetica, Arial, Verdana, Tahoma, sans-serif;">
+							Publié le <?php get_template_part( '_date' ); ?> dans 
+							<?php 
+							the_terms (get_the_ID(),'activity'); 
+							echo ', '; 
+							the_terms (get_the_ID (),'region'); 
+							?>
+							 <b>|</b> <a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php esc_attr_e( 'Read full article', 'watson' ); ?>">
+							 	<?php 
+							 	_e( 'Lire le topo', 'watson' ); 
+							 	?>
+							 		
+							 	</a></p>
 								
 							
 							<!-- NAV COMMENT ET READ ARTICLE DE WP PAR DEFAUT
