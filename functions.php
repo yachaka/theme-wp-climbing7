@@ -698,6 +698,7 @@ function climbing7_init() {
 		'labels'            => $region_tax_labels,
 		'public'           	=> true,
 		'show_in_rest' 			=> true,
+		'show_admin_column' => true,
 	];
 
 	register_taxonomy('region', ['post', 'voyage'], $region_tax_args);
@@ -718,6 +719,7 @@ function climbing7_init() {
 		'labels'            => $activity_tax_labels,
 		'public'           	=> true,
 		'show_in_rest' 			=> true,
+		'show_admin_column' => true,
 	];
 
 	register_taxonomy('activity', ['post', 'voyage'], $activity_tax_args);
@@ -739,8 +741,8 @@ function filtrage_posts_par_activite_et_region($query) {
   	// et, si le paramètre d'URL "activite" ou "region" existe
 		&& (isset($_GET['activite']) || isset($_GET['region']))
 	) {
-  	$activite_query_et_relation = [];
-  	$region_query_et_relation = [];
+  	$activite_query_et_relation = null;
+  	$region_query_et_relation = null;
 
   	if (isset($_GET['activite'])) {
   		// Si demandé,
@@ -786,11 +788,18 @@ function filtrage_posts_par_activite_et_region($query) {
 			);
   	}
 
+  	// Construction de la requete des taxonomies finale
 		$tax_query = [
 			'relation' => 'AND',
-			$activite_query_et_relation,
-			$region_query_et_relation,
 		];
+
+		if ($activite_query_et_relation) {
+			$tax_query[] = $activite_query_et_relation;
+		}
+
+		if ($region_query_et_relation) {
+			$tax_query[] = $region_query_et_relation;
+		}
 
     $query->set(
     	'tax_query',
