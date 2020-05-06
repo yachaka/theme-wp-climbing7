@@ -645,8 +645,14 @@ function change_admin_menu_topos(){
 	}
 }
 
+
+
 /* Climbing7 init */
 function climbing7_init() {
+	// En dessous : rafraichir les regles d'URL
+	// global $wp_rewrite;
+	// $wp_rewrite->flush_rules();
+
 	/* Renommage de `Posts` en `Topos` */
 	global $wp_post_types;
 	$post_labels = &$wp_post_types['post']->labels;
@@ -660,20 +666,7 @@ function climbing7_init() {
 	$post_labels->search_items = 'Rechercher des topos';
 	$post_labels->not_found = 'Aucun topos trouvés';
 
-	/* Voyages post type */
-	register_post_type(
-		'voyage',
-		array(
-			'labels' => array(
-				'name' => 'Voyages',
-				'singular_name' => 'Voyage',
-			),
-			'description' => 'Mes voyages',
-			'public' => true,
-			'menu_position' => 6,
-			'show_in_rest' => true,
-		),
-	);
+	
 
 
 	/*
@@ -682,7 +675,7 @@ function climbing7_init() {
 	/* Regions */
 	// Les labels de la taxonomie Région
 	$region_tax_labels = [
-    'name'              => 'Régions',
+    	'name'              => 'Régions',
 		'singular_name'     => 'Région',
 		'search_items'      => 'Rechercher les régions',
 		'all_items'         => 'Toutes les régions',
@@ -706,7 +699,7 @@ function climbing7_init() {
 	/* Activités */
 	// Les labels de la taxonomie Activité
 	$activity_tax_labels = [
-    'name'              => 'Activités',
+    	'name'              => 'Activités',
 		'singular_name'     => 'Activité',
 		'search_items'      => 'Rechercher les activités',
 		'all_items'         => 'Toutes les activités',
@@ -723,6 +716,21 @@ function climbing7_init() {
 	];
 
 	register_taxonomy('activity', ['post', 'voyage'], $activity_tax_args);
+
+	/* Voyages post type */
+	register_post_type(
+		'voyage',
+		array(
+			'labels' => array(
+				'name' => 'Voyages',
+				'singular_name' => 'Voyage',
+			),
+			'description' => 'Mes voyages',
+			'public' => true,
+			'menu_position' => 6,
+			'show_in_rest' => true,
+		),
+	);
 }
 add_action('init', 'climbing7_init');
 

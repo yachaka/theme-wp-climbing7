@@ -14,12 +14,27 @@
 		<?php endif; ?>
 	</h1>
 
-	<p  style="text-align:center;color:#aaa;font-size:0.9rem;font-family: 'Source Sans Pro', Helvetica, Arial, Verdana, Tahoma, sans-serif;font-weight:200;">Publié le <?php get_template_part( '_date' ); ?> dans <?php the_category (','); echo ', '; the_tags (''); ?> | <?php $has_comments = ( get_comments_number() > 0 || comments_open() ); ?>
-								<?php if ( $has_comments ) : ?>
-									<a class="comment-count" href="<?php comments_link(); ?>" title="<?php esc_attr_e( 'Jump to comments', 'watson' ); ?>"><?php
-										comments_number( __( '0 Comments', 'watson' ), __( '1 Comment', 'watson' ), __( '% Comments', 'watson' ) );
-									?></a>
-								<?php endif; ?></p>
+	<p 
+		style="text-align:center;color:#aaa;font-size:0.9rem;font-family: 'Source Sans Pro', Helvetica, Arial, Verdana, Tahoma, sans-serif;font-weight:200;"
+	>
+		Publié le <?php get_template_part( '_date' ); ?>
+		dans <?php the_terms (get_the_ID (), 'activity'); echo ', '; the_terms (get_the_ID(), 'region'); ?> |
+
+		<?php
+		$has_comments = ( get_comments_number() > 0 || comments_open() );
+
+		if ( $has_comments ) : ?>
+			<a
+				class="comment-count"
+				href="<?php comments_link(); ?>"
+				title="<?php esc_attr_e( 'Jump to comments', 'watson' ); ?>"
+			>
+				<?php
+					comments_number( __( '0 Comments', 'watson' ), __( '1 Comment', 'watson' ), __( '% Comments', 'watson' ) );
+				?>	
+			</a>
+		<?php endif; ?>
+	</p>
 
 	<!-- <?php if ( ! is_page() ) : ?>
 		<p class="post-byline">

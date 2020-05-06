@@ -12,7 +12,7 @@
 			<a href="<?php the_permalink(); ?>" title="<?php esc_attr_e( 'Read full article', 'watson' ); ?>" rel="bookmark">
 				<div class="featured-thumbnail<?php echo ( 3 == $featured_thumbnail_counter ) ? ' last' : ''; ?>">
 					<?php the_post_thumbnail( 'watson_featured_thumbnail' ); ?>
-					<span><?php the_title(); ?></span>
+					<p><?php the_title(); ?></p>
 				</div>
 			</a>
 			<?php $featured_thumbnail_counter++; ?>

@@ -5,16 +5,17 @@
 ?>
 <?php get_header(); ?>
 <div role="main">
+
 	<?php if ( have_posts() ) : the_post(); ?>
 		<p style="font-size:0.7rem;font-weight:100;width:75px;border-radius:15px;text-align:center;margin:auto;background-color: #DE3163;color:#fff;letter-spacing: 0.1rem;margin-top:20px;margin-bottom:10px;padding:2px 0 1px 0;">TOPOS</p>
 		<h3 style="font-size:40px;text-align:center;" class="subheading"><?php ttf_common_archives_title(); ?></h3>
 			
 		
-		<?php if (is_tag ()) { ?>
+		<?php if (is_tax ('region')) { ?>
 			<p style="color:#aaa;font-weight: 100;text-align:center;">Filtrer par activités</p>
 			<ul class="liste_pays">
 				<?php 
-				$activites = get_categories ();
+				$activites = get_terms ('activity');
 				foreach ($activites as $activite) {	
 					echo '<li>' . $activite->name . '</li>';
 				}
@@ -22,12 +23,12 @@
 			</ul>
 		<?php
 		}
-		else if (is_category()) { ?>
+		else if (is_tax('activity')) { ?>
 			<p style="color:#aaa;font-weight: 100;text-align:center;">Filtrer par pays</p>
 			<ul class="liste_pays">
 				<?php 
 
-				$payss = get_tags ();
+				$payss = get_terms ('region');
 				foreach ($payss as $pays) {	
 					echo '<li>' . $pays->name . '</li>';
 				}
