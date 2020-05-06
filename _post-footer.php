@@ -10,7 +10,7 @@
 				<div class="cat-links">
 					<?php _e( 'Categories: ', 'watson' ); ?>
 					<em><?php the_category( __( ', ', 'watson' ) ); ?></em>
-				</div>
+				</div>	
 			<?php endif; ?>
 		<?php endif; ?>
 		<?php if ( ! watson_option( 'hide_tags' ) ) : ?>
