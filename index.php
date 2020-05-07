@@ -41,7 +41,8 @@
 							
 							<p  
 							style="color:#aaa;font-size:0.7rem;font-family: 'Source Sans Pro', Helvetica, Arial, Verdana, Tahoma, sans-serif;">
-							Publié le <?php get_template_part( '_date' ); ?> dans 
+							<span style="color:#777;">Publié le <?php get_template_part( '_date' ); ?></span><br/>
+							dans 
 							<?php 
 							the_terms (get_the_ID(),'activity'); 
 							echo ', '; 
