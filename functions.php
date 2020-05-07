@@ -689,15 +689,15 @@ function climbing7_init() {
 	/* Regions */
 	// Les labels de la taxonomie Région
 	$lieux_tax_labels = [
-		'name'              => 'Régions',
-		'singular_name'     => 'Région',
-		'search_items'      => 'Rechercher les régions',
-		'all_items'         => 'Toutes les régions',
-		'parent_item'       => 'Région parente',
-		'parent_item_colon' => 'Région parente :',
-		'edit_item'         => 'Éditer la région',
-		'update_item'       => 'Mettre à jour la région',
-		'add_new_item'      => 'Ajouter une nouvelle région',
+		'name'              => 'Lieux',
+		'singular_name'     => 'Lieu',
+		'search_items'      => 'Rechercher les lieux',
+		'all_items'         => 'Toutes les lieux',
+		'parent_item'       => 'Lieu parent',
+		'parent_item_colon' => 'Lieu parent :',
+		'edit_item'         => 'Éditer le lieu',
+		'update_item'       => 'Mettre à jour le lieu',
+		'add_new_item'      => 'Ajouter un nouveau lieu',
 	];
 
 	$lieux_tax_args = [
