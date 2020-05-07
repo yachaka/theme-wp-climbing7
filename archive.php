@@ -2,50 +2,99 @@
 /**
  * @package Watson
  */
+
+// Ajout de 'archive.css'
+wp_enqueue_style(
+	'archive',
+	get_stylesheet_directory_uri() . '/archive.css',
+	array(),
+	filemtime(get_template_directory() . '/archive.css'),
+	false
+);
+
+/*
+ * Filtres supplémentaires 'activités' ou 'lieux'
+ */
+$est_page_archive_lieu = is_tax('lieux');
+$est_page_archive_activite = is_tax('activites');
+$est_page_archive_taxonomie = is_tax();
+
+$nom_taxonomie_filtre = null;
+$filtres_taxonomie = null;
+
+// Si on est sur une page archive d'un lieu ou d'une activité,
+// On veut montrer les filtres, inversement, des lieux ou des activités
+if ($est_page_archive_taxonomie) {
+	$taxonomie_actuelle = get_queried_object();
+
+	if ($taxonomie_actuelle->taxonomy === 'lieux') {
+		$nom_taxonomie_filtre = 'activites';
+	} else if ($taxonomie_actuelle->taxonomy === 'activites') {
+		$nom_taxonomie_filtre = 'lieux';
+	} else {
+		// Autre taxonomie que Lieu ou Activité.
+		// On choisit de ne pas afficher de filtres
+	}
+
+	if ($nom_taxonomie_filtre !== null) {
+		$tous_les_posts_ID_taxonomie_actuelle = (
+			new WP_Query(array(
+				'nopaging' => true,
+				'fields' => 'ids',
+				'tax_query' => array(
+					array(
+						'taxonomy' => $taxonomie_actuelle->taxonomy,
+						'field' => 'slug',
+						'terms' => $taxonomie_actuelle->slug,
+					)
+				)
+			))
+		)->get_posts();
+
+		$filtres_taxonomie = get_terms(array(
+			'taxonomy' => $nom_taxonomie_filtre,
+			'object_ids' => $tous_les_posts_ID_taxonomie_actuelle,
+		));
+	}
+}
+
+// Début du HTML
 ?>
 <?php get_header(); ?>
-<div role="main">
+<div id="page_archive" role="main">
 
-	<?php if ( have_posts() ) : the_post(); ?>
-		<p style="font-size:0.7rem;font-weight:100;width:75px;border-radius:15px;text-align:center;margin:auto;background-color: #DE3163;color:#fff;letter-spacing: 0.1rem;margin-top:20px;margin-bottom:10px;padding:2px 0 1px 0;">TOPOS</p>
-		<h3 style="font-size:40px;text-align:center;" class="subheading"><?php ttf_common_archives_title(); ?></h3>
-			
-		
-		<?php if (is_tax ('region')) { ?>
-			<p style="color:#aaa;font-weight: 100;text-align:center;">Filtrer par activités</p>
-			<ul class="liste_pays">
-				<?php 
-				$activites = get_terms ('activity');
-				foreach ($activites as $activite) {	
-					echo '<li>' . $activite->name . '</li>';
-				}
-				?>
-			</ul>
-		<?php
-		}
-		else if (is_tax('activity')) { ?>
-			<p style="color:#aaa;font-weight: 100;text-align:center;">Filtrer par pays</p>
-			<ul class="liste_pays">
-				<?php 
+	<p id="pastille">
+		TOPOS
+	</p>
 
-				$payss = get_terms ('region');
-				foreach ($payss as $pays) {	
-					echo '<li>' . $pays->name . '</li>';
-				}
-				?>
+	<h3 id="titre" class="subheading">
+		<?php ttf_common_archives_title(); ?>
+	</h3>
+
+	<?php if ($filtres_taxonomie !== null): ?>
+		<p id="filtrer_par_texte">
+			<?php
+			if ($est_page_archive_lieu) {
+				echo 'Filtrer par activités';
+			} else {
+				echo 'Filtrer par lieux';
+			}
+			?>
+		</p>
+
+		<ul class="liste_filtres">
+			<?php 
+			foreach ($filtres_taxonomie as $filtre) {	
+				echo '<li>' . $filtre->name . '</li>';
+			}
+			?>
 		</ul>
-		<?php
-		}
-		?>
-		
-
-	<?php rewind_posts(); ?>
-	<?php echo wp_kses_post( category_description() ); ?>
 	<?php endif; ?>
+
 	<div class="content<?php if ( ! is_active_sidebar( 'primary_sidebar' ) ) { echo " no-sidebar"; } ?>">
-		<?php if ( have_posts() ) : ?>
+		<?php if (have_posts()): ?>
 			<section id="post-roll" class="post-roll">
-				<?php while ( have_posts() ) : the_post(); ?>
+				<?php while (have_posts()) : the_post(); ?>
 					
 					<?php
 						$extra_classes = '';

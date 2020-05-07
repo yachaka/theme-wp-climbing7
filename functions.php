@@ -37,19 +37,19 @@ add_action( 'template_redirect', 'watson_set_content_width' );
 
 add_action( 'widgets_init', 'my_register_sidebars' );
 function my_register_sidebars() {
-    /* Register the 'primary' sidebar. */
-    register_sidebar(
-        array(
-            'id'            => 'post_sidebar',
-            'name'          => __( 'Sidebar Post' ),
-            'description'   => __( 'Je suis la description de la sidebar du post' ),
-            'before_widget' => '<div id="%1$s" class="widget %2$s">',
-            'after_widget'  => '</div>',
-            'before_title'  => '<h3 class="widget-title">',
-            'after_title'   => '</h3>',
-        )
-    );
-    /* Repeat register_sidebar() code for additional sidebars. */
+		/* Register the 'primary' sidebar. */
+		register_sidebar(
+				array(
+						'id'            => 'post_sidebar',
+						'name'          => __( 'Sidebar Post' ),
+						'description'   => __( 'Je suis la description de la sidebar du post' ),
+						'before_widget' => '<div id="%1$s" class="widget %2$s">',
+						'after_widget'  => '</div>',
+						'before_title'  => '<h3 class="widget-title">',
+						'after_title'   => '</h3>',
+				)
+		);
+		/* Repeat register_sidebar() code for additional sidebars. */
 }
 
 // We have 2 choices for slider. Use ResponsiveSlides for this theme.
@@ -434,7 +434,7 @@ endif;
  * @return int (Maybe) modified excerpt length.
  */
 function wpdocs_custom_excerpt_length( $length ) {
-    return 24;
+		return 24;
 }
 add_filter( 'excerpt_length', 'wpdocs_custom_excerpt_length', 999 );
 
@@ -633,15 +633,16 @@ function pre_var_dump($data) {
 	echo '<pre>';
 	var_dump($data);
 	echo '</pre>';
+	exit(0);
 }
 
 /* Renommage de Posts en Topos dans le menu d'administration */
 add_action( 'admin_menu', 'change_admin_menu_topos' );
 function change_admin_menu_topos(){
-  global $menu, $submenu;
+	global $menu, $submenu;
 
 	if ($menu[5][0] === 'Articles') {
-	  $menu[5][0] = 'Topos';
+		$menu[5][0] = 'Topos';
 	}
 }
 
@@ -667,56 +668,6 @@ function climbing7_init() {
 	$post_labels->not_found = 'Aucun topos trouvés';
 
 	
-
-
-	/*
-	 * Taxonomies personalisées
-	 */
-	/* Regions */
-	// Les labels de la taxonomie Région
-	$region_tax_labels = [
-    	'name'              => 'Régions',
-		'singular_name'     => 'Région',
-		'search_items'      => 'Rechercher les régions',
-		'all_items'         => 'Toutes les régions',
-		'parent_item'       => 'Région parente',
-		'parent_item_colon' => 'Région parente :',
-		'edit_item'         => 'Éditer la région',
-		'update_item'       => 'Mettre à jour la région',
-		'add_new_item'      => 'Ajouter une nouvelle région',
-	];
-
-	$region_tax_args = [
-		'hierarchical'      => true, // make it hierarchical (like categories)
-		'labels'            => $region_tax_labels,
-		'public'           	=> true,
-		'show_in_rest' 			=> true,
-		'show_admin_column' => true,
-	];
-
-	register_taxonomy('region', ['post', 'voyage'], $region_tax_args);
-
-	/* Activités */
-	// Les labels de la taxonomie Activité
-	$activity_tax_labels = [
-    	'name'              => 'Activités',
-		'singular_name'     => 'Activité',
-		'search_items'      => 'Rechercher les activités',
-		'all_items'         => 'Toutes les activités',
-		'edit_item'         => 'Éditer l\'activité',
-		'update_item'       => 'Mettre à jour l\'activité',
-		'add_new_item'      => 'Ajouter une nouvelle activité',
-	];
-
-	$activity_tax_args = [
-		'labels'            => $activity_tax_labels,
-		'public'           	=> true,
-		'show_in_rest' 			=> true,
-		'show_admin_column' => true,
-	];
-
-	register_taxonomy('activity', ['post', 'voyage'], $activity_tax_args);
-
 	/* Voyages post type */
 	register_post_type(
 		'voyage',
@@ -731,6 +682,54 @@ function climbing7_init() {
 			'show_in_rest' => true,
 		),
 	);
+
+	/*
+	 * Taxonomies personalisées
+	 */
+	/* Regions */
+	// Les labels de la taxonomie Région
+	$lieux_tax_labels = [
+		'name'              => 'Régions',
+		'singular_name'     => 'Région',
+		'search_items'      => 'Rechercher les régions',
+		'all_items'         => 'Toutes les régions',
+		'parent_item'       => 'Région parente',
+		'parent_item_colon' => 'Région parente :',
+		'edit_item'         => 'Éditer la région',
+		'update_item'       => 'Mettre à jour la région',
+		'add_new_item'      => 'Ajouter une nouvelle région',
+	];
+
+	$lieux_tax_args = [
+		'hierarchical'      => true, // make it hierarchical (like categories)
+		'labels'            => $lieux_tax_labels,
+		'public'            => true,
+		'show_in_rest'      => true,
+		'show_admin_column' => true,
+	];
+
+	register_taxonomy('lieux', ['post', 'voyage'], $lieux_tax_args);
+
+	/* Activités */
+	// Les labels de la taxonomie Activité
+	$activity_tax_labels = [
+		'name'              => 'Activités',
+		'singular_name'     => 'Activité',
+		'search_items'      => 'Rechercher les activités',
+		'all_items'         => 'Toutes les activités',
+		'edit_item'         => 'Éditer l\'activité',
+		'update_item'       => 'Mettre à jour l\'activité',
+		'add_new_item'      => 'Ajouter une nouvelle activité',
+	];
+
+	$activity_tax_args = [
+		'labels'            => $activity_tax_labels,
+		'public'            => true,
+		'show_in_rest'      => true,
+		'show_admin_column' => true,
+	];
+
+	register_taxonomy('activites', ['post', 'voyage'], $activity_tax_args);
 }
 add_action('init', 'climbing7_init');
 
@@ -738,32 +737,37 @@ add_action('init', 'climbing7_init');
  * Ajout d'un filtrage par activité/région
  * sur la requête des posts principale
  */
-function filtrage_posts_par_activite_et_region($query) {
-  if (
-  	// si c'est la requete des posts principale
-  	$query->is_main_query() 
-  	
-  	// et, si on est sur la page de recherche ou d'archive
-  	&& (is_search() || is_archive()) 
-
-  	// et, si le paramètre d'URL "activite" ou "region" existe
-		&& (isset($_GET['activite']) || isset($_GET['region']))
+function filtrage_posts_par_activites_et_lieux($query) {
+	if (
+		$query->is_main_query() // si c'est la requete des posts principale  
+		&& (is_search() || is_archive()) // et, si on est sur la page de recherche ou d'archive
+		&& (isset($_GET['f_activites']) || isset($_GET['f_lieux'])) // et, si le paramètre d'URL "activite" ou "lieu" existe
 	) {
-  	$activite_query_et_relation = null;
-  	$region_query_et_relation = null;
+		$activite_query_et_relation = null;
+		$lieux_query_et_relation = null;
 
-  	if (isset($_GET['activite'])) {
-  		// Si demandé,
-			// On ajoute un filtrage via la taxonomie "Activité"
+		// Si demandé,
+		// On ajoute un filtrage via la taxonomie "Activité"
+		if (isset($_GET['f_activites'])) {
+			$activites_demandees = $_GET['f_activites'];
+
+			// Si c'est pas une liste, on transforme la valeur en liste à 1 élèment
+			if (!is_array($activites_demandees)) {
+				$activites_demandees = array(
+					$activites_demandees
+				);
+			}
+
+			// Construction de la requête
 			$activite_query = array_map(
 				function ($activite) {
 					return [
-						'taxonomy' => 'activity',
-		    		'field' => 'slug',
-		    		'terms' => $activite,
+						'taxonomy' => 'activites',
+						'field' => 'slug',
+						'terms' => $activite,
 					];
 				},
-				$_GET['activite'],
+				$activites_demandees,
 			);
 
 			$activite_query_et_relation = array_merge(
@@ -772,48 +776,63 @@ function filtrage_posts_par_activite_et_region($query) {
 					'relation' => 'OR',
 				],
 			);
-  	}
+		}
 
-  	if (isset($_GET['region'])) {
-  		// Si demandé,
-  		// On ajoute un filtrage via la taxonomie "Région"
-			$region_query = array_map(
-				function ($region) {
+		// Si demandé,
+		// On ajoute un filtrage via la taxonomie "Région"
+		if (isset($_GET['f_lieux'])) {
+			$lieux_demandes = $_GET['f_lieux'];
+
+			// Si c'est pas une liste, on transforme la valeur en liste à 1 élèment
+			if (!is_array($lieux_demandes)) {
+				$lieux_demandes = [$lieux_demandes];
+			}
+
+			$lieux_query = array_map(
+				function ($lieu) {
 					return [
-						'taxonomy' => 'region',
-		    		'field' => 'slug',
-		    		'terms' => $region,
+						'taxonomy' => 'lieux',
+						'field' => 'slug',
+						'terms' => $lieu,
 					];
 				},
-				$_GET['region'],
+				$lieux_demandes,
 			);
 
-			$region_query_et_relation = array_merge(
-				$region_query,
+			$lieux_query_et_relation = array_merge(
+				$lieux_query,
 				[
 					'relation' => 'OR',
 				],
 			);
-  	}
+		}
 
-  	// Construction de la requete des taxonomies finale
-		$tax_query = [
-			'relation' => 'AND',
-		];
+		// Construction de la requete des taxonomies finale
+
+		if (isset($query->tax_query)) {
+			$tax_query = $query->tax_query->queries;
+			$tax_query['relation'] = 'AND';
+		} else {
+			$tax_query = [
+				'relation' => 'AND',
+			];
+		}
 
 		if ($activite_query_et_relation) {
 			$tax_query[] = $activite_query_et_relation;
 		}
 
-		if ($region_query_et_relation) {
-			$tax_query[] = $region_query_et_relation;
+		if ($lieux_query_et_relation) {
+			$tax_query[] = $lieux_query_et_relation;
 		}
 
-    $query->set(
-    	'tax_query',
-    	$tax_query
-    );
-  }
-}
-add_action( 'pre_get_posts', 'filtrage_posts_par_activite_et_region' );
+		// echo'lol';
+		// pre_var_dump($tax_query);
 
+		$query->set(
+			'tax_query',
+			$tax_query
+		);
+	}
+}
+add_action( 'pre_get_posts', 'filtrage_posts_par_activites_et_lieux' );

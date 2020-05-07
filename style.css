@@ -106,21 +106,6 @@ header.post-title h1{
   max-height: 80vh;
 }
 
-body.archive ul.liste_pays {
-  list-style-type: none;
-  display:flex;
-  justify-content: center;
-  margin:10px 0 40px 0;
-}
-
-body.archive ul.liste_pays li {
-  background-color: #333;
-  color:white;
-  margin : 0 4px;
-  padding:4px 8px;
-  font-size:0.8rem;
-}
-
 
 
 

@@ -79,6 +79,8 @@ if ( ! function_exists( 'ttf_common_archives_title' ) ) :
 			printf( __( 'Posts by %s', 'ttf_common' ), get_the_author() );
 		} elseif ( is_paged() ) { /* If this is a paged archive */
 			_e( 'Blog Archives', 'ttf_common' );
+		} else if (is_tax()) {
+			echo get_queried_object()->name;
 		}
 	}
 

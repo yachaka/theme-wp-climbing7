@@ -1,0 +1,41 @@
+
+body.archive h3#titre {
+  font-size: 40px;
+  text-align: center;
+}
+
+body.archive #pastille {
+  font-size: 0.7rem;
+  font-weight: 100;
+  width: 75px;
+  border-radius: 15px;
+  text-align: center;
+  margin: auto;
+  background-color:  #DE3163;
+  color: #fff;
+  letter-spacing:  0.1rem;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  padding: 2px 0 1px 0;
+}
+
+body.archive #filtrer_par_texte {
+  color:#aaa;
+  font-weight: 100;
+  text-align:center;
+} 
+
+body.archive ul.liste_filtres {
+  list-style-type: none;
+  display:flex;
+  justify-content: center;
+  margin:10px 0 40px 0;
+}
+
+body.archive ul.liste_filtres li {
+  background-color: #333;
+  color:white;
+  margin: 0 4px;
+  padding:4px 8px;
+  font-size:0.8rem;
+}
