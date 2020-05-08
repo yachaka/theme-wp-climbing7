@@ -44,9 +44,9 @@
 							<span style="color:#777;">Publié le <?php get_template_part( '_date' ); ?></span><br/>
 							dans 
 							<?php 
-							the_terms (get_the_ID(),'activity'); 
+							the_terms (get_the_ID(),'activites'); 
 							echo ', '; 
-							the_terms (get_the_ID (),'region'); 
+							the_terms (get_the_ID (),'lieux'); 
 							?>
 							 <b>|</b> <a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php esc_attr_e( 'Read full article', 'watson' ); ?>">
 							 	<?php 

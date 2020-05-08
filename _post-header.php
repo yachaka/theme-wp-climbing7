@@ -18,7 +18,7 @@
 		style="text-align:center;color:#aaa;font-size:0.9rem;font-family: 'Source Sans Pro', Helvetica, Arial, Verdana, Tahoma, sans-serif;font-weight:200;"
 	>
 		Publié le <?php get_template_part( '_date' ); ?>
-		dans <?php the_terms (get_the_ID (), 'activity'); echo ', '; the_terms (get_the_ID(), 'region'); ?> |
+		dans <?php the_terms (get_the_ID (), 'activites'); echo ', '; the_terms (get_the_ID(), 'lieux'); ?> |
 
 		<?php
 		$has_comments = ( get_comments_number() > 0 || comments_open() );

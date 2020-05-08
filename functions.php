@@ -650,7 +650,7 @@ function change_admin_menu_topos(){
 
 /* Climbing7 init */
 function climbing7_init() {
-	// En dessous : rafraichir les regles d'URL
+	// En dessous : rafraichir les regles d'URL si pb avec erreur 404 d'url no exist (annule le cache)
 	// global $wp_rewrite;
 	// $wp_rewrite->flush_rules();
 

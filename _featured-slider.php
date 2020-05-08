@@ -25,7 +25,7 @@
 							<ul class="categorie_tag_featured_home">
 								<li style="background-color: #FF7F00;" class="categorie-tag_featured">
 									<?php
-									$activites = get_the_terms(get_the_ID(),'activity');
+									$activites = get_the_terms(get_the_ID(),'activites');
 									// méthode 1 par étape qui liste toutes les categories
 									// foreach ($categories as $categorie) {
 									// 	echo ($categorie->name);
@@ -37,7 +37,7 @@
 								
 								<?php
 								// Récupération des lieux
-								$lieux = get_the_terms (get_the_ID(), 'region');
+								$lieux = get_the_terms (get_the_ID(), 'lieux');
 
 								// Filtre des lieux pour garder les lieux SANS lieu parent,
 								// Donc les pays
@@ -77,11 +77,16 @@
 									?>
 								</li>
 
+								<?php if (count($regionsNames) > 0) : ?>
+
 								<li style="background-color:#007FFF;" class="categorie-tag_featured">
 									<?php
 										echo join(' , ', $regionsNames);
 									?>
 								</li>
+
+								<?php endif; ?>
+
 							</ul>
 								
 							<a title="<?php esc_attr_e( 'Read full article', 'watson' ); ?>" href="<?php the_permalink(); ?>">

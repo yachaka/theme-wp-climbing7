@@ -34,8 +34,32 @@ body.archive ul.liste_filtres {
 
 body.archive ul.liste_filtres li {
   background-color: #333;
-  color:white;
   margin: 0 4px;
   padding:4px 8px;
   font-size:0.8rem;
+  border:1px solid #333;
+}
+
+
+
+body.archive ul.liste_filtres li:hover,
+body.archive ul.liste_filtres li.filtre_actif {
+  background-color:#fff;
+  border:1px solid #ddd;
+  transition-property: background-color;
+  transition-duration: 0.7s;
+}
+
+.filtre a {
+  color:white;
+}
+
+.liste_filtres li:hover a {
+    color:#333;
+}
+
+.filtre_actif a {
+  color:#333;
+
+
 }

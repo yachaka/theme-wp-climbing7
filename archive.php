@@ -53,6 +53,7 @@ if ($est_page_archive_taxonomie) {
 
 		$filtres_taxonomie = get_terms(array(
 			'taxonomy' => $nom_taxonomie_filtre,
+			'parent'  => 0, //pour limiter aux parents seulement
 			'object_ids' => $tous_les_posts_ID_taxonomie_actuelle,
 		));
 	}
@@ -83,11 +84,51 @@ if ($est_page_archive_taxonomie) {
 		</p>
 
 		<ul class="liste_filtres">
+			
+
+			
+
 			<?php 
-			foreach ($filtres_taxonomie as $filtre) {	
-				echo '<li>' . $filtre->name . '</li>';
+
+			$nom_du_filtre = null;
+				if ($est_page_archive_activite) {
+					$nom_du_filtre = 'f_lieux';
+				}
+				else {
+					$nom_du_filtre ='f_activites';
+				}
+			
+			// définit la variable qui contient l'url sans les ?f_lieux
+			$url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+			echo '<li class="filtre"><a href="'.$url.'">';
+
+				if ($est_page_archive_activite) {
+					echo 'Tous';
+					}
+
+				else {
+					echo 'Toutes';
+					}
+					echo '</a></li>';
+
+			foreach ($filtres_taxonomie as $filtre) {
+				$classe = '';
+
+				if (isset($_GET[$nom_du_filtre])
+					&& $_GET[$nom_du_filtre] === $filtre->slug) {
+					$classe = 'filtre_actif';
+				}
+
+				echo '<li class="filtre '.$classe.'"><a href="'.
+
+					$url.'?'.$nom_du_filtre .'='.$filtre->slug.'">' . $filtre->name . '</a></li>';
 			}
 			?>
+
+
+
+
 		</ul>
 	<?php endif; ?>
 
@@ -138,7 +179,11 @@ if ($est_page_archive_taxonomie) {
 									?></a>
 								<?php endif; ?> -->
 
-								<?php the_tags ('') ?>
+								<?php 
+								the_terms (get_the_ID(),'activites');
+								echo ' | ';
+								the_terms (get_the_ID(),'lieux'); 
+								?>
 
 								<br/>
 								<span>
