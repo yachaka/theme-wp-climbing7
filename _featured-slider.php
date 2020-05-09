@@ -24,7 +24,24 @@
 
 							<ul class="categorie_tag_featured_home">
 								<li style="background-color: #FF7F00;" class="categorie-tag_featured">
+									<a class="pastille_featured_slider" href="
+									
+
 									<?php
+									//recuperer l'url de la page archive de l'activite du dernier post
+									$url_site = get_site_url ();
+									echo $url_site;?>
+									/activites/
+
+									<?php
+									$activites = get_the_terms (get_the_ID(),'activites');
+									echo ($activites[0]->slug);
+									?>
+									">
+
+
+									<?php
+
 									$activites = get_the_terms(get_the_ID(),'activites');
 									// méthode 1 par étape qui liste toutes les categories
 									// foreach ($categories as $categorie) {
@@ -33,6 +50,7 @@
 									// méthode 2 avec acces direct mais si pas d'entrée => crash php
 									echo ($activites[0]->name);
 									?>
+									</a>
 								</li>
 								
 								<?php
@@ -72,9 +90,23 @@
 								?>
 
 								<li style="background-color:#007FFF;" class="categorie-tag_featured">
+									<a class="pastille_featured_slider" href="
+
+									<?php
+									//recuperer l'url de la page archive du lieu du dernier post
+									echo $url_site;
+									?>
+
+									/lieux/
+
+									<?php
+									echo $payss[0]->slug;
+									?>
+									">
 									<?php
 										echo $payss[0]->name;
 									?>
+									</a>
 								</li>
 
 								<?php if (count($regionsNames) > 0) : ?>

@@ -106,7 +106,15 @@ header.post-title h1{
   max-height: 80vh;
 }
 
+/* liens des pastilles featured slider index*/
 
+body.blog a.pastille_featured_slider {
+  color:#fff;
+}
+
+body.blog a.pastille_featured_slider:hover {
+  color:black;
+}
 
 
 
