@@ -23,7 +23,7 @@
 							
 
 							<ul class="categorie_tag_featured_home">
-								<li style="background-color: #FF7F00;" class="categorie-tag_featured">
+								<li class="categorie-tag_featured">
 									<a class="pastille_featured_slider" href="
 									
 
@@ -72,6 +72,7 @@
 
 								// Création d'une liste avec les noms des régions
 								$regionsNames = [];
+
 								// autre manière : $regionsNames = array();
 
 								foreach ($regions as $pos => $region) {
@@ -89,7 +90,7 @@
 
 								?>
 
-								<li style="background-color:#007FFF;" class="categorie-tag_featured">
+								<li class="categorie-tag_featured">
 									<a class="pastille_featured_slider" href="
 
 									<?php
@@ -111,10 +112,24 @@
 
 								<?php if (count($regionsNames) > 0) : ?>
 
-								<li style="background-color:#007FFF;" class="categorie-tag_featured">
+								<li class="categorie-tag_featured">
+									<a class="pastille_featured_slider" href="
+
+									<?php
+									//recuperer l'url de la page archive du lieu du dernier post
+									echo $url_site;
+									?>
+
+									/lieux/
+
+									<?php
+									echo $regionsNames[0]->slug;
+									?>
+									">
 									<?php
 										echo join(' , ', $regionsNames);
 									?>
+								</a>
 								</li>
 
 								<?php endif; ?>
@@ -122,12 +137,12 @@
 							</ul>
 								
 							<a title="<?php esc_attr_e( 'Read full article', 'watson' ); ?>" href="<?php the_permalink(); ?>">
-							<h1 style="color:#FEFEE2;"><?php the_title(); ?></h1>
+							<h1 style="color:#fff;font-size:2.5rem;"><?php the_title(); ?></h1>
 							</a>
 							<?php 
 							// echo ttf_common_get_truncated_excerpt( 180 ); 
 							?>
-							<p  style="color:#FEFEE2;font-size:0.9rem;font-family: 'Source Sans Pro', Helvetica, Arial, Verdana, Tahoma, sans-serif;">Publié le <?php the_date (); ?></p>
+							<p  style="color:#fff;font-size:0.9rem;font-family: 'Source Sans Pro', Helvetica, Arial, Verdana, Tahoma, sans-serif;">Publié le <?php the_date (); ?></p>
 						</div>
 
 					</section>
