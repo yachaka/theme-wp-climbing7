@@ -20,7 +20,7 @@
 							<?php the_post_thumbnail(); ?>
 							</a>
 						<div style="position:absolute;bottom:0px;left:0px;right:0;padding:80px 30px 30px 50px;background: rgb(0,0,0);background: linear-gradient(0deg, rgba(0,0,0,.6) 50%, rgba(255,255,255,0) 100%);">
-							
+
 
 							<ul class="categorie_tag_featured_home">
 								<li class="categorie-tag_featured">
@@ -69,6 +69,10 @@
 								$regions = array_filter($lieux, function ($lieu) {
 									return $lieu->parent !== 0;
 								});
+								$regions = array_values($regions);
+								
+							
+						
 
 								// Création d'une liste avec les noms des régions
 								$regionsNames = [];
@@ -123,7 +127,7 @@
 									/lieux/
 
 									<?php
-									echo $regionsNames[0]->slug;
+									echo $regions[0]->slug;
 									?>
 									">
 									<?php
