@@ -2480,6 +2480,33 @@ span.required {
   color: #474747;
 }
 
+/* Search Form (ajouté par Ilyes) */
+.ligne-filtres {
+  margin-bottom: 8px;
+}
+
+.filtre_pastille_recherche {
+  background-color: #333;
+  color: white;
+  margin: 0 4px;
+  padding:4px 8px;
+  font-size:0.8rem;
+  border:1px solid #333;
+}
+
+.filtre_pastille_recherche:hover {
+  background-color: #999;
+}
+
+.filtre_pastille_recherche.filtre_actif {
+  color: black;
+  background-color:#fff;
+  border:1px solid #ddd;
+  transition-property: background-color;
+  transition-duration: 0.7s;
+}
+/* Fin search form */
+
 /* _slider.scss
  * Slider styling
  * ------------------------------------------------------------------ */

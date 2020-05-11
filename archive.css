@@ -43,7 +43,8 @@ body.archive ul.liste_filtres li {
 
 
 body.archive ul.liste_filtres li:hover,
-body.archive ul.liste_filtres li.filtre_actif {
+body.archive ul.liste_filtres li.filtre_actif,
+.filtre_pastille_recherche.filtre_actif {
   background-color:#fff;
   border:1px solid #ddd;
   transition-property: background-color;
