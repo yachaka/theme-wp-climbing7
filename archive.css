@@ -1,17 +1,17 @@
 
-body.archive h3#titre {
+body.archive h3#titre, body.search h3#titre {
   font-size: 40px;
   text-align: center;
 }
 
-body.archive #pastille {
+body.archive #pastille, body.search #pastille {
   font-size: 0.7rem;
   font-weight: 100;
   width: 75px;
   border-radius: 15px;
   text-align: center;
   margin: auto;
-  background-color:  #DE3163;
+  background-color:  #d00f1a;
   color: #fff;
   letter-spacing:  0.1rem;
   margin-top: 20px;
@@ -29,7 +29,7 @@ body.archive ul.liste_filtres {
   list-style-type: none;
   display:flex;
   justify-content: center;
-  margin:10px 0 40px 0;
+  margin:10px 0 10px 0;
 }
 
 body.archive ul.liste_filtres li {
@@ -63,4 +63,67 @@ body.archive ul.liste_filtres li.filtre_actif,
   color:#333;
 
 
+}
+
+body.archive .search_bloc {
+  padding:10px 20px 30px 20px;
+  margin-top:40px;
+  background-color:#efefef;
+
+}
+
+body.blog .search_bloc {
+  padding:30px 20px 30px 20px;
+  margin-top:40px;
+  background-color:#efefef;
+
+}
+body.search .search_bloc {
+  padding:0;
+  margin-top:40px;
+  background-color:#ddd;
+  overflow:hidden;
+  height:50px;
+  border-radius: 9px;
+  transition-property:height, padding, background-color, border-radius;
+  transition-duration: 1s;
+  
+}
+
+body.search .search_bloc h3 {
+  cursor: pointer;
+}
+
+body.search .search_bloc.ouvert {
+  height:300px;
+  padding:30px 20px 30px 20px;
+  background-color: #efefef;
+  border-radius: 0;
+}
+
+/* Changer le texte du titre a l'ouverture et a la fermeture */
+
+body.search .search_bloc .texte_ouverture,
+body.blog .search_bloc .texte_ouverture
+ {
+  display: inline;
+}
+body.search .search_bloc h3:hover .texte_ouverture {
+  color: #d00f1a;
+}
+body.search .search_bloc .texte_fermeture,
+body.blog .search_bloc .texte_fermeture {
+  display: none;
+}
+
+
+body.search .search_bloc.ouvert .texte_ouverture {
+  display: none;
+}
+body.search .search_bloc.ouvert .texte_fermeture
+ {
+  display: inline;
+}
+body.search .search_bloc.ouvert h3:hover .texte_fermeture {
+  color: #d00f1a;
 }

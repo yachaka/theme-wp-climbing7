@@ -2,9 +2,18 @@
 /**
  * @package Watson
  */
+// Ajout de 'archive.css'
+wp_enqueue_style(
+	'archive',
+	get_stylesheet_directory_uri() . '/archive.css',
+	array(),
+	filemtime(get_template_directory() . '/archive.css'),
+	false
+);
 ?>
 <?php get_header(); ?>
 <div id="main" role="main">
+
 	<div class="content">
 	<div class="inner-content">
 		<div id="featured-slider" style="margin-bottom:30px;border-bottom: 1px solid #e3e3e3;">
@@ -91,34 +100,20 @@
 			<?php
 			get_sidebar();
 			?>
-		<nav style="clear:both;" class="post-footer index-footer">
+		<nav id="ancre_moteur_recherche" style="clear:both;" class="post-footer index-footer">
 			<p>
 				<?php next_posts_link( __( 'Older posts', 'watson' ) ); ?>
 				<?php previous_posts_link( __( 'Newer posts', 'watson' ) ); ?>
 			</p>
 		</nav>
 		
-		<div id="search_bloc" style="padding:20px 20px 30px 20px;margin-top:40px;background-color: #efefef;">
-			<h3 style="text-align:center;">Moteur de recherche</h3>
-			<div style="text-align: center;" >
-				<form>
-					<label style="font-family: 'Helvetica'; font-size:0.8rem;">Pour un lieu, un topo</label><br/>
-  					<input style="width:400px;border-radius:9px;" type="text" id="fname" name="fname"><br>
-  					<input type="submit" value="Valider">
-  				</form> 
-
-  				<form>
-					<label style="font-family: 'Helvetica'; font-size:0.8rem;">En filtrant par activité et par pays</label><br/>
-  					<input style="width:150px;border-radius:9px;" type="text" id="fname" name="fname" value="activité"><input style="width:150px;border-radius:9px;" type="text" id="fname" name="fname" value="pays"><br>
-  					<input type="submit" value="Valider">
-  				</form> 
-  			</div>
+		<div class="search_bloc">
+		<?php get_template_part('searchform'); ?>
 		</div>
 
+		<div id="ancre_partage" class="menu_partage"><?php echo do_shortcode('[DISPLAY_ULTIMATE_SOCIAL_ICONS]'); ?></div>
 
-
-
-	</div>
-	</div>
-</div>
+	</div> <!-- Fin inner-content -->
+	</div> <!-- Fin content -->
+</div> <!-- Fin Main -->
 <?php get_footer(); ?>

@@ -13,7 +13,7 @@
 
 			<div class="entry">
 
-				<p style="font-size:0.7rem;font-weight:100;width:75px;border-radius:15px;text-align:center;margin:auto;background-color: #DE3163;color:#fff;letter-spacing: 0.1rem;margin-top:20px;margin-bottom:20px;padding:2px 0 1px 0;">TOPO</p>
+				<p style="font-size:0.7rem;font-weight:100;width:75px;border-radius:15px;text-align:center;margin:auto;background-color: #d00f1a;color:#fff;letter-spacing: 0.1rem;margin-top:20px;margin-bottom:20px;padding:2px 0 1px 0;">TOPO</p>
 				
 				<?php get_template_part( '_post-header' ); ?>
 				
