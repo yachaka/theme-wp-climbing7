@@ -145,16 +145,16 @@
 /*
  * Setup
  */
-include('tmp-migration-posts-acf/html5-php/src/HTML5/Entities.php');
-include('tmp-migration-posts-acf/html5-php/src/HTML5/Parser/CharacterReference.php');
-include('tmp-migration-posts-acf/html5-php/src/HTML5/Elements.php');
-include('tmp-migration-posts-acf/html5-php/src/HTML5/Parser/Tokenizer.php');
-include('tmp-migration-posts-acf/html5-php/src/HTML5/Parser/UTF8Utils.php');
-include('tmp-migration-posts-acf/html5-php/src/HTML5/Parser/Scanner.php');
-include('tmp-migration-posts-acf/html5-php/src/HTML5/Parser/TreeBuildingRules.php');
-include('tmp-migration-posts-acf/html5-php/src/HTML5/Parser/EventHandler.php');
-include('tmp-migration-posts-acf/html5-php/src/HTML5/Parser/DOMTreeBuilder.php');
-include('tmp-migration-posts-acf/html5-php/src/HTML5.php');
+include(__DIR__ . '/tmp-migration-posts-acf/html5-php/src/HTML5/Entities.php');
+include(__DIR__ . '/tmp-migration-posts-acf/html5-php/src/HTML5/Parser/CharacterReference.php');
+include(__DIR__ . '/tmp-migration-posts-acf/html5-php/src/HTML5/Elements.php');
+include(__DIR__ . '/tmp-migration-posts-acf/html5-php/src/HTML5/Parser/Tokenizer.php');
+include(__DIR__ . '/tmp-migration-posts-acf/html5-php/src/HTML5/Parser/UTF8Utils.php');
+include(__DIR__ . '/tmp-migration-posts-acf/html5-php/src/HTML5/Parser/Scanner.php');
+include(__DIR__ . '/tmp-migration-posts-acf/html5-php/src/HTML5/Parser/TreeBuildingRules.php');
+include(__DIR__ . '/tmp-migration-posts-acf/html5-php/src/HTML5/Parser/EventHandler.php');
+include(__DIR__ . '/tmp-migration-posts-acf/html5-php/src/HTML5/Parser/DOMTreeBuilder.php');
+include(__DIR__ . '/tmp-migration-posts-acf/html5-php/src/HTML5.php');
 
 $HTMLParser = new Masterminds\HTML5();
 
