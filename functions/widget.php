@@ -7,7 +7,7 @@ add_action( 'widgets_init', 'watson_register_widgets' );
 
 class WatsonThemeRecentlyDiscussedWidget extends WP_Widget {
 
-	function WatsonThemeRecentlyDiscussedWidget() {
+	function __construct() {
 		// Instantiate the parent object
 		parent::__construct(
 			false,

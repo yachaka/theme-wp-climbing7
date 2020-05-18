@@ -3,7 +3,7 @@
  * @package Watson
  */
 
-if (!$GLOBALS['searchform_count']) {
+if (!isset($GLOBALS['searchform_count'])) {
   $GLOBALS['searchform_count'] = 0;
 }
 
