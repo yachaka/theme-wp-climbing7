@@ -11,7 +11,7 @@
  */
 $watson_options = get_option( 'theme_watson_options' );
 global $watson_hide_date;
-$watson_hide_date = (boolean) $watson_options[ 'hide_date' ];
+$watson_hide_date = (boolean) isset($watson_options[ 'hide_date' ]) ? $watson_options[ 'hide_date' ] : false;
 
 /**
  * Add theme support for Infinite Scroll.

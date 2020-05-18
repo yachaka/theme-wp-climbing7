@@ -107,7 +107,7 @@
 
 				<div class="bloc_post" style="padding-bottom:30px;border-bottom: 0.5px solid #ddd;margin-bottom:20px;">
 					<h3>En images</h3>
-					<?php the_content( __( 'Read article', 'watson' )); ?>
+					<?php the_field('galerie'); ?>
 				</div>
 
 				<div class="clear">
