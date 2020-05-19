@@ -47,6 +47,39 @@
       margin-bottom: 12px;
     }
 
+    .form-field.field-liens .fake-highlight-textarea,
+    .form-field.field-liens textarea,
+    .form-field.field-liens pre,
+    .form-field.field-duree_approche .fake-highlight-textarea,
+    .form-field.field-duree_approche textarea,
+    .form-field.field-duree_approche pre,
+    .form-field.field-duree_parcours .fake-highlight-textarea,
+    .form-field.field-duree_parcours textarea,
+    .form-field.field-duree_parcours pre,
+    .form-field.field-duree_retour .fake-highlight-textarea,
+    .form-field.field-duree_retour textarea,
+    .form-field.field-duree_retour pre {
+      height: 120px;
+    }
+
+    .form-field.field-carte_iframe .fake-highlight-textarea,
+    .form-field.field-carte_iframe textarea,
+    .form-field.field-carte_iframe pre {
+      height: 390px;
+    }
+
+    .form-field.field-approche .fake-highlight-textarea,
+    .form-field.field-approche textarea,
+    .form-field.field-approche pre {
+      height: 520px;
+    }
+
+    .form-field.field-parcours .fake-highlight-textarea,
+    .form-field.field-parcours textarea,
+    .form-field.field-parcours pre {
+      height: 800px;
+    }
+
     .form-field.post-content textarea,
     .form-field.post-content pre,
     .form-field.post-content .fake-highlight-textarea {
@@ -331,11 +364,20 @@ $posts_ID_deja_migres = array_map(
 $offset = isset($_GET['offset'])
   ? (int) $_GET['offset']
   : 0;
-$query = new WP_Query([
+
+$query_args = [
   'post__not_in' => $posts_ID_deja_migres,
   'posts_per_page' => 1,
   'offset' => $offset,
-]);
+];
+
+if (isset($_GET['post_id'])) {
+  $query_args['p'] = $_GET['post_id'];
+  $query_args['offset'] = 0;
+  unset($query_args['post__not_in']);
+}
+
+$query = new WP_Query($query_args);
 
 $total = count((new WP_Query([
   'nopaging' => true,
@@ -361,18 +403,26 @@ $acf_fields_fn = [
   }),
   
   'fiche_technique' => (function ($node, &$cursor) use (&$acf_fields, &$acf_actif, &$duree_regex) {
-    if ($node->nodeType === XML_ELEMENT_NODE
+    $est_fiche_technique_titre = $node->nodeType === XML_ELEMENT_NODE
       && is_heading($node)
       && node_contains_text($node->textContent, ['fiche', 'technique'], 2)
-      && strlen($node->textContent) < 60
-    ) {
-        $acf_actif = 'fiche_technique';
+      && strlen($node->textContent) < 60;
+
+    $est_paragraphe_fiche_technique = $node->nodeType === XML_ELEMENT_NODE
+      && node_contains_text($node->textContent, ['Lieu', 'Pays', '✦', 'Intérêt', 'Longueur', 'Altitude', 'Type'], 3);
+    
+    if ($est_fiche_technique_titre || $est_paragraphe_fiche_technique) {
+      $acf_actif = 'fiche_technique';
+
+      if ($est_fiche_technique_titre) {
         $cursor = $cursor->nextSibling;
+      }
     }
   }),
   
   'acces_au_site' => (function ($node, &$cursor) use (&$acf_fields, &$acf_actif, &$duree_regex) {
     if ($node->nodeType === XML_ELEMENT_NODE
+      && $acf_actif !== 'parcours'
       && is_heading($node)
       && node_contains_text($node->textContent, ['acces', 'accès'], 1)
       && strlen($node->textContent) < 45
@@ -395,7 +445,7 @@ $acf_fields_fn = [
 
   'carte_iframe' => (function ($node, &$cursor) use (&$acf_fields, &$acf_actif, &$duree_regex) {
     if ($node->nodeType === XML_ELEMENT_NODE
-      && $node->nodeType === 'div'
+      && $node->nodeName === 'div'
       && node_contains_text($node->textContent, ['[iframe'], 1)
     ) {
         $acf_actif = 'carte_iframe';
@@ -405,7 +455,7 @@ $acf_fields_fn = [
   'approche' => (function ($node, &$cursor) use (&$acf_fields, &$acf_actif, &$duree_regex) {
     if ($node->nodeType === XML_ELEMENT_NODE
       && is_heading($node)
-      && node_contains_text($node->textContent, ['approche', $duree_regex], 2)
+      && node_contains_text($node->textContent, ['approche'], 1)
       && strlen($node->textContent) < 60
     ) {
         $acf_actif = 'approche';
@@ -415,7 +465,7 @@ $acf_fields_fn = [
   'parcours' => (function ($node, &$cursor) use (&$acf_fields, &$acf_actif, &$duree_regex) {
     if ($node->nodeType === XML_ELEMENT_NODE
       && is_heading($node)
-      && node_contains_text($node->textContent, ['parcours', $duree_regex], 2)
+      && node_contains_text($node->textContent, ['parcours'], 1)
       && strlen($node->textContent) < 60
     ) {
         $acf_actif = 'parcours';
@@ -425,7 +475,7 @@ $acf_fields_fn = [
   'retour' => (function ($node, &$cursor) use (&$acf_fields, &$acf_actif, &$duree_regex) {
     if ($node->nodeType === XML_ELEMENT_NODE
       && is_heading($node)
-      && node_contains_text($node->textContent, ['retour', $duree_regex], 2)
+      && node_contains_text($node->textContent, ['retour'], 1)
       && strlen($node->textContent) < 60
     ) {
         $acf_actif = 'retour';
@@ -560,7 +610,7 @@ foreach ($body->childNodes as $childNode) {
       foreach($acf_fields as $field_name => $field_value) {
         $value = str_replace('<br></br>', "<br/>\n", trim($field_value));
       ?>
-        <div class="form-field">
+        <div class="form-field field-<?= $field_name ?>">
           <h4 class="label-acf"><?= $field_name ?></h4>
 
           <div class="fake-highlight-textarea">
