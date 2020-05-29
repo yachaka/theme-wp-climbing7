@@ -888,3 +888,20 @@ function filtrage_posts_par_activites_et_lieux($query) {
 	}
 }
 add_action( 'pre_get_posts', 'filtrage_posts_par_activites_et_lieux' );
+
+/*
+ * Nombre de posts affichés
+ */
+add_action( 'pre_get_posts', 'nombre_de_posts_affiches' );
+function nombre_de_posts_affiches($query) {
+	if (!is_admin() && $query->is_main_query()) {
+		// Si on n'est pas dans l'administration,
+		// Et que c'est la requete principale
+
+		if ($query->is_home) {
+			$query->set('posts_per_page', 5);
+		} else if ($query->is_archive) {
+			$query->set('posts_per_page', 12);
+		}
+	}
+}
