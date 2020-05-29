@@ -65,7 +65,15 @@ if ($est_page_archive_taxonomie) {
 <div id="page_archive" role="main">
 
 	<p id="pastille">
-		TOPOS
+		<?php
+		$mot = 'TOPOS';
+
+		if (is_post_type_archive('voyage')) {
+			$mot = 'VOYAGES';
+		}
+		
+		echo $mot;
+		?>
 	</p>
 
 	<h3 id="titre" class="subheading">

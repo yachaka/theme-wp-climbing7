@@ -665,22 +665,58 @@ function climbing7_init() {
 	$post_labels = &$wp_post_types['post']->labels;
 	$post_labels->name = 'Topos';
 	$post_labels->singular_name = 'Topo';
-	$post_labels->add_new_item = 'Ajouter un nouveau topo';
-	$post_labels->edit_item = 'Éditer le topo';
-	$post_labels->new_item = 'Nouveau topo';
-	$post_labels->view_item = 'Voir le topo';
-	$post_labels->view_items = 'Voir les topos';
-	$post_labels->search_items = 'Rechercher des topos';
-	$post_labels->not_found = 'Aucun topos trouvés';
+	$post_labels->add_new_item = 'Ajouter un nouveau Topo';
+	$post_labels->edit_item = 'Éditer le Topo';
+	$post_labels->new_item = 'Nouveau Topo';
+	$post_labels->view_item = 'Voir le Topo';
+	$post_labels->view_items = 'Voir les Topos';
+	$post_labels->search_items = 'Rechercher des Topos';
+	$post_labels->not_found = 'Aucun Topos trouvés';
+	$post_labels->not_found_in_trash = 'Aucun Topos trouvés dans la corbeille';
+	$post_labels->all_items = 'Tous les Topos';
+	$post_labels->archives = 'Archive des Topos';
+	$post_labels->attributes = 'Attributs du Topo';
+	$post_labels->insert_into_item = 'Insérer dans le Topo';
+	$post_labels->uploaded_to_this_item = 'Téléversé dans ce Topo';
+	$post_labels->filter_items_list = 'Filtrer la liste des Topos';
+	$post_labels->items_list_navigation = 'Navigation de la liste des Topos';
+	$post_labels->items_list = 'Liste des Topos';
+	$post_labels->item_published = 'Topo publié.';
+	$post_labels->item_published_privately = 'Topo publié en privé.';
+	$post_labels->item_reverted_to_draft = 'Topo transformé en brouillon.';
+	$post_labels->item_scheduled = 'Topo planifié.';
+	$post_labels->item_updated = 'Topo mis à jour.';
 
 	
 	/* Voyages post type */
 	register_post_type(
 		'voyage',
 		array(
+			'has_archive' => true,
+			'menu_icon' => 'dashicons-admin-site-alt2',
 			'labels' => array(
 				'name' => 'Voyages',
 				'singular_name' => 'Voyage',
+				'add_new_item' => 'Ajouter un Voyage',
+				'edit_item' => 'Éditer le voyage',
+				'new_item' => 'Nouveau Voyage',
+				'view_item' => 'Voir le Voyage',
+				'search_items' => 'Rechercher des Voyages',
+				'not_found' => 'Aucun Voyages trouvés',
+				'not_found_in_trash' => 'Aucun Voyages trouvés dans la corbeille',
+				'all_items' => 'Tous les Voyages',
+				'archives' => 'Archive des Voyages',
+				'attributes' => 'Attributs du Voyage',
+				'insert_into_item' => 'Insérer dans le Voyage',
+				'uploaded_to_this_item' => 'Téléversé dans ce Voyage',
+				'filter_items_list' => 'Filtrer la liste des Voyages',
+				'items_list_navigation' => 'Navigation de la liste des Voyages',
+				'items_list' => 'Liste des Voyages',
+				'item_published' => 'Voyage publié.',
+				'item_published_privately' => 'Voyage publié en privé.',
+				'item_reverted_to_draft' => 'Voyage transformé en brouillon.',
+				'item_scheduled' => 'Voyage planifié.',
+				'item_updated' => 'Voyage mis à jour.',
 			),
 			'description' => 'Mes voyages',
 			'public' => true,
@@ -738,6 +774,16 @@ function climbing7_init() {
 	register_taxonomy('activites', ['post', 'voyage'], $activity_tax_args);
 }
 add_action('init', 'climbing7_init');
+
+/*
+ * Rajout post type Voyage dans la query home
+ */
+function ajout_voyage_main_query($query) {
+	if (!is_admin() && $query->is_main_query() && $query->is_home) {
+		$query->set('post_type', array('post', 'voyage'));
+	}
+}
+add_action( 'pre_get_posts', 'ajout_voyage_main_query' );
 
 /*
  * Ajout d'un filtrage par activité/région
