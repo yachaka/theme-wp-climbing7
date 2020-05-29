@@ -139,7 +139,6 @@
 
     .panneau {
       padding: 20px;
-      overflow: auto;
       flex: 1;
       border-right: 3px solid #999;
     }
@@ -284,16 +283,18 @@ if (isset($_POST['ignore'])
   if (isset($_POST['migrate'])) {
     // Migrer les données du post
 
-    $new_post_data = array(
-      'ID' => $_POST['post_id'],
-      'post_content' => $_POST['post_content'],
-    );
+    foreach ($_POST['nouveau_acf_field'] as $field_name => $new_field_value) {
+      if (isset($acf_fields_name_to_key[$field_name])) {
+        $field_key = $acf_fields_name_to_key[$field_name];
+      } else {
+        $result = $wpdb->get_results("
+          SELECT * FROM posts
+          WHERE post_excerpt = 'carte_image_1'
+            AND post_type = 'acf-field'
+        ", ARRAY_A)[0];
+        $field_key = $result['post_name'];
+      }
 
-    // Post content
-    wp_update_post($new_post_data);
-
-    foreach ($_POST['acf_field'] as $field_name => $new_field_value) {
-      $field_key = $acf_fields_name_to_key[$field_name];
       update_field(
         $field_key,
         $new_field_value,
@@ -316,6 +317,7 @@ if (isset($_POST['ignore'])
  */
 $posts_deja_migres = $wpdb->get_results("
   SELECT * FROM tmp_posts_migres_vers_acf
+  ORDER BY at DESC
 ", ARRAY_A);
 
 /*
@@ -391,179 +393,409 @@ $post_a_migrer = $query->the_post();
  * Boucle principale
  * Récupération des valeurs des ACF depuis le post_content
  */
-$acf_actif = null;
+function collectInnerNodes($node) {
+  $html = '';
 
-$acf_fields_fn = [
-  'presentation' => (function ($node, &$cursor) use (&$acf_fields, &$acf_actif, &$duree_regex) {
-    if ($acf_fields['presentation'] === ''
-      && ($node->nodeName === 'p' || is_heading($node))
-      && $acf_actif === null) {
-      $acf_actif = 'presentation';
+  foreach ($node->childNodes as $childNode) {
+    if ($childNode->nodeType === XML_ELEMENT_NODE
+      && $childNode->tagName === 'h3'
+      && trim($childNode->textContent) === '') {
+      continue ;
     }
-  }),
-  
-  'fiche_technique' => (function ($node, &$cursor) use (&$acf_fields, &$acf_actif, &$duree_regex) {
-    $est_fiche_technique_titre = $node->nodeType === XML_ELEMENT_NODE
-      && is_heading($node)
-      && node_contains_text($node->textContent, ['fiche', 'technique'], 2)
-      && strlen($node->textContent) < 60;
 
-    $est_paragraphe_fiche_technique = $node->nodeType === XML_ELEMENT_NODE
-      && node_contains_text($node->textContent, ['Lieu', 'Pays', '✦', 'Intérêt', 'Longueur', 'Altitude', 'Type'], 3);
-    
-    if ($est_fiche_technique_titre || $est_paragraphe_fiche_technique) {
-      $acf_actif = 'fiche_technique';
+    $html .= $node->ownerDocument->saveHTML($childNode);
+  }
 
-      if ($est_fiche_technique_titre) {
-        $cursor = $cursor->nextSibling;
+  return $html;
+}
+
+function walkNode(&$node, $fn) {
+  if ($node) {
+    $ret = $fn($node);
+
+    if ($ret === 'remove_from_body') {
+
+      $cursor = $node;
+      while ($cursor->parentNode->tagName !== 'body') {
+        $cursor = $cursor->parentNode;
+      }
+      $next = $cursor->nextSibling;
+
+      // pre_var_dump($cursor);
+      $cursor->parentNode->removeChild($cursor);
+
+      walkNode($next, $fn);
+    } else {
+      if ($node->childNodes) {
+        walkNode($node->firstChild, $fn);
+      }
+
+      if ($node->nextSibling) {
+        walkNode($node->nextSibling, $fn);
       }
     }
-  }),
-  
-  'acces_au_site' => (function ($node, &$cursor) use (&$acf_fields, &$acf_actif, &$duree_regex) {
-    if ($node->nodeType === XML_ELEMENT_NODE
-      && $acf_actif !== 'parcours'
-      && is_heading($node)
-      && node_contains_text($node->textContent, ['acces', 'accès'], 1)
-      && strlen($node->textContent) < 45
-    ) {
-        $acf_actif = 'acces_au_site';
-        $cursor = $cursor->nextSibling;
-    }
-  }),
+  }
+}
 
-  'texte_carte' => (function ($node, &$cursor) use (&$acf_fields, &$acf_actif, &$duree_regex) {
-    if ($node->nodeType === XML_ELEMENT_NODE
-      && is_heading($node)
-      && node_contains_text($node->textContent, ['carte', 'topo'], 1)
-      && strlen($node->textContent) < 60
-    ) {
-        $acf_actif = 'texte_carte';
-        $cursor = $cursor->nextSibling;
-    }
-  }),
+function deleteMultipleLineBreaks($string) {
+  return trim(preg_replace('/\n\n+/', "\n\n", $string));
+}
 
-  'carte_iframe' => (function ($node, &$cursor) use (&$acf_fields, &$acf_actif, &$duree_regex) {
-    if ($node->nodeType === XML_ELEMENT_NODE
-      && $node->nodeName === 'div'
-      && node_contains_text($node->textContent, ['[iframe'], 1)
-    ) {
-        $acf_actif = 'carte_iframe';
+
+$acf_fields_fn = [
+  'presentation' => (function ($body) {
+    $node = $body->firstChild;
+ 
+    if ($node->nodeType === XML_ELEMENT_NODE) {
+
+      return [
+        'presentation' => deleteMultipleLineBreaks(collectInnerNodes($node)),
+      ];
     }
+
+    return [
+      'presentation' => deleteMultipleLineBreaks($node),
+    ];
   }),
 
-  'approche' => (function ($node, &$cursor) use (&$acf_fields, &$acf_actif, &$duree_regex) {
-    if ($node->nodeType === XML_ELEMENT_NODE
-      && is_heading($node)
-      && node_contains_text($node->textContent, ['approche'], 1)
-      && strlen($node->textContent) < 60
-    ) {
-        $acf_actif = 'approche';
+  'fiche_technique' => (function ($body) {
+    $html = '';
+    foreach ($body->childNodes as $node) {
+      if ($node->nodeType === XML_ELEMENT_NODE) {
+        if ($html !== '') {
+          $html .= "<br/>\n";
+        }
+
+        $html .= deleteMultipleLineBreaks(collectInnerNodes($node));
+      } else {
+        $html .= deleteMultipleLineBreaks($node->textContent);
+      }
     }
+
+    return [
+      'fiche_technique' => $html,
+    ];
   }),
 
-  'parcours' => (function ($node, &$cursor) use (&$acf_fields, &$acf_actif, &$duree_regex) {
-    if ($node->nodeType === XML_ELEMENT_NODE
-      && is_heading($node)
-      && node_contains_text($node->textContent, ['parcours'], 1)
-      && strlen($node->textContent) < 60
-    ) {
-        $acf_actif = 'parcours';
+  'acces_au_site' => (function ($body) {
+    $node = $body->firstChild;
+
+    if (!$node) {
+      return [];
     }
+
+    $html = '';
+    foreach ($body->childNodes as $node) {
+      if ($node->nodeType === XML_ELEMENT_NODE) {
+        if ($html !== '') {
+          $html .= "<br/>\n<br/>\n";
+        }
+
+        $html .= deleteMultipleLineBreaks(collectInnerNodes($node));
+      } else {
+        $html .= deleteMultipleLineBreaks($node->textContent);
+      }
+    }
+
+    return [
+      'acces_au_site' => $html,
+    ];
   }),
 
-  'retour' => (function ($node, &$cursor) use (&$acf_fields, &$acf_actif, &$duree_regex) {
-    if ($node->nodeType === XML_ELEMENT_NODE
-      && is_heading($node)
-      && node_contains_text($node->textContent, ['retour'], 1)
-      && strlen($node->textContent) < 60
-    ) {
-        $acf_actif = 'retour';
+  'texte_carte' => (function ($body) use (&$wpdb) {
+    $fieldNode = $body->firstChild;
+    $imgs_found = [];
+
+    $nodes_to_remove = [];
+
+
+    walkNode($fieldNode, function (&$node) use (&$imgs_found, &$fieldNode, &$wpdb) {
+      if ($node->nodeType === XML_ELEMENT_NODE
+        && $node->tagName === 'h4'
+        && $node->textContent === 'Description du parcours'
+      ) {
+        return 'remove_from_body';
+      }
+
+      if ($node->nodeType === XML_ELEMENT_NODE
+        && $node->tagName === 'img')  {
+        $IMG_ID = null;
+
+
+        $class = $node->attributes->getNamedItem('class');
+        $ID_depuis_la_classe_regex = '/wp-image-([0-9]+)/';
+        $ID_matches = [];
+
+        // Find IMG ID
+        if ($class && preg_match($ID_depuis_la_classe_regex, $class->value, $ID_matches)) {
+          $IMG_ID = $ID_matches[1];
+        }
+
+        if (!$IMG_ID) {
+          // Find with DB
+          $src = $node->attributes->getNamedItem('src')->value;
+          $src = preg_replace('/-[0-9]{3,4}x[0-9]{3,4}/', '', $src);
+
+          $result = $wpdb->get_results("
+            SELECT * FROM posts
+            WHERE guid = '$src'
+          ", ARRAY_A)[0];
+          $IMG_ID = $result['ID'];
+        }
+
+        if ($IMG_ID === null) {
+          echo 'IMG ID pas trouvé.<br/>';
+          pre_var_dump(htmlentities($node->ownerDocument->saveHTML($node)));
+        } else {
+          // Add IMG ID to array
+          $imgs_found[] = $IMG_ID;
+
+          return 'remove_from_body';
+        }
+      }
+    });
+
+    $return_array = [
+      'texte_carte' => deleteMultipleLineBreaks(collectInnerNodes($body)),
+    ];
+
+    foreach ($imgs_found as $index => $img_id) {
+      $nom_acf_carte = 'carte_image_' . ($index + 1);
+      $return_array[$nom_acf_carte] = $img_id;
     }
+
+    // pre_var_dump($return_array);
+    if (trim($return_array['texte_carte']) === '<br></br>') {
+      $return_array['texte_carte'] = '';
+    }
+
+    return $return_array;
   }),
 
-  'galerie' => (function ($node, &$cursor) use (&$acf_fields, &$acf_actif, &$duree_regex) {
-    if ($node->nodeType === XML_ELEMENT_NODE
-      && is_heading($node)
-      && node_contains_text($node->textContent, ['images', 'galerie'], 1)
-      && strlen($node->textContent) < 60
-    ) {
-        $acf_actif = 'galerie';
-        $cursor = $cursor->nextSibling;
+  'carte_iframe' => (function ($body) {
+    $firstChild = $body->firstChild;
 
-        // Retirer le heading
-        $prev = $cursor->previousSibling;
-        $prev->parentNode->removeChild($prev);
+    if (!$firstChild) {
+      return [];
     }
+
+    walkNode($firstChild, function ($node) {
+      if ($node->nodeType === XML_TEXT_NODE) {
+        $searches = ['[iframe', '[googlemaps'];
+        $found = false;
+
+        foreach ($searches as $search) {
+          if (strstr($node->textContent, $search) !== false) {
+            $found = $search;
+            break;
+          }
+        }
+
+        if ($found) {
+          if ($found === '[iframe') {
+            $node->textContent = preg_replace('/width="677px"/', 'width="100%"', $node->textContent);
+            $node->textContent = preg_replace('/width="677"/', 'width="100%"', $node->textContent);
+            $node->textContent = preg_replace('/&scrollWheelZoom=true/', '&scrollWheelZoom=false', $node->textContent);
+          } else if ($found === '[googlemaps') {
+            $node->textContent = preg_replace('/&w=677/', '&w=800', $node->textContent);
+          }
+        }
+      }
+    });
+
+    return [
+      'carte_iframe' => collectInnerNodes($body),
+    ];
+  }),
+
+  'approche' => (function ($body) {
+    $firstChild = $body->firstChild;
+    
+    if (!$firstChild) {
+      return [];
+    }
+
+    return [
+      'approche' => deleteMultipleLineBreaks(collectInnerNodes($body)),
+    ];
+  }),
+
+  'parcours' => (function ($body) {
+    $firstChild = $body->firstChild;
+    
+    if (!$firstChild) {
+      return [];
+    }
+
+    return [
+      'parcours' => deleteMultipleLineBreaks(collectInnerNodes($body)),
+    ];
+  }),
+
+  'retour' => (function ($body) {
+    $firstChild = $body->firstChild;
+    
+    if (!$firstChild) {
+      return [];
+    }
+
+    $video = null;
+
+    walkNode($body, function ($node) use (&$video) {
+      if ($node->nodeType === XML_ELEMENT_NODE) {
+        $class = $node->attributes->getNamedItem('class');
+
+        if ($class && strstr($class->value, 'wp-block-embed-youtube') !== false) {
+          walkNode($node, function ($maybeIframe) use (&$video) {
+            if ($maybeIframe->nodeType === XML_ELEMENT_NODE
+              && $maybeIframe->tagName === 'iframe') {
+              $video = $maybeIframe->ownerDocument->saveHTML($maybeIframe);
+            }
+          });
+
+          return 'remove_from_body';
+        }
+      }
+    });
+
+    $return_array = [
+      'retour' => deleteMultipleLineBreaks(collectInnerNodes($body)),
+    ];
+
+    if ($video) {
+      $return_array['video'] = $video;
+    }
+
+    return $return_array;
+  }),
+
+  'galerie' => (function ($body) use (&$wpdb) {
+    $firstChild = null;
+
+    foreach ($body->childNodes as $childNode) {
+      if ($childNode->nodeType === XML_ELEMENT_NODE) {
+        $firstChild = $childNode;
+        break;
+      }
+    }
+
+    if (!$firstChild) {
+      return [];
+    }
+
+    if ($firstChild->nodeType === XML_ELEMENT_NODE
+      && $firstChild->tagName === 'div'
+      && $firstChild->firstChild->nodeType === XML_TEXT_NODE
+      && strstr($firstChild->firstChild->textContent, '[gallery') !== false) {
+      $body->replaceChild($firstChild->firstChild, $firstChild);
+    }
+    else if (
+      $firstChild->tagName === 'figure'
+      && strstr(
+        $firstChild->ownerDocument->saveHTML($firstChild),
+        'dgwt-jg-item'
+      ) !== false
+    ) {
+
+      $html = $body->ownerDocument->saveHTML($body);
+      $matches = [];
+      $found = preg_match_all('/img src="(.*?)"/', $html, $matches);
+      $matches_transformed = array_map(
+        function ($url) {
+          // Hacks
+          // if ($url === 'http://climbing7.com/wp-content/uploads/2014/08/14-c3a7a-tire-dans-les-bras-e1560953751672.jpg') {
+          //   return "'http://climbing7.com/wp-content/uploads/2014/08/14-c3a7a-tire-dans-les-bras.jpg'";
+          // } else if ($url === 'http://climbing7.com/wp-content/uploads/2014/07/17-couloirs-e1560588640767.jpg') {
+          //   return "'http://climbing7.com/wp-content/uploads/2014/07/17-couloirs.jpg'";
+          // } else if ($url === 'http://climbing7.com/wp-content/uploads/2014/07/17-contournement-2de-cascade-dc3a9licat-e1560608525331.jpg') {
+          //   return "'http://climbing7.com/wp-content/uploads/2014/07/17-contournement-2de-cascade-dc3a9licat.jpg'";
+          // } else if ($url === 'http://climbing7.com/wp-content/uploads/2014/04/18-rappel-cheminc3a9e-e1560676361688.jpg') {
+          //   return "'http://climbing7.com/wp-content/uploads/2014/04/18-rappel-cheminc3a9e.jpg'";
+          // }
+
+          if ($url === 'http://climbing7.com/wp-content/uploads/2013/08/6-passer-sous-le-tronc-e1471088201542.jpg') {
+            return $url;
+          } else {
+            $url = preg_replace('/-e[0-9]{10,}/', '', $url);
+          }
+
+          return "$url";
+        },
+        $matches[1],
+      );
+      $where_str = array_map(function ($url) { return "'$url'"; }, $matches_transformed);
+      $where_str = join(',', $where_str);
+
+      $results = $wpdb->get_results("
+        SELECT ID, guid FROM posts
+        WHERE guid IN ($where_str)
+      ", ARRAY_A);
+
+      $img_guids = array_map(function ($row) { return $row['guid']; }, $results);
+      $img_ids = array_map(function ($row) { return $row['ID']; }, $results);
+      if (count($results) !== count($matches[1])) {
+        pre_var_dump([
+          'text' => 'Oops. Mauvais compte.',
+          'm' => count($matches_transformed),
+          'c' => count($results),
+          'diff' => array_diff($matches_transformed, $img_guids),
+        ]);
+      }
+
+      $gallery_shortcode_ids_str = join(',', $img_ids);
+      
+      return [
+        'galerie' => "[gallery ids=\"$gallery_shortcode_ids_str\"]",
+      ];
+    }
+
+    return [
+      'galerie' => collectInnerNodes($body),
+    ];
   }),
 ];
 
 // Éxecution
 $post_id = get_the_ID();
-$post_content = get_the_content();
-$post_content_DOM = $HTMLParser->loadHTML("<!DOCTYPE html><html><body>". $post_content ."</body></html>");
 
-$node = $post_content_DOM->childNodes[1]->firstChild->firstChild;
+$actual_field_values = [];
+$new_fields_values = [];
 
-while ($node) {
-  foreach ($acf_fields_fn as $fn) {
-    $fn($node, $node);
+foreach ($acf_fields_fn as $field_name => $fn) {
+  $field_value = get_field($field_name, $post_id);
+  $actual_field_values[$field_name] = $field_value;
+
+  $field_DOM = $HTMLParser->loadHTML("<!DOCTYPE html><html><body>". $field_value ."</body></html>");
+  $field_DOM_node = $field_DOM->childNodes[1]->firstChild;
+
+  $fn_return = $fn($field_DOM_node);
+
+  foreach ($fn_return as $new_field_key => $new_field_value) {
+    $new_fields_values[$new_field_key] = $new_field_value;
   }
 
-  $a_retirer_du_dom = false;
-
-  if (strlen($acf_actif) > 0) {
-    if ($node->nodeName === 'hr'
-      && strstr(
-          $node->attributes->getNamedItem('class')->nodeValue,
-          'wp-block-separator'
-        ) !== false
-    ) {
-      // <hr />
-      $a_retirer_du_dom = true;
-    } else if ($node->nodeType === XML_ELEMENT_NODE) {
-      // Noeud
-      $acf_fields[$acf_actif] .= $node->ownerDocument->saveHTML($node);
-      $a_retirer_du_dom = true;
-    } else if ($node->nodeType === XML_TEXT_NODE) {
-      // Texte
-      $acf_fields[$acf_actif] .= $node->textContent;
-      $a_retirer_du_dom = true;
-    } else if ($node->nodeType === XML_COMMENT_NODE) {
-      // Commentaire
-      $a_retirer_du_dom = true;
-    }
-  }
-
-  $node = $node->nextSibling;
-
-  if ($node && $a_retirer_du_dom === true) {
-    $node->previousSibling->parentNode->removeChild($node->previousSibling);
-  }
+  // pre_var_dump([
+  //   'nom' => $field_name,
+  //   'ancienne_valeur' => htmlentities($field_value),
+  //   'nouvelle_valeur' => $new_fields_values,
+  // ]);
 }
 
-$new_post_content = '';
-$body = $post_content_DOM->childNodes[1]->firstChild;
+$changed_fields = [];
 
-foreach ($body->childNodes as $childNode) {
-  $new_post_content .= $post_content_DOM->saveHTML($childNode);
-} 
+foreach ($new_fields_values as $new_field_key => $new_field_value) {
+  // if ($new_field_key === 'presentation') {
+  //   pre_var_dump([
+  //     'avant' => htmlentities($actual_field_values[$new_field_key]),
+  //     'apres' => $new_field_value,
+  //   ]);
+  // }
 
-// function showDOMNode(DOMNode $domNode, $depth = 0) {
-//     foreach ($domNode->childNodes as $node)
-//     {
-//         print str_repeat('----', $depth);
-//         print $node->nodeType.'/'.$node->nodeName.':';
-//         if ($node->nodeType === XML_TEXT_NODE) {
-//           print $node->textContent;
-//         }
-//         print '<br/>';
-
-//         if($node->hasChildNodes()) {
-//             showDOMNode($node, $depth + 1);
-//         }
-//     }    
-// }
+  if (!isset($actual_field_values[$new_field_key])
+    || $actual_field_values[$new_field_key] !== $new_field_value) {
+    $changed_fields[] = $new_field_key;
+  }
+}
 
 /*
  * Affichage des champs textarea
@@ -604,17 +836,22 @@ foreach ($body->childNodes as $childNode) {
   </div>
   <div id="panneaux" autocomplete="off">
 
-    <!-- Les ACFs -->
+    <!-- Avant -->
     <div class="panneau">
       <?php
-      foreach($acf_fields as $field_name => $field_value) {
+      foreach($changed_fields as $field_name) {
+        if (!isset($actual_field_values[$field_name])) {
+          continue;
+        }
+
+        $field_value = $actual_field_values[$field_name];
         $value = str_replace('<br></br>', "<br/>\n", trim($field_value));
       ?>
         <div class="form-field field-<?= $field_name ?>">
           <h4 class="label-acf"><?= $field_name ?></h4>
 
           <div class="fake-highlight-textarea">
-            <textarea name="acf_field[<?= $field_name ?>]"><?=
+            <textarea><?=
               $value
             ?></textarea>
             <pre><code class="language-html"><?=
@@ -627,20 +864,28 @@ foreach ($body->childNodes as $childNode) {
       ?>
     </div>
 
-    <!-- Le post_content -->
+    <!-- Après -->
     <div class="panneau">
-      <div class="form-field post-content">
-        <h4 class="label-acf">Nouveau post_content</h4>
+      <?php
+      foreach($changed_fields as $field_name) {
+        $field_value = $new_fields_values[$field_name];
+        $value = str_replace('<br></br>', "<br/>", trim($field_value));
+      ?>
+        <div class="form-field field-<?= $field_name ?>">
+          <h4 class="label-acf"><?= $field_name ?></h4>
 
-        <div class="fake-highlight-textarea">
-          <textarea name="post_content"><?=
-            $new_post_content
-          ?></textarea>
-          <pre><code class="language-html"><?=
-              str_replace('&amp;', '&', htmlentities($new_post_content))
-          ?></code><div style="height: 4px;"></div></pre>
+          <div class="fake-highlight-textarea">
+            <textarea name="nouveau_acf_field[<?= $field_name ?>]"><?=
+              $value
+            ?></textarea>
+            <pre><code class="language-html"><?=
+              str_replace('&amp;', '&', htmlentities($value))
+            ?></code><div style="height: 4px;"></div></pre>
+          </div>
         </div>
-      </div>
+      <?php
+      }
+      ?>
     </div>
 
   </div>

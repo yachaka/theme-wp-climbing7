@@ -1,0 +1,48 @@
+
+.single-post__pilule {
+  font-size:0.7rem;
+  font-weight:100;
+  width:75px;
+  border-radius:15px;
+  text-align:center;
+  margin:auto;
+  background-color: #DE3163;
+  color:#fff;
+  letter-spacing: 0.1rem;
+  margin-top:20px;
+  margin-bottom:20px;
+  padding:2px 0 1px 0;
+}
+
+.single-post__bloc-post {
+  padding-bottom:30px;
+  border-bottom: 0.5px solid #ddd;
+  margin-bottom:20px;
+}
+
+.single-post__bloc-post aside {
+  width:31%;
+  float:right;
+}
+
+.single-post__fiche-technique {
+  margin-bottom:20px;
+}
+.single-post__liens {
+  border-bottom: 0.5px solid #ddd;
+  margin-bottom:20px;
+}
+
+.single-post__fiche-technique h3 {
+  margin-top: 0;
+}
+
+.single-post__parcours {
+  column-count: 3;
+  column-gap:30px;
+  margin-top:30px;
+}
+
+.single-post__parcours h4 {
+  margin-top:0;
+}

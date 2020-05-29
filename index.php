@@ -98,22 +98,23 @@
 			</p>
 		</nav>
 		
+		<!-- Mis en commentaire temporairement
 		<div id="search_bloc" style="padding:20px 20px 30px 20px;margin-top:40px;background-color: #efefef;">
 			<h3 style="text-align:center;">Moteur de recherche</h3>
 			<div style="text-align: center;" >
 				<form>
 					<label style="font-family: 'Helvetica'; font-size:0.8rem;">Pour un lieu, un topo</label><br/>
-  					<input style="width:400px;border-radius:9px;" type="text" id="fname" name="fname"><br>
-  					<input type="submit" value="Valider">
-  				</form> 
+					<input style="width:400px;border-radius:9px;" type="text" id="fname" name="fname"><br>
+					<input type="submit" value="Valider">
+				</form> 
 
-  				<form>
+				<form>
 					<label style="font-family: 'Helvetica'; font-size:0.8rem;">En filtrant par activité et par pays</label><br/>
-  					<input style="width:150px;border-radius:9px;" type="text" id="fname" name="fname" value="activité"><input style="width:150px;border-radius:9px;" type="text" id="fname" name="fname" value="pays"><br>
-  					<input type="submit" value="Valider">
-  				</form> 
-  			</div>
-		</div>
+					<input style="width:150px;border-radius:9px;" type="text" id="fname" name="fname" value="activité"><input style="width:150px;border-radius:9px;" type="text" id="fname" name="fname" value="pays"><br>
+					<input type="submit" value="Valider">
+				</form> 
+			</div>
+		</div>-->
 
 
 

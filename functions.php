@@ -636,6 +636,12 @@ function pre_var_dump($data) {
 	exit(0);
 }
 
+function spre_var_dump($data) {
+	echo '<pre>';
+	var_dump($data);
+	echo '</pre>';
+}
+
 /* Renommage de Posts en Topos dans le menu d'administration */
 add_action( 'admin_menu', 'change_admin_menu_topos' );
 function change_admin_menu_topos(){
