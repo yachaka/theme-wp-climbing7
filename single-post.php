@@ -76,7 +76,7 @@ wp_enqueue_style(
 				<div class="single-post__bloc-post">
 					<h3>Accès au site</h3>
 					<?php the_field( 'acces_au_site' ); ?>
-					<?= do_shortcode( get_field( 'carte_iframe' ) ); ?>
+					
 				</div>
 
 				<div class="single-post__bloc-post">
@@ -84,7 +84,7 @@ wp_enqueue_style(
 					<h3>Carte & Topo</h3>
 
 					<?= do_shortcode( get_field( 'texte_carte' ) ) ?>
-
+					<?= do_shortcode( get_field( 'carte_iframe' ) ); ?>
 					<div class="topo_img">
 						<?php
 						$images_topo = [
