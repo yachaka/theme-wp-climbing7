@@ -1137,6 +1137,14 @@ header[role="banner"] .branding h1 {
   margin: 0;
   font-family:Helvetica !important;
 }
+@media all and (max-device-width: 480px)
+{
+  header[role="banner"] .branding h1 {
+  margin: 40px 0 0 0 !important;
+  font-family:Helvetica !important;
+  }
+}
+
 header[role="banner"] img {
   display: inline;
   max-width: 100%;
