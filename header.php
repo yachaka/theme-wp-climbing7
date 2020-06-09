@@ -32,17 +32,17 @@
 	<?php 
 	echo $site_url;
 	?>
-	/#ancre_partage" title="Partager"><img id="icon_share" class="icon_top_menu" src="http://localhost:8888/essais-wordpress/wp-content/uploads/2020/05/icon-share.png"/></a>
+	/#ancre_partage" title="Partager"><img id="icon_share" class="icon_top_menu" src="http://climbing7.com/wp-content/uploads/2020/05/icon-share.png"/></a>
 	
 
-	<a href="mailto:arcodep@gmail.com" title="Me contacter"><img id="icon_mail" class="icon_top_menu" src="http://localhost:8888/essais-wordpress/wp-content/uploads/2020/05/icon-mail.png"/></a>
+	<a href="mailto:arcodep@gmail.com" title="Me contacter"><img id="icon_mail" class="icon_top_menu" src="http://climbing7.com/wp-content/uploads/2020/05/icon-mail.png"/></a>
 	
 
 	<a href="
 	<?php 
 	echo $site_url;
 	?>
-	/#ancre_moteur_recherche" title="Rechercher"><img id="icon_search" class="icon_top_menu" src="http://localhost:8888/essais-wordpress/wp-content/uploads/2020/05/icon-search.png"/></a>
+	/#ancre_moteur_recherche" title="Rechercher"><img id="icon_search" class="icon_top_menu" src="http://climbing7.com/wp-content/uploads/2020/05/icon-search.png"/></a>
 
 	<!-- FIN TOP MENU ICONS -->
 

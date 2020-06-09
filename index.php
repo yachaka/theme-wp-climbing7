@@ -17,7 +17,7 @@ wp_enqueue_style(
 
 	<div class="content">
 	<div class="inner-content">
-		<div id="featured-slider" style="margin-bottom:30px;border-bottom: 1px solid #e3e3e3;">
+		<div id="featured-slider">
 		<?php
 			if ( is_home() && ! is_paged() ) {
 				get_template_part( '_featured-slider' );
@@ -114,9 +114,9 @@ wp_enqueue_style(
 			<?php get_template_part('searchform'); ?>
 		</div>
 
-		<div id="ancre_partage" class="menu_partage">
+		<!-- <div id="ancre_partage" class="menu_partage">
 			<?php echo do_shortcode('[DISPLAY_ULTIMATE_SOCIAL_ICONS]'); ?>
-		</div>
+		</div> -->
 
 	</div> <!-- Fin inner-content -->
 	</div> <!-- Fin content -->

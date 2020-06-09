@@ -61,7 +61,10 @@ if (isset($_GET['f_activites']) && !is_array($_GET['f_activites'])) {
   </span>
 </h3>
 
-<div style="text-align: center;">
+
+
+<div class="search-block" style="text-align: center;">
+  <p style="margin-top:20px;font-family: 'Helvetica'; font-size:0.8rem;color:#555;text-transform: uppercase;font-weight:100;">Entrer un mot clef</p>
   <form
     id="searchform-<?= $sf_id ?>"
     class="searchform"
@@ -73,16 +76,63 @@ if (isset($_GET['f_activites']) && !is_array($_GET['f_activites'])) {
   		type="text"
   		id="s"
   		name="s"
-  		size="80"
+  		
   		placeholder="<?php esc_attr_e( 'Rechercher sur le site&hellip;', 'watson' ) ?>"
       value=""
       title="<?php esc_attr_e( 'Type and press Enter to search', 'watson' ); ?>"
   	/>
 
+        <!---------------------------------->
+    <!-- Boutons de filtrage par activité -->
+    
+    <p style="margin-top:20px;font-family: 'Helvetica'; font-size:0.8rem;color:#555;text-transform: uppercase;font-weight:100;">Filtrer par activité</p>
+
+    <div class="ligne-filtres">
+
+      
+      <?php
+      foreach ($activites as $activite) {
+        // Est-ce que nous sommes sur une page filtré par cette activité ?
+        $filtre_actif = (
+          isset($_GET['f_activites'])
+          && in_array($activite->slug, $_GET['f_activites'])
+        );
+
+        $filtre_classe = '';
+
+        if ($filtre_actif) {
+          $filtre_classe = 'filtre_actif';
+        }
+      ?>
+        <button
+          id="sf-<?= $sf_id ?>_filtre-activites-<?= $activite->slug ?>"
+          type="button"
+          class="filtre_pastille_recherche <?= $filtre_classe; ?>"
+        >
+          <?= $activite->name ?>
+        </button>
+
+        <?php
+        if ($filtre_actif) {
+        ?>
+          <input
+            id="sf-<?= $sf_id ?>_input-filtre-activites-<?= $activite->slug; ?>"
+            type="hidden"
+            name="f_activites[]"
+            value="<?= $activite->slug; ?>"
+          />
+        <?php
+        }
+
+        // Fin de la boucle
+      }
+      ?>
+    </div>
+
     <!---------------------------------->
     <!-- Boutons de filtrage par lieu -->
     
-    <p style="margin-top:20px;font-family: 'Helvetica'; font-size:0.8rem;color:#555;text-transform: uppercase;font-weight:100;">Filtrer par activité et par pays</p>
+    <p style="margin-top:20px;font-family: 'Helvetica'; font-size:0.8rem;color:#555;text-transform: uppercase;font-weight:100;">Filtrer par pays</p>
     
     <div class="ligne-filtres">
       
@@ -116,49 +166,6 @@ if (isset($_GET['f_activites']) && !is_array($_GET['f_activites'])) {
             type="hidden"
             name="f_lieux[]"
             value="<?= $lieu->slug; ?>"
-          />
-        <?php
-        }
-
-        // Fin de la boucle
-      }
-      ?>
-    </div>
-
-    <!---------------------------------->
-    <!-- Boutons de filtrage par activité -->
-    <div class="ligne-filtres">
-      
-      <?php
-      foreach ($activites as $activite) {
-        // Est-ce que nous sommes sur une page filtré par cette activité ?
-        $filtre_actif = (
-          isset($_GET['f_activites'])
-          && in_array($activite->slug, $_GET['f_activites'])
-        );
-
-        $filtre_classe = '';
-
-        if ($filtre_actif) {
-          $filtre_classe = 'filtre_actif';
-        }
-      ?>
-        <button
-          id="sf-<?= $sf_id ?>_filtre-activites-<?= $activite->slug ?>"
-          type="button"
-          class="filtre_pastille_recherche <?= $filtre_classe; ?>"
-        >
-          <?= $activite->name ?>
-        </button>
-
-        <?php
-        if ($filtre_actif) {
-        ?>
-          <input
-            id="sf-<?= $sf_id ?>_input-filtre-activites-<?= $activite->slug; ?>"
-            type="hidden"
-            name="f_activites[]"
-            value="<?= $activite->slug; ?>"
           />
         <?php
         }

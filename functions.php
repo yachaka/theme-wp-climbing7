@@ -901,7 +901,7 @@ function nombre_de_posts_affiches($query) {
 		if ($query->is_home) {
 			$query->set('posts_per_page', 5);
 		} else if ($query->is_archive) {
-			$query->set('posts_per_page', 12);
+			$query->set('posts_per_page', 20);
 		}
 	}
 }

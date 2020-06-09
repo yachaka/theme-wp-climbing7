@@ -28,14 +28,15 @@ body.archive #filtrer_par_texte {
 body.archive ul.liste_filtres {
   list-style-type: none;
   display:flex;
+  flex-wrap: wrap;
   justify-content: center;
-  margin:10px 0 10px 0;
+  margin:10px 0 40px 0;
 }
 
 body.archive ul.liste_filtres li {
-  background-color: #333;
-  margin: 0 4px;
-  padding:4px 8px;
+  background-color: #FFF;
+  margin: 0 4px 8px 0;
+  padding:2px 6px;
   font-size:0.8rem;
   border:1px solid #333;
 }
@@ -45,22 +46,22 @@ body.archive ul.liste_filtres li {
 body.archive ul.liste_filtres li:hover,
 body.archive ul.liste_filtres li.filtre_actif,
 .filtre_pastille_recherche.filtre_actif {
-  background-color:#fff;
-  border:1px solid #ddd;
+  background-color:#d00f1a;
+  border:1px solid #d00f1a;
   transition-property: background-color;
   transition-duration: 0.7s;
 }
 
 .filtre a {
-  color:white;
+  color:#333;
 }
 
 .liste_filtres li:hover a {
-    color:#333;
+    color:#fff;
 }
 
 .filtre_actif a {
-  color:#333;
+  color:#fff;
 
 
 }
@@ -81,10 +82,9 @@ body.blog .search_bloc {
 body.search .search_bloc {
   padding:0;
   margin-top:40px;
-  background-color:#ddd;
+  background-color:#efefef;
   overflow:hidden;
   height:50px;
-  border-radius: 9px;
   transition-property:height, padding, background-color, border-radius;
   transition-duration: 1s;
   
@@ -95,7 +95,7 @@ body.search .search_bloc h3 {
 }
 
 body.search .search_bloc.ouvert {
-  height:300px;
+  height:430px;
   padding:30px 20px 30px 20px;
   background-color: #efefef;
   border-radius: 0;

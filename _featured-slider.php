@@ -19,7 +19,7 @@
 							?>
 							<?php the_post_thumbnail(); ?>
 							</a>
-						<div style="position:absolute;bottom:0px;left:0px;right:0;padding:80px 30px 30px 50px;background: rgb(0,0,0);background: linear-gradient(0deg, rgba(0,0,0,.6) 50%, rgba(255,255,255,0) 100%);">
+						<div id="home_infos-featured">
 
 
 							<ul class="categorie_tag_featured_home">
@@ -141,12 +141,12 @@
 							</ul>
 								
 							<a title="<?php esc_attr_e( 'Read full article', 'watson' ); ?>" href="<?php the_permalink(); ?>">
-							<h1 style="color:#fff;font-size:2.5rem;"><?php the_title(); ?></h1>
+							<h1 class="home_titre-featured" style="color:#FFF;"><?php the_title(); ?></h1>
 							</a>
 							<?php 
 							// echo ttf_common_get_truncated_excerpt( 180 ); 
 							?>
-							<p  style="color:#fff;font-size:0.9rem;font-family: 'Source Sans Pro', Helvetica, Arial, Verdana, Tahoma, sans-serif;">Publié le <?php the_date (); ?></p>
+							<p  class="home_date-titre-featured" >Publié le <?php the_date (); ?></p>
 						</div>
 
 					</section>
