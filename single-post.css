@@ -18,6 +18,38 @@
   padding-bottom:30px;
   border-bottom: 0.5px solid #ddd;
   margin-bottom:20px;
+  overflow: hidden;
+}
+
+@media all and (max-device-width: 720px)
+{
+.single-post__bloc-post {
+  padding-bottom:0px;
+  border-bottom: 0.5px solid #ddd;
+  margin-bottom:00px;
+  overflow: hidden;
+}
+}
+
+.single-post_presentation {
+  width:64%;
+  float:left;
+}
+
+@media all and (max-device-width: 720px)
+{
+ .single-post_presentation {
+  width:100%;
+ 
+  }
+  .single-post_presentation p {
+  padding: 20px;
+ 
+  }
+  .single-post_presentation figcaption p {
+  padding: 4px;
+ 
+  }
 }
 
 .single-post__bloc-post aside {
@@ -25,11 +57,40 @@
   float:right;
 }
 
+@media all and (max-device-width: 720px)
+{
+ .single-post__bloc-post aside {
+  width:100%;
+
+  border-top: 0.5px solid #ddd;
+  }
+}
+
+@media all and (max-device-width: 720px)
+{
+.single-post__mobile {
+  padding:20px;
+}
+}
+
 .single-post__fiche-technique {
   margin-bottom:20px;
   padding-bottom:20px;
   border-bottom: 0.5px solid #ddd;
 }
+
+
+@media all and (max-device-width: 720px)
+{
+  .single-post__fiche-technique {
+  margin-bottom:0px;
+  padding:20px;
+  border-bottom: 0.5px solid #ddd;
+}
+}
+
+
+
 .single-post__liens {
   margin-bottom:20px;
   padding-bottom:20px;
@@ -39,10 +100,26 @@
   margin-top: 0;
 }
 
+@media all and (max-device-width: 720px)
+{
+ .single-post__bloc-post h3 {
+  margin-top: 0;
+}
+}
+
 .single-post__parcours {
   column-count: 3;
   column-gap:30px;
   margin-top:30px;
+}
+
+@media all and (max-device-width: 720px)
+{
+.single-post__parcours {
+  column-count: 1;
+  column-gap:30px;
+  margin-top:30px;
+}
 }
 
 .single-post__parcours h4 {

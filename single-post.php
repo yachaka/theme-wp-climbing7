@@ -30,6 +30,15 @@ wp_enqueue_style(
 				
 				<div class="single-post__bloc-post">
 					
+
+					<div class="single-post_presentation">
+						<?php if ( ! watson_option( 'hide_post_featured' ) && ! post_password_required() ) : ?>
+						<?php get_template_part( '_featured' ); ?>
+						<?php endif; ?>
+						<span style="font-weight:600;"><?php the_field( 'presentation' ); ?></span>
+					</div>
+
+
 					<?php
 					$fiche_technique = get_field('fiche_technique');
 					$liens = get_field('liens');
@@ -42,7 +51,7 @@ wp_enqueue_style(
 						<?php
 						if ($fiche_technique):
 						?>
-							<div class="single-post__fiche-technique">
+							<div class="single-post__fiche-technique single-post__mobile">
 								<h3>Fiche technique</h3>
 								<p><?php the_field( 'fiche_technique' ); ?></p>
 							</div>
@@ -51,7 +60,7 @@ wp_enqueue_style(
 						<?php
 						if ($liens):
 						?>
-							<div class="single-post__liens">
+							<div class="single-post__liens single-post__mobile">
 								<h3 >Ressources</h3>
 								<?php the_field('liens'); ?>
 							</div>
@@ -64,22 +73,17 @@ wp_enqueue_style(
 					endif;
 					?>
 
-					<div style="width:64%;">
-						<?php if ( ! watson_option( 'hide_post_featured' ) && ! post_password_required() ) : ?>
-						<?php get_template_part( '_featured' ); ?>
-						<?php endif; ?>
-						<span style="font-weight:600;"><?php the_field( 'presentation' ); ?></span>
-					</div>
+					
 
 				</div>
 
-				<div class="single-post__bloc-post">
+				<div class="single-post__bloc-post single-post__mobile">
 					<h3>Accès au site</h3>
 					<?php the_field( 'acces_au_site' ); ?>
 					
 				</div>
 
-				<div class="single-post__bloc-post">
+				<div class="single-post__bloc-post single-post__mobile">
 
 					<h3>Carte & Topo</h3>
 
@@ -111,7 +115,7 @@ wp_enqueue_style(
 
 				</div>
 
-				<div class="single-post__bloc-post">
+				<div class="single-post__bloc-post single-post__mobile">
 					<h3>Description du parcours</h3>
 					
 					<div class="single-post__parcours">
@@ -149,7 +153,7 @@ wp_enqueue_style(
 
 				if ($galerie):
 				?>
-					<div class="single-post__bloc-post">
+					<div class="single-post__bloc-post single-post__mobile">
 						<h3>En images</h3>
 						<?= do_shortcode($galerie); ?>
 					</div>

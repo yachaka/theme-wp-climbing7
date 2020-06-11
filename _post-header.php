@@ -14,9 +14,7 @@
 		<?php endif; ?>
 	</h1>
 
-	<p 
-		style="text-align:center;color:#aaa;font-size:0.9rem;font-family: 'Source Sans Pro', Helvetica, Arial, Verdana, Tahoma, sans-serif;font-weight:200;"
-	>
+	<p class="post-header_sous-titre">
 		<?php if ( ! is_page()):?>
 
 				Publié le <?php get_template_part( '_date' ); ?>
