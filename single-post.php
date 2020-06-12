@@ -88,12 +88,30 @@ wp_enqueue_style(
 
 						if (count($activites) > 0) { // Si la liste contient des éléments
 							$activite_numero_1 = $activites[0]; // Premier élement
-							echo $activite_numero_1->name;
+							// echo $activite_numero_1->name;
 						}
 
 						?>
 							<div class="single-post__fiche-activite">
-								<a href="">INFO </a>
+								<a href="
+									<?php
+										if ($activite_numero_1->name = 'canyoning') {
+											echo 'http://climbing7.com/a-propos-du-canyoning/';
+										}
+										elseif ($activite_numero_1->name = 'escalade') {
+											echo 'http://climbing7.com/a-propos-de-lescalade/';
+										}
+										elseif ($activite_numero_1->name = 'via ferrata') {
+											echo 'http://climbing7.com/a-propos-des-via-ferrata/';
+										}
+										elseif ($activite_numero_1->name = 'ski de rando') {
+											echo 'http://climbing7.com/a-propos-du-ski-de-rando/';
+										}
+										elseif ($activite_numero_1->name = 'trekking') {
+											echo '#';
+										}
+									?>
+								">INFO <span style="text-transform:uppercase;"><?php echo $activite_numero_1->name; ?></span></a>
 							</div>
 
 					</aside>
