@@ -69,11 +69,28 @@ wp_enqueue_style(
 						<?php endif; ?>
 						
 						<?php 
-						$activite = get_the_terms(get_the_ID(),'activites');
-						if (isset ($activite["name"])){
-								echo $activite["name"];
-							}
-						pre_var_dump ($activite);
+
+						/* Ton précédent code : */
+
+						// $activite = get_the_terms(get_the_ID(), 'activites');
+
+						// if (isset ($activite["name"])){
+						// 	echo $activite["name"];
+						// }
+
+						/* Pas fonctionnel, car $activite est une liste.
+						 * Pour y accéder, précises l'entrée [0].
+						 * De plus, utilises ->name et non ['name'] (ici, car c'est un "object")
+						 */
+
+						/* Code correct */
+						$activites = get_the_terms(get_the_ID(), 'activites');
+
+						if (count($activites) > 0) { // Si la liste contient des éléments
+							$activite_numero_1 = $activites[0]; // Premier élement
+							echo $activite_numero_1->name;
+						}
+
 						?>
 							<div class="single-post__fiche-activite">
 								<a href="">INFO </a>
