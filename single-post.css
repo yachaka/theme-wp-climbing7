@@ -1,127 +1,140 @@
-
 .single-post__pilule {
-  font-size:0.7rem;
-  font-weight:100;
-  width:75px;
-  border-radius:15px;
-  text-align:center;
-  margin:auto;
+  font-size: 0.7rem;
+  font-weight: 100;
+  width: 75px;
+  border-radius: 15px;
+  text-align: center;
+  margin: auto;
   background-color: #DE3163;
-  color:#fff;
+  color: #fff;
   letter-spacing: 0.1rem;
-  margin-top:20px;
-  margin-bottom:20px;
-  padding:2px 0 1px 0;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 2px 0 1px 0;
 }
 
 .single-post__bloc-post {
-  padding-bottom:30px;
+  padding-bottom: 30px;
   border-bottom: 0.5px solid #ddd;
-  margin-bottom:20px;
+  margin-bottom: 20px;
   overflow: hidden;
-}
-
-@media all and (max-device-width: 720px)
-{
-.single-post__bloc-post {
-  padding-bottom:0px;
-  border-bottom: 0.5px solid #ddd;
-  margin-bottom:00px;
-  overflow: hidden;
-}
 }
 
 .single-post_presentation {
-  width:64%;
-  float:left;
-}
-
-@media all and (max-device-width: 720px)
-{
- .single-post_presentation {
-  width:100%;
- 
-  }
-  .single-post_presentation p {
-  padding: 20px;
- 
-  }
-  .single-post_presentation figcaption p {
-  padding: 4px;
- 
-  }
+  width: 64%;
+  float: left;
 }
 
 .single-post__bloc-post aside {
-  width:31%;
-  float:right;
-}
-
-@media all and (max-device-width: 720px)
-{
- .single-post__bloc-post aside {
-  width:100%;
-
-  border-top: 0.5px solid #ddd;
-  }
-}
-
-@media all and (max-device-width: 720px)
-{
-.single-post__mobile {
-  padding:20px;
-}
+  width: 31%;
+  float: right;
 }
 
 .single-post__fiche-technique {
-  margin-bottom:20px;
-  padding-bottom:20px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
   border-bottom: 0.5px solid #ddd;
 }
-
-
-@media all and (max-device-width: 720px)
-{
-  .single-post__fiche-technique {
-  margin-bottom:0px;
-  padding:20px;
-  border-bottom: 0.5px solid #ddd;
-}
-}
-
-
 
 .single-post__liens {
-  margin-bottom:20px;
-  padding-bottom:20px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+}
+
+.single-post__fiche-activite {
+  display:inline-block;
+  background-color: #FFF;
+  padding: 2px 8px;
+  font-size: 0.7rem;
+  border: 1px solid #333;
+  width:auto;
+}
+
+.single-post__fiche-activite:hover {
+  background-color: #d00f1a;
+  border: 1px solid #d00f1a;
+  transition-property: background-color;
+  transition-duration: 0.7s;
+}
+
+.single-post__fiche-activite a {
+  color:#333;
+}
+.single-post__fiche-activite:hover a {
+  color:#fff;
 }
 
 .single-post__fiche-technique h3 {
   margin-top: 0;
 }
 
-@media all and (max-device-width: 720px)
-{
- .single-post__bloc-post h3 {
-  margin-top: 0;
-}
-}
-
 .single-post__parcours {
   column-count: 3;
-  column-gap:30px;
-  margin-top:30px;
-}
-
-@media all and (max-device-width: 720px)
-{
-.single-post__parcours {
-  column-count: 1;
-  column-gap:30px;
-  margin-top:30px;
-}
+  column-gap: 30px;
+  margin-top: 30px;
 }
 
 .single-post__parcours h4 {
-  margin-top:0;
+  margin-top: 0;
 }
+
+@media all and (max-width: 900px) {
+  .single-post__bloc-post {
+    padding-bottom: 0px;
+    border-bottom: 0.5px solid #ddd;
+    margin-bottom: 0px;
+    overflow: hidden;
+  }
+}
+
+/* ------------------------------------- */
+/* CSS ADAPT MOBILE */
+/* ------------------------------------- */
+
+@media all and (max-width: 900px) {
+  .single-post__bloc-post h3 {
+    margin-top: 0;
+  }
+}
+
+@media all and (max-width: 900px) {
+  .single-post__bloc-post aside {
+    width: 100%;
+    border-top: 0.5px solid #ddd;
+  }
+}
+
+@media all and (max-width: 900px) {
+  .single-post__mobile {
+    padding: 20px;
+  }
+}
+
+@media all and (max-width: 900px) {
+  .single-post__fiche-technique {
+    margin-bottom: 0px;
+    padding: 20px;
+    border-bottom: 0.5px solid #ddd;
+  }
+}
+
+@media all and (max-width: 900px) {
+  .single-post__parcours {
+    column-count: 1;
+    column-gap: 30px;
+    margin-top: 30px;
+  }
+}
+
+@media all and (max-width: 900px) {
+  .single-post_presentation {
+    width: 100%;
+  }
+  .single-post_presentation p {
+    padding: 20px;
+  }
+  .single-post_presentation figcaption p {
+    padding: 4px;
+  }
+}
+

@@ -1,3 +1,50 @@
+/*---------------------------------------------------------
+  Archives
+-------------------------------------------------------- */
+
+
+
+
+
+body.archive .post-roll article.post figure,
+body.search .post-roll article.post figure {
+  float: none;
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 10px;
+}
+
+body.archive .post-roll article.post figure img,
+body.search .post-roll div.post figure img {
+  display: block;
+}
+
+body.archive .post-roll h1,
+body.search .post-roll h1 {
+  font-size: 16px;
+  text-align: center;
+}
+
+body.archive .post-roll article.post .post-content,
+body.archive .post-roll div.post .post-content {
+  padding: 0;
+}
+
+body.archive .post-roll,
+body.search .post-roll {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -8px;
+}
+
+body.archive .post-roll article.post .post-content nav,
+body.search .post-roll div.post .post-content nav {
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 200;
+}
+
+/* MON CSS */
 
 body.archive h3#titre, body.search h3#titre {
   font-size: 40px;
@@ -127,3 +174,8 @@ body.search .search_bloc.ouvert .texte_fermeture
 body.search .search_bloc.ouvert h3:hover .texte_fermeture {
   color: #d00f1a;
 }
+
+/*---------------------------------------------------------
+ Media queries
+-------------------------------------------------------- */
+

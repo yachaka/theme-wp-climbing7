@@ -63,9 +63,21 @@ wp_enqueue_style(
 							<div class="single-post__liens single-post__mobile">
 								<h3 >Ressources</h3>
 								<?php the_field('liens'); ?>
+
 							</div>
 
 						<?php endif; ?>
+						
+						<?php 
+						$activite = get_the_terms(get_the_ID(),'activites');
+						if (isset ($activite["name"])){
+								echo $activite["name"];
+							}
+						pre_var_dump ($activite);
+						?>
+							<div class="single-post__fiche-activite">
+								<a href="">INFO </a>
+							</div>
 
 					</aside>
 
