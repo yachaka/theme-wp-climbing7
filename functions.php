@@ -725,6 +725,82 @@ function climbing7_init() {
 		),
 	);
 
+	/* Album Voyage post type */
+	register_post_type(
+		'album_voyage',
+		array(
+			'has_archive' => true,
+			'menu_icon' => 'dashicons-admin-site-alt2',
+			'labels' => array(
+				'name' => 'Albums de voyage',
+				'singular_name' => 'Album de voyage',
+				'add_new_item' => 'Ajouter un Album de voyage',
+				'edit_item' => 'Éditer l\'album de voyage',
+				'new_item' => 'Nouvel album de voyage',
+				'view_item' => 'Voir l\'album de Voyage',
+				'search_items' => 'Rechercher des albums de voyages',
+				'not_found' => 'Aucun album de voyages trouvés',
+				'not_found_in_trash' => 'Aucun album de voyages trouvés dans la corbeille',
+				'all_items' => 'Tous les albums de voyages',
+				'archives' => 'Archive des albums de voyages',
+				'attributes' => 'Attributs de l\'album de voyage',
+				'insert_into_item' => 'Insérer dans album de voyage',
+				'uploaded_to_this_item' => 'Téléversé dans cet album de voyage',
+				'filter_items_list' => 'Filtrer la liste des albums de voyages',
+				'items_list_navigation' => 'Navigation de la liste des albums de voyages',
+				'items_list' => 'Liste des albums de voyages',
+				'item_published' => 'Album de voyage publié.',
+				'item_published_privately' => 'Album de voyage publié en privé.',
+				'item_reverted_to_draft' => 'Album de voyage transformé en brouillon.',
+				'item_scheduled' => 'Album de voyage planifié.',
+				'item_updated' => 'Album de voyage mis à jour.',
+			),
+			'description' => 'Mes albums de voyages',
+			'public' => true,
+			'menu_position' => 7,
+			'show_in_rest' => true,
+		),
+	);
+
+
+/* Carnet de voyage post type */
+	register_post_type(
+		'carnet_voyage',
+		array(
+			'has_archive' => true,
+			'menu_icon' => 'dashicons-admin-site-alt2',
+			'labels' => array(
+				'name' => 'Carnets de voyage',
+				'singular_name' => 'Carnet de voyage',
+				'add_new_item' => 'Ajouter un carnet de voyage',
+				'edit_item' => 'Éditer carnet de voyage',
+				'new_item' => 'Nouvel carnet de voyage',
+				'view_item' => 'Voir carnet de Voyage',
+				'search_items' => 'Rechercher des carnets de voyages',
+				'not_found' => 'Aucun carnet de voyages trouvés',
+				'not_found_in_trash' => 'Aucun carnet de voyages trouvés dans la corbeille',
+				'all_items' => 'Tous les carnets de voyages',
+				'archives' => 'Archive des carnets de voyages',
+				'attributes' => 'Attributs du carnet de voyage',
+				'insert_into_item' => 'Insérer dans carnet de voyage',
+				'uploaded_to_this_item' => 'Téléversé dans ce carnet de voyage',
+				'filter_items_list' => 'Filtrer la liste des carnets de voyages',
+				'items_list_navigation' => 'Navigation de la liste des carnets de voyages',
+				'items_list' => 'Liste des carnets de voyages',
+				'item_published' => 'carnet de voyage publié.',
+				'item_published_privately' => 'carnet de voyage publié en privé.',
+				'item_reverted_to_draft' => 'carnet de voyage transformé en brouillon.',
+				'item_scheduled' => 'carnet de voyage planifié.',
+				'item_updated' => 'carnet de voyage mis à jour.',
+			),
+			'description' => 'Mes carnets de voyages',
+			'public' => true,
+			'menu_position' => 7,
+			'show_in_rest' => true,
+		),
+	);
+
+
 	/*
 	 * Taxonomies personalisées
 	 */
@@ -772,6 +848,27 @@ function climbing7_init() {
 	];
 
 	register_taxonomy('activites', ['post', 'voyage'], $activity_tax_args);
+
+	/* PAYS pour les posts de voyage */
+	// Les labels de la taxonomie pays
+	$activity_tax_labels = [
+		'name'              => 'Pays',
+		'singular_name'     => 'pays',
+		'search_items'      => 'Rechercher les pays',
+		'all_items'         => 'Tous les pays',
+		'edit_item'         => 'Éditer le pays',
+		'update_item'       => 'Mettre à jour le pays',
+		'add_new_item'      => 'Ajouter une nouveau pays',
+	];
+
+	$activity_tax_args = [
+		'labels'            => $activity_tax_labels,
+		'public'            => true,
+		'show_in_rest'      => true,
+		'show_admin_column' => true,
+	];
+
+	register_taxonomy('activites', ['album_voyage', 'carnet_voyage'], $activity_tax_args);
 }
 add_action('init', 'climbing7_init');
 
