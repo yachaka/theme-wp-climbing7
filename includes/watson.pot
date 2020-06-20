@@ -81,7 +81,7 @@ msgstr ""
 
 #: archive.php:59 index.php:65 search.php:23
 msgid "Newer posts"
-msgstr ""
+msgstr "Publications plus récentes"
 
 #: attachment.php:16
 msgid "Return to %s"

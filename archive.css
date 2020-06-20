@@ -46,10 +46,19 @@ body.search .post-roll div.post .post-content nav {
 
 /* MON CSS */
 
-body.archive h3#titre, body.search h3#titre {
+body.archive h3#titre,
+body.search h3#titre {
   font-size: 40px;
   text-align: center;
 }
+
+body.search h3#titre .numero-page,
+body.archive h3#titre .numero-page {
+  font-size: 30px;
+  font-weight: normal;
+  color: #999;
+}
+
 
 body.archive #pastille, body.search #pastille {
   font-size: 0.7rem;

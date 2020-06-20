@@ -62,9 +62,12 @@
 				<?php echo $copy_text; ?>
 			</p>
 		<?php endif; ?>
+
 		<p class="byline">
 				<a title="<?php esc_attr_e( 'Theme info', 'watson' ); ?>" href="https://thethemefoundry.com/wordpress-themes/watson/">Watson theme</a>
 				<span>by</span> <a title="<?php esc_attr_e( 'The Theme Foundry home page', 'watson' ); ?>" href="https://thethemefoundry.com/">The Theme Foundry</a>
+				<br />
+				Édité par Steph. & Ilyes
 		</p>
 	</footer>
 </div>

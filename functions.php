@@ -476,30 +476,6 @@ if ( ! function_exists ( 'watson_comment' ) ) :
 
 endif; //watson_comment
 
-if ( ! function_exists( 'ttf_common_archives_title' ) ) :
-	/**
-	 * Adjust the archives page title to something sensible
-	 */
-	function ttf_common_archives_title() {
-		if ( is_category() ) { /* If this is a category archive */
-			printf( __( 'Topo dans catégorie &#8216;%s&#8217; category', 'ttf_common' ), single_cat_title( '', false ) );
-		} elseif ( is_tag() ) { /* If this is a tag archive */
-			printf( __( 'Posts tagged &#8216;%s&#8217;', 'ttf_common' ), single_tag_title( '', false ) );
-		} elseif ( is_day() ) { /* If this is a daily archive */
-			printf( __( 'Archive for &#8216;%s&#8217;', 'ttf_common' ), get_the_time( 'F jS, Y' ) );
-		} elseif ( is_month() ) { /* If this is a monthly archive */
-			printf( __( 'Archive for &#8216;%s&#8217;', 'ttf_common' ), get_the_time( 'F, Y' ) );
-		} elseif ( is_year() ) { /* If this is a yearly archive */
-			printf( __( 'Archive for &#8216;%s&#8217;', 'ttf_common' ), get_the_time( 'Y' ) );
-		} elseif ( is_author() ) { /* If this is an author archive */
-			printf( __( 'Posts by %s', 'ttf_common' ), get_the_author() );
-		} elseif ( is_paged() ) { /* If this is a paged archive */
-			_e( 'Blog Archives', 'ttf_common' );
-		}
-	}
-
-endif; // ttf_common_archives_title
-
 add_action( 'wp_enqueue_scripts', 'watson_enqueue_scripts' );
 
 if ( ! function_exists( 'watson_enqueue_scripts' ) ) :
@@ -727,7 +703,7 @@ function climbing7_init() {
 
 	/* Album Voyage post type */
 	register_post_type(
-		'album_voyage',
+		'album-voyage',
 		array(
 			'has_archive' => true,
 			'menu_icon' => 'dashicons-admin-site-alt2',
@@ -765,7 +741,7 @@ function climbing7_init() {
 
 /* Carnet de voyage post type */
 	register_post_type(
-		'carnet_voyage',
+		'carnet-voyage',
 		array(
 			'has_archive' => true,
 			'menu_icon' => 'dashicons-admin-site-alt2',
@@ -804,8 +780,8 @@ function climbing7_init() {
 	/*
 	 * Taxonomies personalisées
 	 */
-	/* Regions */
-	// Les labels de la taxonomie Région
+	/* Lieux */
+	// Les labels de la taxonomie Lieux
 	$lieux_tax_labels = [
 		'name'              => 'Lieux',
 		'singular_name'     => 'Lieu',
@@ -826,7 +802,7 @@ function climbing7_init() {
 		'show_admin_column' => true,
 	];
 
-	register_taxonomy('lieux', ['post', 'voyage'], $lieux_tax_args);
+	register_taxonomy('lieux', ['post', 'album-voyage', 'carnet-voyage'], $lieux_tax_args);
 
 	/* Activités */
 	// Les labels de la taxonomie Activité
@@ -847,40 +823,19 @@ function climbing7_init() {
 		'show_admin_column' => true,
 	];
 
-	register_taxonomy('activites', ['post', 'voyage'], $activity_tax_args);
-
-	/* PAYS pour les posts de voyage */
-	// Les labels de la taxonomie pays
-	$activity_tax_labels = [
-		'name'              => 'Pays',
-		'singular_name'     => 'pays',
-		'search_items'      => 'Rechercher les pays',
-		'all_items'         => 'Tous les pays',
-		'edit_item'         => 'Éditer le pays',
-		'update_item'       => 'Mettre à jour le pays',
-		'add_new_item'      => 'Ajouter une nouveau pays',
-	];
-
-	$activity_tax_args = [
-		'labels'            => $activity_tax_labels,
-		'public'            => true,
-		'show_in_rest'      => true,
-		'show_admin_column' => true,
-	];
-
-	register_taxonomy('activites', ['album_voyage', 'carnet_voyage'], $activity_tax_args);
+	register_taxonomy('activites', ['post', 'album-voyage', 'carnet-voyage'], $activity_tax_args);
 }
 add_action('init', 'climbing7_init');
 
 /*
  * Rajout post type Voyage dans la query home
  */
-function ajout_voyage_main_query($query) {
+function ajout_voyages_main_query($query) {
 	if (!is_admin() && $query->is_main_query() && $query->is_home) {
-		$query->set('post_type', array('post', 'voyage'));
+		$query->set('post_type', array('post', 'album-voyage', 'carnet-voyage'));
 	}
 }
-add_action( 'pre_get_posts', 'ajout_voyage_main_query' );
+add_action( 'pre_get_posts', 'ajout_voyages_main_query' );
 
 /*
  * Ajout d'un filtrage par activité/région

@@ -105,8 +105,8 @@ wp_enqueue_style(
 
 		<nav id="ancre_moteur_recherche" style="clear:both;" class="post-footer index-footer">
 			<p>
-				<?php next_posts_link( __( 'Older posts', 'watson' ) ); ?>
-				<?php previous_posts_link( __( 'Newer posts', 'watson' ) ); ?>
+				<?php next_posts_link( 'Plus ancien' ); ?>
+				<?php previous_posts_link( 'Plus récent' ); ?>
 			</p>
 		</nav>
 

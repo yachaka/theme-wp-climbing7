@@ -68,7 +68,8 @@ if ($est_page_archive_taxonomie) {
 		<?php
 		$mot = 'TOPOS';
 
-		if (is_post_type_archive('voyage')) {
+		if (is_post_type_archive('album-voyage')
+			|| is_post_type_archive('carnet-voyage')) {
 			$mot = 'VOYAGES';
 		}
 		
@@ -77,7 +78,18 @@ if ($est_page_archive_taxonomie) {
 	</p>
 
 	<h3 id="titre" class="subheading">
-		<?php ttf_common_archives_title(); ?>
+		<?php
+			ttf_common_archives_title();
+
+			if (is_paged()) {
+			?>
+				<span class="numero-page">
+					page <?= get_query_var('paged') ?>
+				</span>
+			<?php
+			}
+		?>
+
 	</h3>
 
 	<?php if ($filtres_taxonomie !== null): ?>
@@ -107,7 +119,7 @@ if ($est_page_archive_taxonomie) {
 				}
 			
 			// définit la variable qui contient l'url sans les ?f_lieux
-			$url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+			$url = get_site_url() . '/' . $taxonomie_actuelle->taxonomy . '/' . $taxonomie_actuelle->slug;
 
 			echo '<li class="filtre"><a href="'.$url.'">';
 
@@ -213,8 +225,8 @@ if ($est_page_archive_taxonomie) {
 			</section>
 			<nav class="post-footer index-footer">
 				<p>
-					<?php next_posts_link( __( 'Older posts', 'watson' ) ); ?>
-					<?php previous_posts_link( __( 'Newer posts', 'watson' ) ); ?>
+					<?php next_posts_link( 'Plus ancien' ); ?>
+					<?php previous_posts_link( 'Plus récent' ); ?>
 				</p>
 			</nav>
 		<?php endif; ?>
