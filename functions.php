@@ -162,7 +162,7 @@ if ( ! function_exists( 'watson_print_header_items' ) ) :
 	function watson_print_header_items() {
 		?>
 		<script type="text/javascript">
-			var watsonThemeMenuText = '<?php echo esc_js( __( 'Go to&hellip;', 'watson' ) ); ?>';
+			var watsonThemeMenuText = '<?php echo esc_js( __( 'Menu', 'watson' ) ); ?>';
 			<?php watson_slider_javascript(); ?>
 		</script>
 			<?php echo watson_get_color_styles(); ?>
@@ -633,8 +633,8 @@ function change_admin_menu_topos(){
 /* Climbing7 init */
 function climbing7_init() {
 	// En dessous : rafraichir les regles d'URL si pb avec erreur 404 d'url no exist (annule le cache)
-	// global $wp_rewrite;
-	// $wp_rewrite->flush_rules();
+	//global $wp_rewrite;
+	//$wp_rewrite->flush_rules();
 
 	/* Renommage de `Posts` en `Topos` */
 	global $wp_post_types;
@@ -706,7 +706,10 @@ function climbing7_init() {
 		'album-voyage',
 		array(
 			'has_archive' => true,
-			'menu_icon' => 'dashicons-admin-site-alt2',
+			'rewrite' => array(
+				'slug' => 'album-voyage',
+			),
+			'menu_icon' => 'dashicons-camera',
 			'labels' => array(
 				'name' => 'Albums de voyage',
 				'singular_name' => 'Album de voyage',
@@ -744,7 +747,10 @@ function climbing7_init() {
 		'carnet-voyage',
 		array(
 			'has_archive' => true,
-			'menu_icon' => 'dashicons-admin-site-alt2',
+			'rewrite' => array(
+				'slug' => 'carnet-voyage',
+			),
+			'menu_icon' => 'dashicons-book-alt',
 			'labels' => array(
 				'name' => 'Carnets de voyage',
 				'singular_name' => 'Carnet de voyage',
@@ -955,5 +961,17 @@ function nombre_de_posts_affiches($query) {
 		} else if ($query->is_archive) {
 			$query->set('posts_per_page', 20);
 		}
+	}
+}
+
+/*
+ * Regroupement des archives album-voyage et carnet-voyage
+ */
+add_action( 'pre_get_posts', 'regroupement_archives_carnet_et_album_voyage' );
+function regroupement_archives_carnet_et_album_voyage($query) {
+	if (!is_admin() && $query->is_main_query()
+		&& (is_post_type_archive('album-voyage')
+			|| is_post_type_archive('carnet-voyage'))) {
+		$query->set('post_type', ['album-voyage', 'carnet-voyage']);
 	}
 }

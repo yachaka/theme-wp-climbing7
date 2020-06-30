@@ -91,8 +91,8 @@ http://blog.typekit.com/2011/11/09/type-study-sizing-the-legible-letter/
   font-family: sans-serif;
   font-weight: 100;
   text-align: center;
-  font-size: 0.7rem;
-  line-height: 0.7rem;
+  font-size: 12px;
+  line-height: 16px;
   color: white;
   /*border-radius:11px;*/
   padding: 4px 12px 2px 12px;
@@ -109,8 +109,8 @@ http://blog.typekit.com/2011/11/09/type-study-sizing-the-legible-letter/
     font-family: sans-serif;
     font-weight: 100;
     text-align: center;
-    font-size: 0.4rem;
-    line-height: 0.7rem;
+    font-size: 11px;
+    line-height: 16px;
     color: white;
     /*border-radius:11px;*/
     padding: 2px 4px 0px 4px;
@@ -537,6 +537,8 @@ html {
 
 
 body.archive .post-roll article.post,
+body.archive .post-roll article.carnet-voyage,
+body.archive .post-roll article.album-voyage,
 body.search .post-roll div.post {
   border-bottom: 0;
   margin-bottom: 24px;
@@ -2013,6 +2015,8 @@ p.post-header_sous-titre {
 }
 
 .post-roll article.post h1 a,
+.post-roll article.album-voyage h1 a,
+.post-roll article.carnet-voyage h1 a,
 .post-roll div.post h1 a {
   color: #1c1c1c;
 }
@@ -2045,6 +2049,8 @@ p.post-header_sous-titre {
 }
 
 body.archive .post-roll article.post .post-content nav,
+body.archive .post-roll article.carnet-voyage .post-content nav,
+body.archive .post-roll article.album-voyage .post-content nav,
 body.search .post-roll div.post .post-content nav {
   color: #858585;
   font-family: "Source Sans Pro", Helvetica, Arial, Verdana, Tahoma, sans-serif;
@@ -3126,7 +3132,7 @@ body.blog #featured-slider {
 /* adapt Mobiles */
 @media all and (max-width: 900px) {
   body.blog #home_infos-featured h1.home_titre-featured {
-    font-size: 1.1rem;
+    font-size: 2rem;
     color: #FFF;
   }
 }
@@ -3138,7 +3144,7 @@ body.blog #home_infos-featured .home_date-titre-featured {
 @media all and (max-width: 900px) {
   body.blog #home_infos-featured .home_date-titre-featured {
     color: #fff;
-    font-size: 0.5rem;
+    font-size: 0.8rem;
     font-weight: 100;
     font-family: 'Source Sans Pro', Helvetica, Arial, Verdana, Tahoma, sans-serif;
   }
@@ -3750,7 +3756,7 @@ select.dropkicked {
 @media all and (max-width: 900px) {
   .post-roll h1 {
     font-size: 18px;
-    font-size: 1rem;
+    font-size: 1.1rem;
     margin-bottom: 6px;
     margin-bottom: 0.35294rem;
   }

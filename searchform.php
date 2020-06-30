@@ -188,8 +188,8 @@ if (isset($_GET['f_activites']) && !is_array($_GET['f_activites'])) {
     // Scoped
 
     // Création des liste javascript depuis les listes PHP
-    var lieux = ['<?= join($slugsLieux, "', '") ?>'];
-    var activites = ['<?= join($slugsActivites, "', '") ?>'];
+    var lieux = ['<?= join("', '", $slugsLieux) ?>'];
+    var activites = ['<?= join("', '", $slugsActivites) ?>'];
 
     var searchformEl = document.getElementById('searchform-<?= $sf_id ?>');
 

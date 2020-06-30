@@ -192,28 +192,43 @@ if ($est_page_archive_taxonomie) {
 									<?php get_template_part( '_date' ); ?>
 								<?php endif; ?>
 								
-								<!-- COMMENT DISpLAY NONE
-
+								<?php
+								// Commentaires désactivés
+									/*
 								<?php $has_comments = ( get_comments_number() > 0 || comments_open() ); ?>
 								<?php if ( $has_comments ) : ?>
 									<a class="comment-count" href="<?php comments_link(); ?>" title="<?php esc_attr_e( 'Jump to comments', 'watson' ); ?>"><?php
 										comments_number( __( '0 Comments', 'watson' ), __( '1 Comment', 'watson' ), __( '% Comments', 'watson' ) );
 									?></a>
 								<?php endif; ?> 
+									*/
+								?>
 
-								-->
+								<?php
+								$type = get_post_type();
 
+								if ($type == 'post') {
+									the_terms (get_the_ID(),'activites');
+									echo ' | ';
+									the_terms (get_the_ID(),'lieux');
+								}
 
+								$lire_article_texte = '';
 
-								<?php 
-								the_terms (get_the_ID(),'activites');
-								echo ' | ';
-								the_terms (get_the_ID(),'lieux'); 
+								if ($type == 'post') {
+									$lire_article_texte = 'Lire le topo';
+								} else if ($type == 'album-voyage' || $type == 'carnet-voyage') {
+									$lire_article_texte = 'Découvrir le voyage';
+								} else {
+									$lire_article_texte = "Lire l'article";
+								}
 								?>
 
 								<br/>
 								<span>
-									<a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php esc_attr_e( 'Read full article', 'watson' ); ?>"><?php _e( 'Read article', 'watson' ); ?></a>
+									<a href="<?php the_permalink(); ?>" rel="bookmark" title="<?= $lire_article_texte ?>">
+										<?= $lire_article_texte ?>
+									</a>
 								</span>
 							</nav>
 
