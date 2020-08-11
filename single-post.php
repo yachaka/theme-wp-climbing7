@@ -108,10 +108,10 @@ wp_enqueue_style(
 											echo 'http://climbing7.com/a-propos-du-ski-de-rando/';
 										}
 										elseif ($activite_numero_1->name == 'Trekking') {
-											echo '#';
+											echo 'http://climbing7.com/a-propos-du-trekking/';
 										}
 									?>
-								">INFO <span style="text-transform:uppercase;"><?php echo $activite_numero_1->name; ?></span></a>
+								">COTATIONS <span style="text-transform:uppercase;"><?php echo $activite_numero_1->name; ?></span></a>
 							</div>
 
 					</aside>
