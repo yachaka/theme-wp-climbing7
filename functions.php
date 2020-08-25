@@ -975,3 +975,15 @@ function regroupement_archives_carnet_et_album_voyage($query) {
 		$query->set('post_type', ['album-voyage', 'carnet-voyage']);
 	}
 }
+
+// Fixation de la version de jQuery à 1.8.3 (pour avoir la fonction .live())
+function fix_jquery_version() {
+	wp_deregister_script('jquery');
+	wp_register_script(
+		'jquery',
+		'https://code.jquery.com/jquery-1.8.3.min.js',
+		array(),
+		'1.8.3'
+	);
+}
+add_action('init', 'fix_jquery_version');
