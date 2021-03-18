@@ -107,6 +107,7 @@ if ( ! function_exists( 'watson_setup' ) ) :
 		add_image_size( 'watson_featured_thumbnail', 115, 75, true );
 		add_image_size( 'archive_thumbnail', 300, 200, true );
 
+
 	}
 
 endif; // watson_setup
@@ -162,7 +163,7 @@ if ( ! function_exists( 'watson_print_header_items' ) ) :
 	function watson_print_header_items() {
 		?>
 		<script type="text/javascript">
-			var watsonThemeMenuText = '<?php echo esc_js( __( 'Go to&hellip;', 'watson' ) ); ?>';
+			var watsonThemeMenuText = '<?php echo esc_js( __( 'Menu', 'watson' ) ); ?>';
 			<?php watson_slider_javascript(); ?>
 		</script>
 			<?php echo watson_get_color_styles(); ?>
@@ -545,7 +546,7 @@ if ( ! function_exists( 'watson_retina_logo_javascript' ) ) :
 				img.onload = function() {
 					logo.attr('src', logo.attr('data-retina-src'));
 					logo.removeAttr('data-retina-src');
-					logo.css( 'max-height', 0.5 * this.height );
+					logo.css( 'max-height', 0.75 * this.height );
 					logo.fadeIn(300);
 					logoContainer.css('min-height', '');
 				};
@@ -633,8 +634,8 @@ function change_admin_menu_topos(){
 /* Climbing7 init */
 function climbing7_init() {
 	// En dessous : rafraichir les regles d'URL si pb avec erreur 404 d'url no exist (annule le cache)
-	// global $wp_rewrite;
-	// $wp_rewrite->flush_rules();
+	//global $wp_rewrite;
+	//$wp_rewrite->flush_rules();
 
 	/* Renommage de `Posts` en `Topos` */
 	global $wp_post_types;
@@ -706,7 +707,10 @@ function climbing7_init() {
 		'album-voyage',
 		array(
 			'has_archive' => true,
-			'menu_icon' => 'dashicons-admin-site-alt2',
+			'rewrite' => array(
+				'slug' => 'album-voyage',
+			),
+			'menu_icon' => 'dashicons-camera',
 			'labels' => array(
 				'name' => 'Albums de voyage',
 				'singular_name' => 'Album de voyage',
@@ -744,7 +748,10 @@ function climbing7_init() {
 		'carnet-voyage',
 		array(
 			'has_archive' => true,
-			'menu_icon' => 'dashicons-admin-site-alt2',
+			'rewrite' => array(
+				'slug' => 'carnet-voyage',
+			),
+			'menu_icon' => 'dashicons-book-alt',
 			'labels' => array(
 				'name' => 'Carnets de voyage',
 				'singular_name' => 'Carnet de voyage',
@@ -956,4 +963,59 @@ function nombre_de_posts_affiches($query) {
 			$query->set('posts_per_page', 20);
 		}
 	}
+}
+
+/*
+ * Regroupement des archives album-voyage et carnet-voyage
+ */
+add_action( 'pre_get_posts', 'regroupement_archives_carnet_et_album_voyage' );
+function regroupement_archives_carnet_et_album_voyage($query) {
+	if (!is_admin() && $query->is_main_query()
+		&& (is_post_type_archive('album-voyage')
+			|| is_post_type_archive('carnet-voyage'))) {
+		$query->set('post_type', ['album-voyage', 'carnet-voyage']);
+	}
+}
+
+// Récupération des lieux - pays et régions - pour les afficher dans l'ordre 
+function recuperationPaysRegions($post_id) {
+	// Récupération des lieux
+	$lieux = get_the_terms ($post_id, 'lieux');
+
+	// Filtre des lieux pour garder les lieux SANS lieu parent,
+	// Donc les pays
+	$payss = array_filter($lieux, function ($lieu) {
+		return $lieu->parent === 0;
+	});
+	$payss = array_values($payss); // pour ré-ordonner l'array à partir de 0
+
+	// Filtre des lieux pour garder les lieux AVEC lieu parent,
+	// Donc les régions
+	$regions = array_filter($lieux, function ($lieu) {
+		return $lieu->parent !== 0;
+	});
+	$regions = array_values($regions);
+
+	return [
+		$payss,
+		$regions
+	];
+}
+
+// Affichage d'une balise <a> avec un lieu
+function affichageLiensLieux ($lieux) {
+	$url_site = get_site_url ();
+?>
+	<a class="pastille_featured_slider" href="
+		<?php
+		echo $url_site;
+		echo '/lieux/';
+		echo $lieux->slug;
+		?>
+	">
+		<?php
+		echo $lieux->slug;
+		?>
+	</a>
+<?php
 }

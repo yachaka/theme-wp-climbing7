@@ -12,33 +12,40 @@ wp_enqueue_style(
 	false
 );
 ?>
-<?php get_header(); ?>
+<?php 
+ get_header(); ?>
 
 <div class="wrapper">
-
 	<?php while ( have_posts() ) : the_post(); ?>
 
 		<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
 			<div class="entry">
 
-				<p class="single-post__pilule">
-					TOPO
-				</p>
+				<!-- <p class="single-post__pilule">
+					TOPO <span style="text-transform:uppercase;">
+						<?php 
+						$activites = get_the_terms(get_the_ID(), 'activites');
+
+						if (count($activites) > 0) { // Si la liste contient des éléments
+							$activite_numero_1 = $activites[0]; // Premier élement
+							// echo $activite_numero_1->name;
+						}
+						echo $activite_numero_1->name; ?></span>
+				</p> -->
 				
-				<?php get_template_part( '_post-header' ); ?>
+				
 				
 				<div class="single-post__bloc-post">
-					
-
+					<?php if ( ! watson_option( 'hide_post_featured' ) && ! post_password_required() ) : ?>
+					<?php get_template_part( '_post-header' ); ?>
+					<?php get_template_part( '_featured' ); ?>
+					<?php endif; ?>					
+					<br/>
 					<div class="single-post_presentation">
-						<?php if ( ! watson_option( 'hide_post_featured' ) && ! post_password_required() ) : ?>
-						<?php get_template_part( '_featured' ); ?>
-						<?php endif; ?>
-						<span style="font-weight:600;"><?php the_field( 'presentation' ); ?></span>
+						<?php the_field( 'presentation' ); ?>
 					</div>
-
-
+					<hr/>
 					<?php
 					$fiche_technique = get_field('fiche_technique');
 					$liens = get_field('liens');
@@ -202,7 +209,10 @@ wp_enqueue_style(
 				?>
 					<div class="single-post__bloc-post single-post__mobile">
 						<h3>En images</h3>
-						<?= do_shortcode($galerie); ?>
+						<?= 
+						// do_shortcode($galerie);
+						the_field('galerie');
+						?>
 					</div>
 
 				<?php endif; ?>
@@ -223,6 +233,5 @@ wp_enqueue_style(
 	<?php endwhile; ?>
 
 <?php get_footer(); ?>	
-	
-</div>
+
 

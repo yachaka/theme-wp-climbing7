@@ -1,14 +1,14 @@
 .single-post__pilule {
-  font-size: 0.7rem;
-  font-weight: 100;
-  width: 75px;
-  border-radius: 15px;
+  font-size: 1rem;
+  font-weight: 200;
+  width: 200px;
+  border-radius: 21px;
   text-align: center;
   margin: auto;
   background-color: #DE3163;
   color: #fff;
   letter-spacing: 0.1rem;
-  margin-top: 20px;
+  margin-top: 60px;
   margin-bottom: 20px;
   padding: 2px 0 1px 0;
 }
@@ -18,16 +18,16 @@
   border-bottom: 0.5px solid #ddd;
   margin-bottom: 20px;
   overflow: hidden;
-}
-
-.single-post_presentation {
-  width: 64%;
-  float: left;
+  text-align: justify;
 }
 
 .single-post__bloc-post aside {
-  width: 31%;
-  float: right;
+  width: 100%;
+
+}
+
+.single-post_presentation p {
+  font-size:20px;
 }
 
 .single-post__fiche-technique {
@@ -69,11 +69,11 @@
   margin-top: 0;
 }
 
-.single-post__parcours {
+/*.single-post__parcours {
   column-count: 3;
   column-gap: 30px;
   margin-top: 30px;
-}
+}*/
 
 .single-post__parcours h4 {
   margin-top: 0;

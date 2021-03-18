@@ -18,7 +18,18 @@
 		<?php if ( ! is_page()):?>
 
 				Publié le <?php get_template_part( '_date' ); ?>
-				dans <?php the_terms (get_the_ID (), 'activites'); echo ', '; the_terms (get_the_ID(), 'lieux'); ?> |
+				dans 
+				<?php 
+				the_terms (get_the_ID (), 'activites'); 
+				echo ', ';
+
+				$lieux = recuperationPaysRegions (get_the_ID()) ;
+				$pays = $lieux[0];
+				$regions = $lieux[1];
+				affichageLiensLieux ($pays[0]);
+				echo ',';
+				affichageLiensLieux ($regions[0]);
+				?> |
 
 				<?php
 				$has_comments = ( get_comments_number() > 0 || comments_open() );

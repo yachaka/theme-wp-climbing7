@@ -22,13 +22,13 @@
 
 <div id="container">
 
-	<!-- TOP MENU ICON
+	<!-- TOP MENU ICONS -->
 
 	<?php 
 	$site_url = get_site_url ();
 	?>
 
-	<a href="
+	<!-- <a href="
 	<?php 
 	echo $site_url;
 	?>
@@ -42,9 +42,9 @@
 	<?php 
 	echo $site_url;
 	?>
-	/#ancre_moteur_recherche" title="Rechercher"><img id="icon_search" class="icon_top_menu" src="http://climbing7.com/wp-content/uploads/2020/05/icon-search.png"/></a>
+	/#ancre_moteur_recherche" title="Rechercher"><img id="icon_search" class="icon_top_menu" src="http://climbing7.com/wp-content/uploads/2020/05/icon-search.png"/></a> -->
 
-	FIN TOP MENU ICONS -->
+	<!-- FIN TOP MENU ICONS -->
 
 	<header role="banner">
 		<div class="branding">
@@ -69,9 +69,9 @@
 			<?php endif; ?>
 		</div>
 		<?php if ( get_bloginfo( 'description' ) ) : ?>
-			<h4 class="tagline"><?php bloginfo( 'description' ); ?></h4>
+			<!-- <h4 class="tagline"><?php bloginfo( 'description' ); ?></h4> -->
 		<?php endif; ?>
-		<nav role="navigation">
+		<!-- <nav role="navigation">
 			<?php
 				wp_nav_menu(
 					array(
@@ -82,5 +82,5 @@
 					)
 				);
 			?>
-		</nav>
+		</nav> -->
 	</header>

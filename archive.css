@@ -38,6 +38,8 @@ body.search .post-roll {
 }
 
 body.archive .post-roll article.post .post-content nav,
+body.archive .post-roll article.album-voyage .post-content nav,
+body.archive .post-roll article.carnet-voyage .post-content nav,
 body.search .post-roll div.post .post-content nav {
   text-align: center;
   font-size: 0.8rem;

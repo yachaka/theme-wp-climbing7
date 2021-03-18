@@ -32,8 +32,9 @@
 									$url_site = get_site_url ();
 									echo $url_site;?>
 									/activites/
-
+									
 									<?php
+									
 									$activites = get_the_terms (get_the_ID(),'activites');
 									echo ($activites[0]->slug);
 									?>
@@ -54,86 +55,24 @@
 								</li>
 								
 								<?php
-								// Récupération des lieux
-								$lieux = get_the_terms (get_the_ID(), 'lieux');
-
-								// Filtre des lieux pour garder les lieux SANS lieu parent,
-								// Donc les pays
-								$payss = array_filter($lieux, function ($lieu) {
-									return $lieu->parent === 0;
-								});
-								$payss = array_values($payss); // pour ré-ordonner l'array à partir de 0
-
-								// Filtre des lieux pour garder les lieux AVEC lieu parent,
-								// Donc les régions
-								$regions = array_filter($lieux, function ($lieu) {
-									return $lieu->parent !== 0;
-								});
-								$regions = array_values($regions);
-								
-							
-						
-
-								// Création d'une liste avec les noms des régions
-								$regionsNames = [];
-
-								// autre manière : $regionsNames = array();
-
-								foreach ($regions as $pos => $region) {
-									$regionsNames[] = $region->name; // ajoute un element a la fin de la liste
-								}
-
-								// Autre manière de faire une liste de noms des régions :
-
-								// $regionsNames = array_map(
-								// 	function ($region) {
-								// 		return $region->name;
-								// 	},
-								// 	$regions
-								// );
+								$lieux = recuperationPaysRegions(get_the_ID());
+								$payss = $lieux[0];
+								$regions = $lieux[1];
 
 								?>
 
 								<li class="categorie-tag_featured">
-									<a class="pastille_featured_slider" href="
-
 									<?php
-									//recuperer l'url de la page archive du lieu du dernier post
-									echo $url_site;
+									affichageLiensLieux($payss[0]);
 									?>
-
-									/lieux/
-
-									<?php
-									echo $payss[0]->slug;
-									?>
-									">
-									<?php
-										echo $payss[0]->name;
-									?>
-									</a>
 								</li>
 
-								<?php if (count($regionsNames) > 0) : ?>
+								<?php if (count($regions) > 0) : ?>
 
 								<li class="categorie-tag_featured">
-									<a class="pastille_featured_slider" href="
-
 									<?php
-									//recuperer l'url de la page archive du lieu du dernier post
-									echo $url_site;
+									affichageLiensLieux($regions[0]);
 									?>
-
-									/lieux/
-
-									<?php
-									echo $regions[0]->slug;
-									?>
-									">
-									<?php
-										echo join(' , ', $regionsNames);
-									?>
-								</a>
 								</li>
 
 								<?php endif; ?>
