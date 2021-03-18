@@ -977,6 +977,7 @@ function regroupement_archives_carnet_et_album_voyage($query) {
 	}
 }
 
+<<<<<<< HEAD
 // Récupération des lieux - pays et régions - pour les afficher dans l'ordre 
 function recuperationPaysRegions($post_id) {
 	// Récupération des lieux
@@ -1019,3 +1020,16 @@ function affichageLiensLieux ($lieux) {
 	</a>
 <?php
 }
+=======
+// Fixation de la version de jQuery à 1.8.3 (pour avoir la fonction .live())
+function fix_jquery_version() {
+	wp_deregister_script('jquery');
+	wp_register_script(
+		'jquery',
+		'https://code.jquery.com/jquery-1.8.3.min.js',
+		array(),
+		'1.8.3'
+	);
+}
+add_action('init', 'fix_jquery_version');
+>>>>>>> ccda3432167e5267fe57d3ccca880bb6ffdb6ecf
