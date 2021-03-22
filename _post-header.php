@@ -21,7 +21,7 @@
 				dans 
 				<?php 
 				the_terms (get_the_ID (), 'activites'); 
-				echo ', ';
+				echo ',';
 
 				$lieux = recuperationPaysRegions (get_the_ID()) ;
 				$pays = $lieux[0];

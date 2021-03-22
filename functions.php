@@ -429,7 +429,7 @@ if ( ! function_exists( 'watson_post_thumbnail_caption' ) ) :
 endif; 
 
 /** AJOUTE PAR MOI
- * Filter the except length to 20 words.
+ * Filter the excerpt length to 20 words.
  *
  * @param int $length Excerpt length.
  * @return int (Maybe) modified excerpt length.
@@ -710,6 +710,7 @@ function climbing7_init() {
 			'rewrite' => array(
 				'slug' => 'album-voyage',
 			),
+			'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments', 'featured-slider' ),
 			'menu_icon' => 'dashicons-camera',
 			'labels' => array(
 				'name' => 'Albums de voyage',
@@ -751,6 +752,7 @@ function climbing7_init() {
 			'rewrite' => array(
 				'slug' => 'carnet-voyage',
 			),
+			'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' ),
 			'menu_icon' => 'dashicons-book-alt',
 			'labels' => array(
 				'name' => 'Carnets de voyage',
@@ -977,7 +979,6 @@ function regroupement_archives_carnet_et_album_voyage($query) {
 	}
 }
 
-<<<<<<< HEAD
 // Récupération des lieux - pays et régions - pour les afficher dans l'ordre 
 function recuperationPaysRegions($post_id) {
 	// Récupération des lieux
@@ -1020,7 +1021,7 @@ function affichageLiensLieux ($lieux) {
 	</a>
 <?php
 }
-=======
+
 // Fixation de la version de jQuery à 1.8.3 (pour avoir la fonction .live())
 function fix_jquery_version() {
 	wp_deregister_script('jquery');
@@ -1032,4 +1033,15 @@ function fix_jquery_version() {
 	);
 }
 add_action('init', 'fix_jquery_version');
->>>>>>> ccda3432167e5267fe57d3ccca880bb6ffdb6ecf
+
+//AJOUT pour inclure les 3 post-type dans les boucles
+
+function wpc_cpt_in_home($query) {
+  if (! is_admin() && $query->is_main_query()) {
+    if ($query->is_home) {
+      $query->set('post_type', array('post', 'carnet-voyage', 'album-voyage'));
+    }
+  }
+}
+
+add_action('pre_get_posts','wpc_cpt_in_home');

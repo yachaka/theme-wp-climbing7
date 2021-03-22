@@ -64,7 +64,7 @@ if ($est_page_archive_taxonomie) {
 <?php get_header(); ?>
 <div id="page_archive" role="main">
 
-	<p id="pastille">
+<!-- 	<p id="pastille">
 		<?php
 		$mot = 'TOPOS';
 
@@ -75,24 +75,26 @@ if ($est_page_archive_taxonomie) {
 		
 		echo $mot;
 		?>
-	</p>
-
-	<h3 id="titre" class="subheading">
+	</p> -->
 		<?php
-			ttf_common_archives_title();
-
 			if (is_paged()) {
 			?>
-				<span class="numero-page">
-					page <?= get_query_var('paged') ?>
-				</span>
+				<p class="numero-page">
+					--- page <?= get_query_var('paged') ?> ---
+				</p>
 			<?php
 			}
 		?>
+	<h3 id="titre" class="subheading">
+		<?php
+			ttf_common_archives_title();
+			?>
+	</h3>		
+			
 
-	</h3>
+	
 
-	<?php if ($filtres_taxonomie !== null): ?>
+<!-- 	<?php if ($filtres_taxonomie !== null): ?>
 		<p id="filtrer_par_texte">
 			<?php
 			if ($est_page_archive_lieu) {
@@ -101,55 +103,47 @@ if ($est_page_archive_taxonomie) {
 				echo 'Filtrer par lieux';
 			}
 			?>
-		</p>
+		</p> -->
+		<section style="width:70%;margin:auto;">
+			<ul class="liste_filtres">
+				<?php 
+				$nom_du_filtre = null;
+					if ($est_page_archive_activite) {
+						$nom_du_filtre = 'f_lieux';
+					}
+					else {
+						$nom_du_filtre ='f_activites';
+					}
+				
+				// définit la variable qui contient l'url sans les ?f_lieux
+				$url = get_site_url() . '/' . $taxonomie_actuelle->taxonomy . '/' . $taxonomie_actuelle->slug;
 
-		<ul class="liste_filtres">
-			
+				echo '<li class="filtre"><a href="'.$url.'">';
 
-			
+					if ($est_page_archive_activite) {
+						echo 'Tous';
+						}
 
-			<?php 
+					else {
+						echo 'Toutes';
+						}
+						echo '</a></li>';
 
-			$nom_du_filtre = null;
-				if ($est_page_archive_activite) {
-					$nom_du_filtre = 'f_lieux';
-				}
-				else {
-					$nom_du_filtre ='f_activites';
-				}
-			
-			// définit la variable qui contient l'url sans les ?f_lieux
-			$url = get_site_url() . '/' . $taxonomie_actuelle->taxonomy . '/' . $taxonomie_actuelle->slug;
+				foreach ($filtres_taxonomie as $filtre) {
+					$classe = '';
 
-			echo '<li class="filtre"><a href="'.$url.'">';
-
-				if ($est_page_archive_activite) {
-					echo 'Tous';
+					if (isset($_GET[$nom_du_filtre])
+						&& $_GET[$nom_du_filtre] === $filtre->slug) {
+						$classe = 'filtre_actif';
 					}
 
-				else {
-					echo 'Toutes';
-					}
-					echo '</a></li>';
+					echo '<li class="filtre '.$classe.'"><a href="'.
 
-			foreach ($filtres_taxonomie as $filtre) {
-				$classe = '';
-
-				if (isset($_GET[$nom_du_filtre])
-					&& $_GET[$nom_du_filtre] === $filtre->slug) {
-					$classe = 'filtre_actif';
+						$url.'?'.$nom_du_filtre .'='.$filtre->slug.'">' . $filtre->name . '</a></li>';
 				}
-
-				echo '<li class="filtre '.$classe.'"><a href="'.
-
-					$url.'?'.$nom_du_filtre .'='.$filtre->slug.'">' . $filtre->name . '</a></li>';
-			}
-			?>
-
-
-
-
-		</ul>
+				?>
+			</ul>
+		</section>
 	<?php endif; ?>
 
 	<div class="content<?php if ( ! is_active_sidebar( 'primary_sidebar' ) ) { echo " no-sidebar"; } ?>">
@@ -203,30 +197,37 @@ if ($est_page_archive_taxonomie) {
 								<?php endif; ?> 
 									*/
 								?>
+								
+									<?php
+									$type = get_post_type();
 
-								<?php
-								$type = get_post_type();
+									if ($type == 'post') {
+										the_terms (get_the_ID(),'activites');
+										echo ' | ';
+										the_terms (get_the_ID(),'lieux');
+									} elseif ($type == 'carnet-voyage') {
+										echo ' | ';
+										the_terms (get_the_ID(),'activites');
+										echo ' | ';
+										the_terms (get_the_ID(),'lieux');
+									}
+									?>
+								
+									<?php
+									$lire_article_texte = '';
 
-								if ($type == 'post') {
-									the_terms (get_the_ID(),'activites');
-									echo ' | ';
-									the_terms (get_the_ID(),'lieux');
-								}
-
-								$lire_article_texte = '';
-
-								if ($type == 'post') {
-									$lire_article_texte = 'Lire le topo';
-								} else if ($type == 'album-voyage' || $type == 'carnet-voyage') {
-									$lire_article_texte = 'Découvrir le voyage';
-								} else {
-									$lire_article_texte = "Lire l'article";
-								}
-								?>
-
+									if ($type == 'post') {
+										$lire_article_texte = 'Lire le topo';
+									} else if ($type == 'album-voyage' || $type == 'carnet-voyage') {
+										$lire_article_texte = 'Lire le post';
+									} else {
+										$lire_article_texte = "Lire l'article";
+									}
+									?>
+								<br/>
 								<br/>
 								<span>
-									<a href="<?php the_permalink(); ?>" rel="bookmark" title="<?= $lire_article_texte ?>">
+									<a class="lire" href="<?php the_permalink(); ?>" rel="bookmark" title="<?= $lire_article_texte ?>">
 										<?= $lire_article_texte ?>
 									</a>
 								</span>

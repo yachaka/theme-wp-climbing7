@@ -13,7 +13,7 @@ $derniers_posts_de_voyage = new WP_Query(array(
 
 if ( $derniers_posts_de_voyage->have_posts() ) : ?>
 	<div class="featured-thumbnails-container">
-		<h4 style="margin-top:0;">Derniers posts de voyage</h4>
+		<h3 style="margin-top:0;">Derniers posts de voyage</h3>
 		<div id="featured-thumbnails-mobile">
 		<?php $featured_thumbnail_counter = 0; ?>
 		<?php while ( $derniers_posts_de_voyage->have_posts() ) : $derniers_posts_de_voyage->the_post(); ?>

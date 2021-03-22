@@ -43,7 +43,7 @@ if (isset($_GET['f_activites']) && !is_array($_GET['f_activites'])) {
 }
 ?>
 
-<h3 style="text-align:center;padding:10px;margin:0;">
+<h3>
   <span class="texte_ouverture">
     <?php
     if (is_search())

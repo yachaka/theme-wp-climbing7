@@ -60,7 +60,7 @@ wp_enqueue_style(
 						?>
 							<div class="single-post__fiche-technique single-post__mobile">
 								<h3>Fiche technique</h3>
-								<p><?php the_field( 'fiche_technique' ); ?></p>
+								<?php the_field( 'fiche_technique' ); ?>
 							</div>
 						<?php endif; ?>
 

@@ -26,7 +26,9 @@ wp_enqueue_style(
 			</div>
 			<section id="post-roll" class="post-roll home-post-roll">
 				<?php if ( have_posts() ) : ?>
+
 					<?php while ( have_posts() ) : the_post(); ?>
+
 						<?php
 							$extra_classes = '';
 							if ( '' == get_the_post_thumbnail() ) {
@@ -47,10 +49,10 @@ wp_enqueue_style(
 										<?php the_title(); ?>
 									</a>
 								</h1>
-								<p style="font-weight: 100;">Publié le <?php get_template_part( '_date' ); ?>
+								<p style="font-weight: 100;text-transform: uppercase;font-family: 'Source Sans Pro', Helvetica, Arial, Verdana, Tahoma, sans-serif;font-size:0.9rem;letter-spacing:0.25px;">Publié le <?php get_template_part( '_date' ); ?>
 								</p>
 								<?php the_excerpt(); ?>
-								<p style="text-transform: uppercase;font-size:0.75rem;letter-spacing: 0.7px;">Topo <?php 
+								<p style="text-transform: uppercase;font-size:0.75rem;font-family: 'Source Sans Pro', Helvetica, Arial, Verdana, Tahoma, sans-serif;letter-spacing: 0.7px;">Topo <?php 
 								the_terms (get_the_ID(),'activites'); 
 								echo ' | '; 
 								the_terms (get_the_ID (),'lieux'); 
@@ -110,7 +112,7 @@ wp_enqueue_style(
 
 			
 		</div> <!-- Fin inner-content -->
-		<nav id="ancre_moteur_recherche" style="clear:both;" class="post-footer index-footer">
+			<nav id="ancre_moteur_recherche" style="clear:both;" class="post-footer index-footer">
 				<p>
 					<?php next_posts_link( 'Plus ancien' ); ?>
 					<?php previous_posts_link( 'Plus récent' ); ?>

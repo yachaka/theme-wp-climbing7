@@ -64,7 +64,7 @@ class TTF_Foundry_Slider_Post_Meta {
 	 */
 	public function setup_foundry_slider_metabox( $post_type, $post ) {
 		// Post types to display the option on
-		$display_on_post_types = apply_filters( 'tff_foundry_slider_display_on_post_types', array( 'post' ) );
+		$display_on_post_types = apply_filters( 'tff_foundry_slider_display_on_post_types', array( 'post', 'carnet-voyage', 'album-voyage' ) );
 
 		// Only display for this post type if post type is an acceptable post type
 		if ( ! in_array( $post_type, $display_on_post_types ) )

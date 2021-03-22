@@ -10,6 +10,7 @@
 
 
 		<ul class="slides">
+
 			<?php while( $featured_posts->have_posts() ) : $featured_posts->the_post(); ?>
 				<li>
 					<section style="position:relative;" class="featured-article">
@@ -34,7 +35,7 @@
 									/activites/
 									
 									<?php
-									
+
 									$activites = get_the_terms (get_the_ID(),'activites');
 									echo ($activites[0]->slug);
 									?>
@@ -58,7 +59,6 @@
 								$lieux = recuperationPaysRegions(get_the_ID());
 								$payss = $lieux[0];
 								$regions = $lieux[1];
-
 								?>
 
 								<li class="categorie-tag_featured">
@@ -85,7 +85,7 @@
 							<?php 
 							// echo ttf_common_get_truncated_excerpt( 180 ); 
 							?>
-							<p  class="home_date-titre-featured" >Publié le <?php the_date (); ?></p>
+							<p  class="home_date-titre-featured" >Topo publié le <?php the_date (); ?></p>
 						</div>
 
 					</section>
