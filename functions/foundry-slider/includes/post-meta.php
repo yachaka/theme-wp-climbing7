@@ -120,7 +120,7 @@ class TTF_Foundry_Slider_Post_Meta {
 	 * @return void
 	 */
 	public function save_post( $post_id, $post ) {
-		$display_on_post_types = apply_filters( 'tff_foundry_slider_display_on_post_types', array( 'post' ) );
+		$display_on_post_types = apply_filters( 'tff_foundry_slider_display_on_post_types', array( 'post', 'album-voyage', 'carnet-voyage' ) );
 
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
 			return;

@@ -10,7 +10,6 @@
 
 
 		<ul class="slides">
-
 			<?php while( $featured_posts->have_posts() ) : $featured_posts->the_post(); ?>
 				<li>
 					<section style="position:relative;" class="featured-article">

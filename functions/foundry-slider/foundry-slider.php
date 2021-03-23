@@ -123,10 +123,12 @@ class TTF_Foundry_Slider {
 		 * no need to run the next query. Instead, return a blank WP_Query object so that the result of this function
 		 * can still operate on a WP_Query object as normal.
 		 */
+
 		if ( empty( $post__in ) )
 			return new WP_Query();
 
 		$args = array(
+			'post_type' 		 => ['post', 'album-voyage', 'carnet-voyage'],
 			'post__in'       => $post__in,
 			'post_status'    => 'publish',
 			'no_found_rows'  => true,
@@ -176,6 +178,7 @@ class TTF_Foundry_Slider {
 
 		// Query for posts
 		$args = array(
+			'post_type' 		=> ['post', 'album-voyage', 'carnet-voyage'],
 			'post_status'    => 'publish',
 			'fields'         => 'ids',
 			'meta_query'     => array(

@@ -669,6 +669,7 @@ function climbing7_init() {
 	register_post_type(
 		'voyage',
 		array(
+			'map_meta_cap' => true,
 			'has_archive' => true,
 			'menu_icon' => 'dashicons-admin-site-alt2',
 			'labels' => array(
@@ -706,6 +707,7 @@ function climbing7_init() {
 	register_post_type(
 		'album-voyage',
 		array(
+			'map_meta_cap' => true,
 			'has_archive' => true,
 			'rewrite' => array(
 				'slug' => 'album-voyage',
@@ -748,6 +750,7 @@ function climbing7_init() {
 	register_post_type(
 		'carnet-voyage',
 		array(
+			'map_meta_cap' => true,
 			'has_archive' => true,
 			'rewrite' => array(
 				'slug' => 'carnet-voyage',
